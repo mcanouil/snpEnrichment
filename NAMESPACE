@@ -1,0 +1,36 @@
+import(methods)
+exportMethods(
+    "[",
+    "[<-",
+    "show",
+    # "summary",
+    "plot",
+    "reset",
+    "print",
+
+    "enrichSNP",
+    "is.EnrichSNP",
+    "chromosome",
+    "is.chromosome",
+    "enrichment",
+    "is.enrichment",
+
+    "reSample",
+    "excludeSNP",
+    "compareEnrichment"
+)
+exportClasses(
+    "EnrichSNP",
+    "Chromosome",
+    "Enrichment"
+)
+export(
+    "initFiles",
+    "writeLD",
+    "readEnrichment",
+    "GC",
+    "mclapply2"
+)
+
+importFrom(parallel, mclapply, detectCores)
+importFrom(snpStats, read.plink, col.summary, ld)
