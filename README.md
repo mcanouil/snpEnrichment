@@ -14,12 +14,14 @@ Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
 To install the stable version from CRAN, simply run the following from an R console:
 ```r
 install.packages("snpEnrichment")
-library(snpEnrichment)
 ```
 To install the latest development builds directly from GitHub, run this instead:
 ```r
 if (!require("devtools")) { install.packages("devtools") } else {}
 devtools::install_github("mcanouil/snpEnrichment")
+```
+Load *snpEnrichment*
+```r
 library(snpEnrichment)
 ```
 
@@ -28,7 +30,7 @@ library(snpEnrichment)
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
 initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
-writeLD(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, 
+writeLD(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL,
         ldThresh = 0.8, depth = 1000, mc.cores = 1)
 ```
 
@@ -39,8 +41,8 @@ data(transcript)
 transcriptFile <- transcript
 
 toy_M1 <- readEnrichment(
-    pattern = "Chrom", signalFile, transcriptFile, snpListDir, snpInfoDir, 
-    distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, 
+    pattern = "Chrom", signalFile, transcriptFile, snpListDir, snpInfoDir,
+    distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL,
     mc.cores = 1
 )
 toy_M1
