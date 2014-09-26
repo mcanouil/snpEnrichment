@@ -21,7 +21,7 @@ Implements classes and methods for large-scale SNP enrichment analysis (e.g. SNP
     Depends: \tab R (>= 2.15.0), methods\cr
     Suggests: \tab grid, ggplot2\cr
     Imports: \tab parallel, snpStats\cr
-    URL: \tab http://www-good.ibl.fr/\cr
+    URL: \tab https://github.com/mcanouil/snpEnrichment\cr
     Encoding: \tab UTF-8\cr
     }
 }
