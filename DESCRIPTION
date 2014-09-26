@@ -1,8 +1,8 @@
 Package: snpEnrichment
 Type: Package
 Title: SNPs enrichment analysis
-Version: 1.4-4
-Date: 2014-09-24
+Version: 1.5-0
+Date: 2014-09-26
 Authors@R: c(person("Mickael", "Canouil", role = c("aut", "cre"), email = "mickael.canouil@good.ibl.fr"), person("Loic", "Yengo", role = "ctb", email = "loic.yengo@good.ibl.fr"))
 Description: Implements classes and methods for large scale SNP enrichment analysis (e.g. SNPs associated with genes expression in a GWAS signal)
 License: GPL (>= 2)
