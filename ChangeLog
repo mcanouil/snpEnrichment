@@ -1,34 +1,41 @@
 2014-09-29 Mickael Canouil
-        * DESCRIPTION: version is 1.5-1
+        * DESCRIPTION: version is 1.5.2
+        * R/Global.R: Add some internal functions to check files needed by 'initFiles', 'writeLD' and 'readEnrichment' functions.
+        * man/snpEnrichment-internal.Rd: Update according to R code changes.
+        * inst/example.R: Update according to R code changes.
+
+
+2014-09-29 Mickael Canouil
+        * DESCRIPTION: version is 1.5.1
         * R/Global.R: Internal function 'maxCores' handle warnings on macintosh system.
         * R/Global.R: Handle warning / error in 'initFiles' when 'snpInfoDir' or 'signalFile' are missing or invalid.
 
 
 2014-09-26 Mickael Canouil
-        * DESCRIPTION: version is 1.5-0
+        * DESCRIPTION: version is 1.5.0
         * R/Global.R: Fix a bug in 'compareEnich' when 'xSNP' was missing in "object.*".
         * man/*.Rd: Some correction in example.
 
 
 2014-09-23 Mickael Canouil
-        * DESCRIPTION: version is 1.4-3
+        * DESCRIPTION: version is 1.4.3
         * man/*.Rd: Update according to R code changes.
 
 
 2014-09-19 Mickael Canouil
-        * DESCRIPTION: version is 1.4-2
+        * DESCRIPTION: version is 1.4.2
         * R/enrichment.R: Fix a bug when 'xSNP' field is empty in 'plot' method.
         * R/Global.R: Fix 'options(stringsAsFactors = FALSE)' in 'writeLD'.
         * man/snpEnrichment-package.Rd: Update according to DESCRIPTION file.
 
 
 2014-09-11 Mickael Canouil
-        * DESCRIPTION: version is 1.4-1
+        * DESCRIPTION: version is 1.4.1
         * R/*.R: Minor optimizations.
         * R/enrichment.R: Fix a bug in 'plot' method with 'ggplot=TRUE'.
 
 2014-01-27 Mickael Canouil
-        * DESCRIPTION: version is 1.4-0
+        * DESCRIPTION: version is 1.4.0
         * R/Global.R: Change internal functions used by 'readEnrichment' and 'writeLD'.
         * R/Global.R: Improvment in 'writeLD' function.
         * R/Global.R: Add 'depth' parameter in 'writeLD' function.
@@ -40,46 +47,46 @@
         * man/*.Rd: Update according to R code changes.
 
 2014-01-23 Mickael Canouil
-        * DESCRIPTION: version is 1.3-12
+        * DESCRIPTION: version is 1.3.12
         * R/*.R: Minor changes in R code.
         * R/Global.R: Remove parameter 'snpListDir' in 'initFiles' function.
         * R/Global.R: Fix 'ldThresh' parameter in 'initFiles' function.
         * man/*.Rd: Update according to R code changes.
 
 2014-01-16 Mickael Canouil
-        * DESCRIPTION: version is 1.3-11
+        * DESCRIPTION: version is 1.3.11
         * R/enrichment.R: Add 'pvalue' parameters in 'plot' method.
         * R/plot-methods.Rd: Update according to R code changes.
 
 2014-01-13 Mickael Canouil
-        * DESCRIPTION: version is 1.3-10
+        * DESCRIPTION: version is 1.3.10
         * R/*.R: Add 'empiricPvalue' arguments in order to choose if p-values should be empirical
             or based on null distribution (resampling).
 
 2014-01-08 Mickael Canouil
-        * DESCRIPTION: version is 1.3-9
+        * DESCRIPTION: version is 1.3.9
         * R/Enrichment.R: Prevent a bug in 'plot' method with 'ggplot=TRUE'.
 
 2013-12-27 Mickael Canouil
-        * DESCRIPTION: version is 1.3-8
+        * DESCRIPTION: version is 1.3.8
         * R/*.R: Minor changes in R code.
         * R/Global.R: Fix a missing square root in Z statistics computation.
         * R/enrichment.R: Fix legend position in 'plot' for 'ggplot=TRUE'.
 
 2013-12-19 Mickael Canouil
-        * DESCRIPTION: version is 1.3-7
+        * DESCRIPTION: version is 1.3.7
         * R/*.R: Minor changes in R code.
         * R/Global.R: Change p-value computation in '.reSample' and 'compareEnrich' functions.
         * R/Global.R: Convergence control on Z statistic is removed in '.reSample' and 'compareEnrich' functions.
 
 2013-12-18 Mickael Canouil
-        * DESCRIPTION: version is 1.3-6
+        * DESCRIPTION: version is 1.3.6
         * R/*.R: Minor changes in R code.
         * R/enrichment.R: 'compareEnrichment' now returns 'object.x', 'object.y' and object from comparison.
         * R/compareEnrichment.Rd: Update according to R code changes.
 
 2013-12-11 Mickael Canouil
-        * DESCRIPTION: version is 1.3-5
+        * DESCRIPTION: version is 1.3.5
         * R/*.R: Minor changes in R code.
         * R/enrichment.R: Fix an error in 'reSample' method that occurs in 'compareEnrichment' method.
         * R/enrichment.R: Add controls on installed packages for 'ggplot=TRUE' in plot method.
@@ -88,21 +95,21 @@
         * R/global.R: Remove 'while' loop in '.compareEnrich' (not used yet).
 
 2013-11-26 Mickael Canouil
-        * DESCRIPTION: version is 1.3-4
+        * DESCRIPTION: version is 1.3.4
         * R/*.R: Minor changes in R code.
         * man/compareEnrichment.Rd: Add alias for signature "Enrichment".
 
 2013-10-29 Mickael Canouil
-        * DESCRIPTION: version is 1.3-3
+        * DESCRIPTION: version is 1.3.3
         * R/enrichment.R: Fix a bug in 'excludeSNP' when 'LD' is set to 'FALSE'.
 
 2013-10-09 Mickael Canouil
-        * DESCRIPTION: version is 1.3-2
+        * DESCRIPTION: version is 1.3.2
         * R/enrichment.R: Redefine 'print' method for 'Enrichment' object.
         * R/chromosome.R: Redefine 'print' method for 'Chromosome' object.
 
 2013-10-08 Mickael Canouil
-        * DESCRIPTION: version is 1.3-1
+        * DESCRIPTION: version is 1.3.1
         * R/Global.R: 'readEnrichment' returns an error when 'initFiles' was not run before.
         * R/enrichment.R: 'reSample' method for 'Enrichment' object now reruns one warning when 'mc.cores' is decreased.
         * R/enrichment.R: call for 'reSample' method is saved properly in 'Enrichment' object.
@@ -110,11 +117,11 @@
         * man/*.Rd: Update documentations files according to R code modification.
 
 2013-09-27 Mickael Canouil
-        * DESCRIPTION: version is 1.3-0
+        * DESCRIPTION: version is 1.3.0
         * R/Global.R: 'readEnrichment' can deal with ld files computed with plink directly.
 
 2013-09-27 Mickael Canouil
-        * DESCRIPTION: version is 1.2-3
+        * DESCRIPTION: version is 1.2.3
         * man/EnrichSNP-class.Rd: Add alias for method '[' and '[' with signature = 'EnrichSNP,ANY,ANY,ANY'.
         * man/Chromosome-class.Rd: Add alias for method '[' and '[' with signature = 'Chromosome,ANY,ANY,ANY'.
         * man/Enrichment-class.Rd: Add alias for method '[' and '[' with signature = 'Enrichment,ANY,ANY,ANY'.
@@ -124,7 +131,7 @@
         * man/*.Rd: Update documentations files according to R code modification.
 
 2013-09-23 Mickael Canouil
-        * DESCRIPTION: version is 1.2-2
+        * DESCRIPTION: version is 1.2.2
         * R/*.R: Change name of 'SNP' class to 'EnrichSNP'.
         * R/*.R: Some improvements and computation time optimisations.
         * R/Global.R: Add 'ldDir' parameter in 'writeLD' which allow to choose the directory where LD files should be written.
@@ -140,7 +147,7 @@
         * man/*.Rd: Update documentations files according to R code modification.
 
 2013-09-20 Mickael Canouil
-        * DESCRIPTION: version is 1.2-1
+        * DESCRIPTION: version is 1.2.1
         * R/*-class.R: Add 'print' methods (same as 'show').
         * R/Global.R: Add error messages when files can not be created by 'initFiles'.
         * R/Global.R: Remove 'require(parallel)' from 'mclapply2' function.
@@ -148,7 +155,7 @@
         * man/*.Rd: Update documentations files according to R code modification.
 
 2013-09-19 Mickael Canouil
-        * DESCRIPTION: version is 1.2-0
+        * DESCRIPTION: version is 1.2.0
         * R/enrichment.R: Add 'onlyGenome' parameter, which allow to compute the resampling step at chromosome level and genome or only at genome level.
         * R/enrichment.R: Fix 'plot' methods for low number of resampling.
         * R/enrichment.R: Change 'Parameters' to "Call".
@@ -167,27 +174,27 @@
         * man/*.Rd: Update documentations files according to R code modification.
 
 2013-08-27 Mickael Canouil
-        * DESCRIPTION: version is 1.1-4
+        * DESCRIPTION: version is 1.1.4
         * R/enrichment.R: Now results from method 'compareEnrichment' are the enrichment object and the summary table.
         * R/enrichment.R: 'nSample' in 'excludeSNP' can be equal to 0.
         * R/Global.R: 'maxCores' return at least 1.
         * R/mclapply2.R: run in parallel mode with at least 1 core.
 
 2013-07-25 Mickael Canouil
-        * DESCRIPTION: version is 1.1-3
+        * DESCRIPTION: version is 1.1.3
         * R/Global.R: Some improvements and changes of functions: 'initFiles', '.writeSignal', 'writeLD'.
 
 2013-07-11 Mickael Canouil
-        * DESCRIPTION: version is 1.1-2
+        * DESCRIPTION: version is 1.1.2
         * R/Global.R: Add informations about snp losses on each step of the algorithm.
         * R/Global.R: Fix minor bugs in read functions.
 
 2013-05-31 Mickael Canouil
-        * DESCRIPTION: version is 1.1-1
+        * DESCRIPTION: version is 1.1.1
         * man/plot-methods.Rd: Corrects the description of method plot.
 
 2013-05-28 Mickael Canouil
-        * DESCRIPTION: version is 1.1-0
+        * DESCRIPTION: version is 1.1.0
         * R/Global.R: Some minor code optimization and simplification.
         * R/Global.R:  The method 'excludeSNP' now exclude the extended list of SNP provided in 'excludeFile'.
             Note: 'excludeFile' can be a character vector with SNPs or a file path which contains a SNPs list.
@@ -201,13 +208,13 @@
 
 
 2013-05-17 Mickael Canouil
-        * DESCRIPTION: version is 1.0-2
+        * DESCRIPTION: version is 1.0.2
         * R/Global.R: Matrix or data.frame are not anymore evaluated in the slot 'Parameters' of Enrichment object.
         * R/enrichment.R: Fix errors that occurred when the SNP list is too low in 'reSample' function.
         * R/enrichment.R: Fix an error that occured in 'compareEnrichment', when non-resampled Enrichment objects are given in the list fields.
 
 
 2013-05-13 Mickael Canouil
-        * DESCRIPTION: version is 1.0-1
+        * DESCRIPTION: version is 1.0.1
         * R/Global.R: Some minor code optimization and simplification.
         * R/enrichment.R: The method 'summary' is not anymore masked by loading 'snpEnrichment' package.
