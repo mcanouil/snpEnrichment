@@ -58,8 +58,8 @@ maxCores <- function (mc.cores = 1) {
             if (file.exists("/proc/meminfo")) {
             memInfo <- readLines("/proc/meminfo")
             # sysMemFree <- system("egrep '^MemFree:' /proc/meminfo", intern = TRUE)
-            sysMemFree <- memInfo[grep('^MemFree:', memInfo)]
             # sysMemCached <- system("egrep '^Cached:' /proc/meminfo", intern = TRUE)
+            sysMemFree <- memInfo[grep('^MemFree:', memInfo)]
             sysMemCached <- memInfo[grep('^Cached:', memInfo)]
             sysMemAvailable <- 0.95*(as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemFree)) + as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemCached)))
             sysProc <- as.numeric(unlist(strsplit(system(paste("ps v", Sys.getpid()), intern = TRUE)[2], " +"))[8])
