@@ -23,6 +23,9 @@
 \alias{.EnrichSNP.show}
 \alias{.Chromosome.show}
 \alias{.Enrichment.show}
+\alias{.checkSnpInfoDir}
+\alias{.checkSnpListDir}
+\alias{.checkSignalFile}
 
 \alias{enrichSNP}
 \alias{enrichSNP-methods}

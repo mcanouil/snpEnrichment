@@ -137,24 +137,47 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 }
 
 
+.checkSnpInfoDir <- function (snpInfoDir) {
+    snpInfoDir <- .checkFilePath(snpInfoDir)
+    if (length(grep("*.bim", list.files(snpInfoDir)))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", list.files(snpInfoDir))), " 'bim' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    if (length(grep("*.bed", list.files(snpInfoDir)))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", list.files(snpInfoDir))), " 'bed' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    if (length(grep("*.fam", list.files(snpInfoDir)))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.fam", list.files(snpInfoDir))), " 'bim' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    return(invisible())
+}
+
+
+.checkSignalFile <- function (signalFile) {
+    if (!file.exists(signalFile)) {
+         stop(paste0("[Enrichment:initFiles] ", signalFile, " doesn't exist."), call. = FALSE)
+    } else {}
+    return(invisible())
+}
+
+
+.checkSnpListDir <- function (snpListDir, pattern) {
+    snpListDir <- .checkFilePath(snpListDir)
+    howManyList <- length(grep(pattern, list.files(snpListDir)))
+    if (howManyList!=22) {
+         stop(paste0("[Enrichment:readEnrichment] Only ", howManyList, " snp list files found when 22 is needed."), call. = FALSE)
+    } else {}
+    return(invisible())
+}
+
+
 initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
     if (missing(snpInfoDir) | missing(signalFile)) {
         stop('[Enrichment:initFiles] argument(s) missing', call. = FALSE)
     } else {}
     snpInfoDir <- .checkFilePath(snpInfoDir)
     FILES <- list.files(snpInfoDir)
-    if (length(grep("*.bim", FILES))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
-    } else {}
-    if (length(grep("*.bed", FILES))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
-    } else {}
-    if (length(grep("*.fam", FILES))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
-    } else {}
-    if (!file.exists(signalFile)) {
-         stop(paste0("[Enrichment:initFiles] ", signalFile, " doesn't exist."), call. = FALSE)
-    } else {}
+    .checkSnpInfoDir(snpInfoDir)
+    .checkSignalFile(signalFile)
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
@@ -187,6 +210,8 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     snpInfoDir <- .checkFilePath(snpInfoDir)
+    .checkSnpInfoDir(snpInfoDir)
+    .checkSignalFile(signalFile)
     if (missing(ldDir) | is.null(ldDir)) {
         ldDir <- paste0(tmpDir, "/snpEnrichment/")
     } else {
@@ -369,6 +394,9 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
 
     snpInfoDir <- .checkFilePath(snpInfoDir)
     snpListDir <- .checkFilePath(snpListDir)
+    .checkSnpInfoDir(snpInfoDir)
+    .checkSignalFile(signalFile)
+    .checkSnpListDir(snpListDir, pattern)
     cat("  Read Chromosomes:\n    ")
     resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
