@@ -1,6 +1,7 @@
 2014-09-29 Mickael Canouil
         * DESCRIPTION: version is 1.5-1
-        * R/Global.r: Internal function 'maxCores' handle warnings on macintosh system.
+        * R/Global.R: Internal function 'maxCores' handle warnings on macintosh system.
+        * R/Global.R: Handle warning / error in 'initFiles' when 'snpInfoDir' or 'signalFile' are missing or invalid.
 
 
 2014-09-26 Mickael Canouil

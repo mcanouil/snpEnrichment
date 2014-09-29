@@ -143,6 +143,18 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
     } else {}
     snpInfoDir <- .checkFilePath(snpInfoDir)
     FILES <- list.files(snpInfoDir)
+    if (length(grep("*.bim", FILES))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    if (length(grep("*.bed", FILES))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    if (length(grep("*.fam", FILES))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", FILES)), " 'bim' files found when 22 is needed."), call. = FALSE)
+    } else {}
+    if (!file.exists(signalFile)) {
+         stop(paste0("[Enrichment:initFiles] ", signalFile, " doesn't exist."), call. = FALSE)
+    } else {}
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
