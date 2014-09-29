@@ -146,6 +146,9 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
+    if (Sys.info()[["sysname"]] == "Windows") {
+        mc.cores <- 1
+    } else {}
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, ".*.bim"), FILES, value = TRUE), ".bim"))[1]
         err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
