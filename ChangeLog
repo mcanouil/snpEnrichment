@@ -1,3 +1,8 @@
+2014-09-29 Mickael Canouil
+        * DESCRIPTION: version is 1.5-1
+        * R/Global.r: Internal function 'maxCores' handle warnings on macintosh system.
+
+
 2014-09-26 Mickael Canouil
         * DESCRIPTION: version is 1.5-0
         * R/Global.R: Fix a bug in 'compareEnich' when 'xSNP' was missing in "object.*".
