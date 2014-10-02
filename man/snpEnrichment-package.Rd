@@ -18,7 +18,7 @@ Implements classes and methods for large-scale SNP enrichment analysis (e.g. SNP
     Maintainer: \tab Mickael Canouil <mickael.canouil at good.ibl.fr>\cr
     % Description: \tab Implements classes and methods for large-scale SNP enrichment analysis \cr (e.g. SNPs associated with genes expression and a GWAS signal) \cr
     License: \tab GPL (>= 2)\cr
-    Depends: \tab R (>= 2.15.0), methods\cr
+    Depends: \tab R (>= 3.0.0), methods\cr
     Suggests: \tab grid, ggplot2\cr
     Imports: \tab parallel, snpStats\cr
     URL: \tab https://github.com/mcanouil/snpEnrichment\cr
