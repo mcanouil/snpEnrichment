@@ -22,7 +22,7 @@ devtools::install_github("mcanouil/snpEnrichment")
 ```
 Load *snpEnrichment*:
 ```r
-library(snpEnrichment)
+library(snpEnrichment, dependencies = TRUE)
 ```
 
 ### 2. Data preparation
