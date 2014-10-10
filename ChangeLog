@@ -1,4 +1,8 @@
 2014-10-10 Mickael Canouil
+        * DESCRIPTION: version is 1.5.5
+
+
+2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.4
         * R/*.R: Change default value for 'empiricPvalue' parameter to 'TRUE'.
         * man/*.Rd: Update according to R code changes.
