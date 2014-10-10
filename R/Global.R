@@ -52,7 +52,7 @@ GC <- function (verbose = getOption("verbose"), reset = FALSE) {
 
 
 maxCores <- function (mc.cores = 1) {
-    if (Sys.info()[["sysname"]] != "Windows") {
+    if (Sys.info()[["sysname"]] == "Linux") {
         nbCores <- detectCores()
         mc.cores.old <- mc.cores
         if (file.exists("/proc/meminfo")) {
@@ -71,13 +71,15 @@ maxCores <- function (mc.cores = 1) {
         } else {
             mc.cores <- ifelse(mc.cores.old>nbCores, nbCores, mc.cores.old)
         }
-    } else {}
+    } else {
+        mc.cores <- 1
+    }
     return(mc.cores)
 }
 
 
 mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L), mc.cleanup = TRUE, mc.allow.recursive = TRUE) {
-    if (Sys.info()[["sysname"]] == "Windows") {
+    if (Sys.info()[["sysname"]] != "Linux") {
         mc.cores <- 1
     } else {
         mc.cores <- min(detectCores(), mc.cores)
@@ -403,7 +405,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     .checkSignalFile(signalFile)
     .checkSnpListDir(snpListDir, pattern)
     cat("  Read Chromosomes:\n    ")
-    resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) { # change '22' to work with missing chromosome (eSNP)
+    resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
         if (LD) {
             newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
@@ -668,7 +670,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     eEnrichment <- object1@eSNP@Table
     eEnrichRatio <- object1@eSNP@EnrichmentRatio
     eSNPlist <- object1@eSNP@List
-    eList <- union(object1@eSNP@List, object2@eSNP@List) # All eSNP in object1 and object2
+    eList <- union(object1@eSNP@List, object2@eSNP@List)
     if (isLD) {
         xList <- union(object1@xSNP@List, object2@xSNP@List)
         data <- DATA[DATA[, "SNP"] %in% union(eList, xList), ]
