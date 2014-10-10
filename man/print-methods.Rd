@@ -16,21 +16,21 @@ Print method (S4)
 }
 
 \usage{
-\S4method{print}{Enrichment}(x, what = "Genome", types = c("eSNP", "xSNP"))
+\S4method{print}{Enrichment}(x, what = "Genome", type = c("eSNP", "xSNP"))
 
-\S4method{print}{Chromosome}(x, types = c("eSNP", "xSNP"))
+\S4method{print}{Chromosome}(x, type = c("eSNP", "xSNP"))
 }
 
 \arguments{
     \item{x}{[Enrichment or Chromosome]: an object of class \code{\linkS4class{Enrichment}} or \code{\linkS4class{Chromosome}}.}
     \item{what}{[character or numeric]: \code{what="Genome"} (default) to print results as a matrix. \code{what} could be \code{"All"}, \code{"Genome"} or a numeric from 1 to 22 (numeric vector is allowed).}
-    \item{types}{[character]: select if results for \code{"eSNP"} and/or \code{"xSNP"} should be print.}
+    \item{type}{[character]: select if results for \code{"eSNP"} and/or \code{"xSNP"} should be print.}
 }
 
 % \details{}
 
 \value{
-Return a \code{matrix} (\code{types = "eSNP"}) or a list of two \code{matrix} (\code{types = c("eSNP", "xSNP")}) for classes \code{\linkS4class{Enrichment}} and  \code{\linkS4class{Chromosome}}.\cr
+Return a \code{matrix} (\code{type = "eSNP"}) or a list of two \code{matrix} (\code{type = c("eSNP", "xSNP")}) for classes \code{\linkS4class{Enrichment}} and  \code{\linkS4class{Chromosome}}.\cr
 }
 
 % \note{}
@@ -50,7 +50,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 
 \examples{
 data(toyEnrichment)
-print(toyEnrichment, "All", types = "eSNP")
+print(toyEnrichment, "All", type = "eSNP")
 print(toyEnrichment, "Genome")
 print(toyEnrichment, 1)
 }

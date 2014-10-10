@@ -54,26 +54,26 @@ setMethod(f = "is.chromosome", signature = "ANY", definition = function (object)
 })
 
 
-setMethod(f = "print", signature = "Chromosome", definition = function (x, types = c("eSNP", "xSNP")) {
+setMethod(f = "print", signature = "Chromosome", definition = function (x, type = c("eSNP", "xSNP")) {
     if (missing(x)) {
         stop('[Chromosome:print] "x" is missing.', call. = FALSE)
     } else {}
-    if (is.null(types) | any(!types%in%c("eSNP", "xSNP"))) {
-        stop('[Chromosome:print] "types" must be: "eSNP" and/or "xSNP".', call. = FALSE)
+    if (is.null(type) | any(!type%in%c("eSNP", "xSNP"))) {
+        stop('[Chromosome:print] "type" must be: "eSNP" and/or "xSNP".', call. = FALSE)
     } else {}
 
     res <- list()
-    for (type in types) {
-        resTmp <- print(x[type])
-        colnames(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", type)
-        rownames(resTmp) <-  paste("Chrom", type, sep = ":")
-        res[[type]] <- resTmp
+    for (iType in type) {
+        resTmp <- print(x[iType])
+        colnames(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", iType)
+        rownames(resTmp) <-  paste("Chrom", iType, sep = ":")
+        res[[iType]] <- resTmp
     }
-    if (length(types)==1) {
+    if (length(type)==1) {
         return(res[[1]])
     } else {
         res <- do.call("rbind", res)
-        rownames(res) <- paste("Chrom", types, sep = ":")
+        rownames(res) <- paste("Chrom", type, sep = ":")
         return(res)
     }
     return(res)
