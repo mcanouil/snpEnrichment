@@ -1,6 +1,9 @@
 2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.3
         * R/Global.R: Fix an issue under Windows systems with mclapply
+        * R/Global.R: Update warning message in 'reSample' method.
+        * R/Global.R: Fix an issue in 'initFiles', 'writeLD' and 'readEnrichment'.
+            Some bim files could not found according to the sorting method in the folder.
         * R/enrichment.R: 'plot' method is consitent with parameters used in 'reSample' (e.g. 'empiricPvalue')
         * README.md: Some corrections.
 
