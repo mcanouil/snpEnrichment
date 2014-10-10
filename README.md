@@ -84,7 +84,7 @@ excludeFile <- system.file("extdata/Exclude/toyExclude.txt", package = "snpEnric
 ```r
 toyData_exclude <- excludeSNP(toyData, excludeFile, mc.cores = 1)
 ```
-*Warning!! compareEnrichment is in development*
+*Warning, compareEnrichment is in development!!*
 ```r
 compareResults <- compareEnrichment(object.x = toyData,
                                     object.y = toyData_exclude,
