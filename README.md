@@ -42,33 +42,24 @@ snpListDir <- system.file("extdata/List", package = "snpEnrichment")
 data(transcript)
 transcriptFile <- transcript
 
-toy_M1 <- readEnrichment(
+toyData <- readEnrichment(
     pattern = "Chrom", signalFile, transcriptFile, snpListDir, snpInfoDir,
-    distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL,
+    distThresh = 1000, sigThresh = 0.05, LD = TRUE, ldDir = NULL,
     mc.cores = 1
 )
-toy_M1
+toyData
 ```
 
 ### 4. Computing results
 ```r
-reSample(object = toy_M1,
+reSample(object = toyData,
          nSample = 10,
          empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
          onlyGenome = TRUE)
 ```
-OR
-```r
-data(toyEnrichment)
-reSample(object = toyEnrichment,
-         nSample = 10,
-         empiricPvalue = TRUE,
-         MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
-         mc.cores = 1,
-         onlyGenome = TRUE)
-```
+
 
 ### 5. Further analysis: Exclude SNP from original list.
 ```r
@@ -91,10 +82,12 @@ excludeFile <- system.file("extdata/Exclude/toyExclude.txt", package = "snpEnric
 ```
 
 ```r
-toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
-
-compareResults <- compareEnrichment(object.x = toyEnrichment,
-                                    object.y = toyEnrichment_exclude,
+toyData_exclude <- excludeSNP(toyData, excludeFile, mc.cores = 1)
+```
+*compareEnrichment is in development*
+```r
+compareResults <- compareEnrichment(object.x = toyData,
+                                    object.y = toyData_exclude,
                                     pattern = "Chrom",
                                     nSample = 10,
                                     empiricPvalue = TRUE,
@@ -104,12 +97,9 @@ compareResults <- compareEnrichment(object.x = toyEnrichment,
 
 ### 6. Watch results
 ```r
-show(toy_M1)
-print(toy_M1)
+show(toyData)
+print(toyData)
 
-show(toyEnrichment)
-print(toyEnrichment)
-
-show(toyEnrichment_exclude)
-print(toyEnrichment_exclude)
+show(toyData_exclude)
+print(toyData_exclude)
 ```
