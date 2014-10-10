@@ -36,7 +36,7 @@ writeLD(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL,
         ldThresh = 0.8, depth = 1000, mc.cores = 1)
 ```
 
-### 3. Reading data
+### 3. Read data
 ```r
 snpListDir <- system.file("extdata/List", package = "snpEnrichment")
 data(transcript)
@@ -50,7 +50,7 @@ toyData <- readEnrichment(
 toyData
 ```
 
-### 4. Computing results
+### 4. Compute results
 ```r
 reSample(object = toyData,
          nSample = 10,
