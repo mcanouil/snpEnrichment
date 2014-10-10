@@ -1,4 +1,12 @@
 2014-10-10 Mickael Canouil
+        * DESCRIPTION: version is 1.5.4
+        * R/*.R: Change default value for 'empiricPvalue' parameter to 'TRUE'.
+        * man/*.Rd: Update according to R code changes.
+        * inst/example.R: Update according to R code changes.
+        * README.md: Update according to R code changes.
+
+
+2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.3
         * R/Global.R: Fix an issue under Windows systems with mclapply
         * R/Global.R: Update warning message in 'reSample' method.

@@ -190,7 +190,6 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
         names(byBlock) <- NULL
         LDblock <- LDblock[order(LDblock[, 1]), ]
         rm(chrLD, byBlock)
-        # GC()
 
         blockLim <- NULL
         for (iBlock in seq(nrow(LDblock))) {
@@ -216,7 +215,6 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
             }
         }
         rm(LDblock)
-        # GC()
 
         blockLim <- cbind(blockLim, seq(nrow(blockLim)))
         colnames(blockLim) <- c("MIN", "MAX", "IDBLOCK")
@@ -265,7 +263,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
 })
 
 
-setMethod(f = "reSample", signature = "Chromosome", definition = function (object, nSample = 100, empiricPvalue = FALSE, sigThresh = 0.05, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1) {
+setMethod(f = "reSample", signature = "Chromosome", definition = function (object, nSample = 100, empiricPvalue = TRUE, sigThresh = 0.05, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1) {
     if (!missing(object)) {
         if (nSample<10) {
             nSample = 10

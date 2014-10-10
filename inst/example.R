@@ -37,7 +37,7 @@ toy_M1
 ### 4. Computing results
 reSample(object = toy_M1,
          nSample = 10,
-         empiricPvalue = FALSE,
+         empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
          onlyGenome = TRUE)
@@ -45,7 +45,7 @@ reSample(object = toy_M1,
 data(toyEnrichment)
 reSample(object = toyEnrichment,
          nSample = 10,
-         empiricPvalue = FALSE,
+         empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
          onlyGenome = TRUE)
@@ -73,7 +73,7 @@ compareResults <- compareEnrichment(object.x = toyEnrichment,
                                     object.y = toyEnrichment_exclude,
                                     pattern = "Chrom",
                                     nSample = 10,
-                                    empiricPvalue = FALSE,
+                                    empiricPvalue = TRUE,
                                     mc.cores = 1,
                                     onlyGenome = TRUE)
 

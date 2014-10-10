@@ -102,7 +102,6 @@ setMethod(f = "print", signature = "EnrichSNP", definition = function (x) {
             cat("\n")
             resFormat <- cbind(c("", rownames(object@Table)), rbind(colnames(object@Table), apply(round(object@Table, digits = 4), 2, as.character)))
             cat(paste("     ", apply(apply(matrix(paste0(" ", resFormat, " "), nrow = nrow(resFormat)), 2, format, justify = "centre"), 1, paste, collapse = ""), "\n", sep = "", collapse = ""))
-            # cat("\n")
         }
     cat("\n   - EnrichmentRatio :", ifelse(length(object@EnrichmentRatio) == 0, NA, object@EnrichmentRatio))
     cat("\n   - Z               :", ifelse(length(object@Z) == 0, NA, object@Z))
@@ -140,6 +139,7 @@ setMethod(f = "[<-", signature = "EnrichSNP", definition = function (x, i, j, va
     validObject(x)
     return(x)
 })
+
 
 setMethod(f = "reset", signature = "EnrichSNP", definition = function (object, i) {
     switch(EXPR = i,
