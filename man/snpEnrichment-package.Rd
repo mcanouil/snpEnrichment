@@ -127,11 +127,11 @@ compareResults <- compareEnrichment(object.x = toyEnrichment,
 ### 5. Watch results
 \dontrun{
 show(toy_M1)
-summary(toy_M1)
+print(toy_M1)
 
 show(toyEnrichment)
-summary(toyEnrichment)
+print(toyEnrichment)
 
 show(toyEnrichment_exclude)
-summary(toyEnrichment_exclude)}
+print(toyEnrichment_exclude)}
 }

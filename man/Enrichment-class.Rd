@@ -12,7 +12,6 @@
 % \alias{reset,Enrichment-method}
 \alias{show,Enrichment-method}
 % \alias{print,Enrichment-method}
-% \alias{summary,Enrichment-method}
 \alias{enrichment}
 \alias{enrichment-methods}
 % \alias{enrichment,ANY,ANY,ANY,ANY,ANY-method}
@@ -62,9 +61,6 @@ Class \code{\linkS4class{EnrichSNP}}, directly.\cr
         % \item{computeER(object, sigThresh):}{Compute Enrichment Ratio for \code{\linkS4class{Enrichment}} object (internal use only).}
         \item{reSample(object, nSample, MAFpool, mc.cores, onlyGenome):}{Compute P-Values based upon a resampling of SNPs (\code{eSNP} and \code{xSNP}) and update an \code{\linkS4class{Enrichment}} object.}
         \item{excludeSNP(object, excludeFile, mc.cores):}{Excludes SNPs given in \code{excludeFile} from the original list of eSNPs (xSNPs). Then a new enrichment analysis is computed.}
-        \item{summary(object, extended, complete):}{Return a list of \code{data.frame} which summarize enrichment analysis for \code{eSNP} and/or \code{xSNP}.
-            \code{extended=TRUE} (default) to add \code{xSNP}.
-            \code{complete=TRUE} (default) to add chromosomes results.}
         % \item{reset(object, "slotName"):}{Reset the field \code{slotName}.}
     }
 }
@@ -104,7 +100,7 @@ reSample(object = toyEnrichment,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
          onlyGenome = TRUE)
-summary(toyEnrichment)
+print(toyEnrichment)
 
 excludeFile <- c(
 "rs7897180", "rs4725479", "rs315404", "rs17390391", "rs1650670",
@@ -120,5 +116,5 @@ excludeFile <- c(
 )
 
 toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
-summary(toyEnrichment_exclude)}
+print(toyEnrichment_exclude)}
 }
