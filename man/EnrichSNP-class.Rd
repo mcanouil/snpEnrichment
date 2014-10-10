@@ -38,7 +38,7 @@ It's a part of \code{\linkS4class{Chromosome}} and \code{\linkS4class{Enrichment
         \item{object["slotName"]: }{Get the value of the field \code{slotName}.}
         \item{object["slotName"]<-value: }{Set \code{value} to the field \code{slotName}.}
         \item{show(object): }{Return the formatted values of \code{\linkS4class{EnrichSNP}} object.}
-        \item{print(x): }{Return the values of \code{\linkS4class{EnrichSNP}} object as a matrix.}
+        % \item{print(x): }{Return the values of \code{\linkS4class{EnrichSNP}} object as a matrix.}
     }
 }
 
