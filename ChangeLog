@@ -4,6 +4,7 @@
         * man/*.Rd: Update according to R code changes.
         * inst/example.R: Update according to R code changes.
         * README.md: Update according to R code changes.
+        * R/enrichment.R: Change warning messages in 'compareEnrichment'.
 
 
 2014-10-10 Mickael Canouil
