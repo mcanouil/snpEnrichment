@@ -11,7 +11,7 @@ devtools::install_github("mcanouil/snpEnrichment")
 library(snpEnrichment)
 
 
-### 2. Data preparation
+### 2. Prepare data
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
 

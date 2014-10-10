@@ -25,7 +25,7 @@ Load *snpEnrichment*:
 library(snpEnrichment)
 ```
 
-### 2. Data preparation
+### 2. Prepare data
 ```r
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
