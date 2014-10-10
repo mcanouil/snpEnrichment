@@ -18,7 +18,7 @@ Compare the enrichment analysis between two set of SNPs.
 \usage{
 compareEnrichment(object.x, object.y, pattern = "Chrom",
                   nSample = 100, empiricPvalue = FALSE,
-                  mc.cores = 1, onlyGenome = FALSE)
+                  mc.cores = 1, onlyGenome = TRUE)
 }
 
 \arguments{
@@ -29,7 +29,7 @@ compareEnrichment(object.x, object.y, pattern = "Chrom",
     If \code{empiricPvalue=TRUE}, the empirical p-values are computed instead.}
     \item{mc.cores}{[numeric]: the number of cores to use (default is \code{mc.cores=1}), i.e. at most how many child processes will be run simultaneously.
     Must be at least one, and parallelization requires at least two cores.}
-    \item{onlyGenome}{[logical]: \code{onlyGenome=FALSE} (default) compute resampling step for all chromosomes.}
+    \item{onlyGenome}{[logical]: \code{onlyGenome=TRUE} (default) compute resampling step for all chromosomes.}
 }
 
 % \details{}

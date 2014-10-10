@@ -592,7 +592,7 @@ setMethod(f = "computeER", signature = "Enrichment", definition = function (obje
 })
 
 
-setMethod(f = "reSample", signature = "Enrichment", definition = function (object, nSample = 100, empiricPvalue = FALSE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = FALSE) {
+setMethod(f = "reSample", signature = "Enrichment", definition = function (object, nSample = 100, empiricPvalue = FALSE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
     if (!missing(object)) {
         if (nSample<10) {
             nSample = 10
@@ -826,7 +826,7 @@ setMethod(f = "reset", signature = "Enrichment", definition = function (object, 
 })
 
 
-setMethod(f = "compareEnrichment", signature = "ANY", definition = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = FALSE, mc.cores = 1, onlyGenome = FALSE) {
+setMethod(f = "compareEnrichment", signature = "ANY", definition = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = FALSE, mc.cores = 1, onlyGenome = TRUE) {
     if (!missing(object.x) & !missing(object.y)) {
         if (nSample<10) {
             nSample = 10
