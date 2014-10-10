@@ -837,14 +837,14 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
         sigThresh.x <- object.x@Call$readEnrichment$sigThresh
         sigThresh.y <- object.y@Call$readEnrichment$sigThresh
         if (!identical(sigThresh.x, sigThresh.y)) {
-            warning(paste0('[Enrichment:compareEnrichment] "sigThresh" differs from "object.x" to "object.y".\n         "object.x" parameter is taken: ', deparse(sigThresh.x)), call. = FALSE)
+            warning(paste0('[Enrichment:compareEnrichment] "sigThresh" differs from "object.x" to "object.y".\n         "object.x" parameter is: ', deparse(sigThresh.x)), call. = FALSE)
         } else {}
         sigThresh <- sigThresh.x
 
         MAFpool.x <- object.x@Call$reSample$MAFpool
         MAFpool.y <- object.y@Call$reSample$MAFpool
         if (!identical(MAFpool.x, MAFpool.y)) {
-            warning(paste0('[Enrichment:compareEnrichment] "MAFpool" differs from "object.x" to "object.y".\n         "object.x" parameter is taken: ', deparse(MAFpool.x)), call. = FALSE)
+            warning(paste0('[Enrichment:compareEnrichment] "MAFpool" differs from "object.x" to "object.y".\n         "object.x" parameter is: ', deparse(MAFpool.x)), call. = FALSE)
         } else {}
         MAFpool <- eval(MAFpool.x)
         if (missing(MAFpool) | is.null(MAFpool)) {
