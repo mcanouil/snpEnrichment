@@ -100,7 +100,7 @@ toyEnrich <- enrichment(Loss = toyEnrichment["Loss"])
 \dontrun{
 reSample(object = toyEnrichment,
          nSample = 10,
-         empiricPvalue = FALSE,
+         empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
          onlyGenome = TRUE)

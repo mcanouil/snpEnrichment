@@ -184,11 +184,6 @@ setMethod(f = "show", signature = "Enrichment", definition = function (object) {
 
 
 setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, drop) {
-    # if (Sys.info()[["sysname"]] == "Windows") {
-        # mc.cores <- 1
-    # } else {
-        # mc.cores <- detectCores()
-    # }
     nbChr <- length(x@Chromosomes)
     if (missing(j)) {
         switch(EXPR = i,
@@ -592,7 +587,7 @@ setMethod(f = "computeER", signature = "Enrichment", definition = function (obje
 })
 
 
-setMethod(f = "reSample", signature = "Enrichment", definition = function (object, nSample = 100, empiricPvalue = FALSE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
+setMethod(f = "reSample", signature = "Enrichment", definition = function (object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
     if (!missing(object)) {
         if (nSample<10) {
             nSample = 10
@@ -604,9 +599,6 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         warnings.env <- new.env()
         assign("minCores", mc.cores, envir = warnings.env)
         assign("maxCores", 0, envir = warnings.env)
-        # if (Sys.info()[["sysname"]] == "Windows") {
-            # mc.cores <- 1
-        # } else {}
         nSampleOld <- object@Call$reSample$nSample
         if (onlyGenome == FALSE) {
             listRes <- eval(parse(text = paste0("list(", paste(paste0("Chrom", seq(22), " = NULL"), collapse = ", "), ")")))
@@ -660,7 +652,6 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
                         if (class(try(resEval <- eval(argTmp), silent = TRUE))=="try-error") {
                             formal[[iArg]] <- argTmp
                         } else {
-                            # resEval <- eval(argTmp)
                             switch(EXPR = class(resEval),
                                 "character" = {formal[[iArg]] <- resEval},
                                 "logical" = {formal[[iArg]] <- resEval},
@@ -826,7 +817,7 @@ setMethod(f = "reset", signature = "Enrichment", definition = function (object, 
 })
 
 
-setMethod(f = "compareEnrichment", signature = "ANY", definition = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = FALSE, mc.cores = 1, onlyGenome = TRUE) {
+setMethod(f = "compareEnrichment", signature = "ANY", definition = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {
     if (!missing(object.x) & !missing(object.y)) {
         if (nSample<10) {
             nSample = 10

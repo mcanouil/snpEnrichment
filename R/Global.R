@@ -4,8 +4,8 @@ setGeneric(name = "enrichment", def = function (Loss, Call, eSNP, xSNP, Chromoso
 setGeneric(name = "doLDblock", def = function (object, mc.cores = 1) {standardGeneric("doLDblock")})
 setGeneric(name = "excludeSNP", def = function (object, excludeFile, mc.cores = 1) {standardGeneric("excludeSNP")})
 setGeneric(name = "computeER", def = function (object, sigThresh = 0.05, mc.cores = 1) {standardGeneric("computeER")})
-setGeneric(name = "reSample", def = function (object, nSample = 100, empiricPvalue = FALSE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) {standardGeneric("reSample")})
-setGeneric(name = "compareEnrichment", def = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = FALSE, mc.cores = 1, onlyGenome = TRUE) {standardGeneric("compareEnrichment")})
+setGeneric(name = "reSample", def = function (object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) {standardGeneric("reSample")})
+setGeneric(name = "compareEnrichment", def = function (object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {standardGeneric("compareEnrichment")})
 setGeneric(name = "is.enrichment", def = function (object) {standardGeneric("is.enrichment")})
 setGeneric(name = "is.chromosome", def = function (object) {standardGeneric("is.chromosome")})
 setGeneric(name = "is.EnrichSNP", def = function (object) {standardGeneric("is.EnrichSNP")})
@@ -57,8 +57,6 @@ maxCores <- function (mc.cores = 1) {
         mc.cores.old <- mc.cores
         if (file.exists("/proc/meminfo")) {
             memInfo <- readLines("/proc/meminfo")
-            # sysMemFree <- system("egrep '^MemFree:' /proc/meminfo", intern = TRUE)
-            # sysMemCached <- system("egrep '^Cached:' /proc/meminfo", intern = TRUE)
             sysMemFree <- memInfo[grep('^MemFree:', memInfo)]
             sysMemCached <- memInfo[grep('^Cached:', memInfo)]
             sysMemAvailable <- 0.95*(as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemFree)) + as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemCached)))
@@ -185,9 +183,6 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
-    # if (Sys.info()[["sysname"]] == "Windows") {
-        # mc.cores <- 1
-    # } else {}
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
         err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
@@ -411,7 +406,6 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
             data <- files$data[order(files$data$POS), ]
             snpSignal <- data[, "SNP"]
 
-            # ldSNP <- unique(as.vector(t(linkageData[, c("SNP_A", "SNP_B")])))
             ldData <- linkageData[, 2]
             names(ldData) <- linkageData[, 1]
             eSNP <- data[data[, "eSNP"]==1, "SNP"]
@@ -541,6 +535,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     tmp <- as.numeric(table)
     return((tmp[1]*tmp[4])/(tmp[2]*tmp[3]))
 }
+
 
 .reSample <- function (object, nSample, empiricPvalue, sigThresh, MAFpool, mc.cores) {
     nResampling <- nrow(object@eSNP@Resampling)
