@@ -12,7 +12,6 @@
 % \alias{reset,Chromosome-method}
 \alias{show,Chromosome-method}
 % \alias{print,Chromosome-method}
-% \alias{summary,Chromosome-method}
 \alias{chromosome}
 \alias{chromosome-methods}
 % \alias{chromosome,ANY,ANY,ANY,ANY-method}
@@ -63,8 +62,6 @@ Class \code{\linkS4class{EnrichSNP}}, directly.\cr
         % \item{doLDblock(object, mc.cores):}{Compute LD block and update \code{Data} field (internal use only).}
         % \item{reSample(object, nSample, sigThresh, MAFpool, extendMethod, mc.cores):}{Compute P-Value based upon a resampling of SNPs (\code{eSNP} and \code{xSNP}) and update an \code{\linkS4class{Chromosome}} object.}
         % \item{excludeSNP(object, excludeFile, nSample, MAFpool, mc.cores):}{Exclude SNPs from eSNPs list and xSNPs list and compute a new enrichment analysis.}
-        % \item{summary(object, extended):}{Return a list of \code{data.frame} which summarize enrichment analysis for \code{eSNP} and/or \code{xSNP}.
-           % \code{extended=TRUE} (default) to add \code{xSNP}.}
         % \item{reset(object, "slotName"):}{Reset the field \code{slotName}.}
     }
 }
