@@ -184,18 +184,23 @@ setMethod(f = "show", signature = "Enrichment", definition = function (object) {
 
 
 setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, drop) {
+    # if (Sys.info()[["sysname"]] == "Windows") {
+        # mc.cores <- 1
+    # } else {
+        # mc.cores <- detectCores()
+    # }
     nbChr <- length(x@Chromosomes)
     if (missing(j)) {
         switch(EXPR = i,
             "Loss" = {return(x@Loss)},
             "Data" = {
-                resData <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
+                resData <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
                     return(x@Chromosomes[[iChr]]@Data)
                 })
                 return(do.call("rbind", resData))
             },
             "LD" = {
-                resLD <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
+                resLD <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
                     return(x@Chromosomes[[iChr]]@LD)
                 })
                 return(unlist(resLD))
@@ -240,13 +245,13 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
                 switch(EXPR = i,
                     "Loss" = {return(x@Loss)},
                     "Data" = {
-                        resData <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
+                        resData <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
                             return(x@Chromosomes[[iChr]]@Data)
                         })
                         return(do.call("rbind", resData))
                     },
                     "LD" = {
-                        resLD <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
+                        resLD <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
                             return(x@Chromosomes[[iChr]]@LD)
                         })
                         return(unlist(resLD))
@@ -343,13 +348,13 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
                 switch(EXPR = i,
                     "Signal" = {return(eval(parse(text = paste0('list(', paste(paste0("x@Chromosomes$Chrom", j, "@Data[, c('SNP', 'PVALUE')]"), collapse = ", "), ')'))))},
                     "Data" = {
-                        resData <- mclapply2(j, mc.cores = min(length(j), detectCores()), function (iChr) {
+                        resData <- mclapply2(j, mc.cores = min(length(j), mc.cores), function (iChr) {
                             return(x@Chromosomes[[iChr]]@Data)
                         })
                         return(do.call("rbind", resData))
                     },
                     "LD" = {
-                        resLD <- mclapply2(j, mc.cores = min(length(j), detectCores()), function (iChr) {
+                        resLD <- mclapply2(j, mc.cores = min(length(j), mc.cores), function (iChr) {
                             return(x@Chromosomes[[iChr]]@LD)
                         })
                         return(unlist(resLD))
@@ -599,12 +604,15 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         warnings.env <- new.env()
         assign("minCores", mc.cores, envir = warnings.env)
         assign("maxCores", 0, envir = warnings.env)
+        # if (Sys.info()[["sysname"]] == "Windows") {
+            # mc.cores <- 1
+        # } else {}
         nSampleOld <- object@Call$reSample$nSample
         if (onlyGenome == FALSE) {
             listRes <- eval(parse(text = paste0("list(", paste(paste0("Chrom", seq(22), " = NULL"), collapse = ", "), ")")))
             for (iChr in seq(22)) {
                 cat("  Chromosome ", if (nchar(iChr) == 1) {paste0("0", iChr)} else {iChr}, ": ", sep = "")
-                nbCores <- suppressWarnings(maxCores(80))
+                nbCores <- suppressWarnings(maxCores(mc.cores))
                 assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
                 assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
                 suppressWarnings(listRes[[iChr]] <- reSample(object = object@Chromosomes[[iChr]], nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
@@ -615,7 +623,7 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         } else {}
 
         cat("  Genome       : ")
-        nbCores <- suppressWarnings(maxCores(80))
+        nbCores <- suppressWarnings(maxCores(mc.cores))
         assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
         assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
         suppressWarnings(result <- .reSample(object = object, nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
@@ -678,16 +686,16 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         assign("maxCores", min(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
         if (get("minCores", envir = warnings.env)==get("maxCores", envir = warnings.env)) {
             if (get("minCores", envir = warnings.env)!=mc.cores) {
-                warning(paste0("[mclapply2] To avoid memory overload \"mc.cores\" was decreased to ",
+                warning(paste0("[Enrichment:reSample] To avoid memory overload \"mc.cores\" was decreased to ",
                                 get("minCores", envir = warnings.env), "."), call. = FALSE)
             } else {}
         } else {
-            warning(paste0("[mclapply2] To avoid memory overload \"mc.cores\" was decreased to min=",
+            warning(paste0("[Enrichment:reSample] To avoid memory overload \"mc.cores\" was decreased to min=",
                             get("minCores", envir = warnings.env), " and max=",
                             get("maxCores", envir = warnings.env), "."), call. = FALSE)
         }
-        cat(paste0(" *** Object \"", nameObject, "\" has been updated. ***\n"))
         cat("######## Resample Enrichment Done ##########\n")
+        cat(paste0("*** Object \"", nameObject, "\" has been updated. ***\n\n"))
         return(invisible(result))
     } else {
         stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
@@ -976,34 +984,87 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
         names(ERsample) <- interv
         return(as.matrix(ERsample))
     }
-
-    matrixER <- list(eSNP = NULL, xSNP = NULL)
-    for (type in types) {
-        if (length(what)==1) {
-            switch(EXPR = as.character(what),
-                "Genome" = {
-                    matrixER[[type]] <- .computeER4plot(x[type])
-                    colnames(matrixER[[type]]) <- "Genome"
-                },
-                "All" = {
-                    matrixER[[type]] <- .computeER4plot(x[type])
-                    for (j in seq(22)) {
-                        matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
-                    }
-                    colnames(matrixER[[type]]) <- c("Genome", paste0("Chrom", seq(22)))
-                },
-                {
-                    for (j in what) {
-                        matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
-                    }
-                    colnames(matrixER[[type]]) <- paste0("Chrom", what)
-                }
-            )
+    .computeEmpP4plot <- function (EnrichSNPObject) {
+        ER <- EnrichSNPObject@EnrichmentRatio
+        if (nrow(EnrichSNPObject@Resampling)==0) {
+            stop('[Enrichment:plot] "reSample" have to be run before "plot".', call. = FALSE)
+        } else {}
+        resampling <- EnrichSNPObject@Resampling[, 5]
+        ERsample <- NULL
+        size <- length(resampling)
+        if (size >= 1000) {
+            interv <- unique(c(seq(from = min(1000, floor(0.1*size)), to = size, by = floor(size/1000)), size))
         } else {
-            for (j in what) {
-                matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
+            interv <- unique(c(seq(from = max(floor(0.1*size), 3), to = size, by = 1), size))
+        }
+        ERsample <- sapply(interv, function (k) {
+            resamplingInterv <- resampling[1:k]
+            resamplingClean <- resamplingInterv[!(is.na(resamplingInterv) | is.infinite(resamplingInterv))]
+            sum(EnrichSNPObject@EnrichmentRatio<resamplingClean)/length(resamplingClean)
+        })
+        names(ERsample) <- interv
+        return(as.matrix(ERsample))
+    }
+
+    if (x@Call$reSample$empiricPvalue) {
+        matrixER <- list(eSNP = NULL, xSNP = NULL)
+        for (type in types) {
+            if (length(what)==1) {
+                switch(EXPR = as.character(what),
+                    "Genome" = {
+                        matrixER[[type]] <- .computeEmpP4plot(x[type])
+                        colnames(matrixER[[type]]) <- "Genome"
+                    },
+                    "All" = {
+                        matrixER[[type]] <- .computeEmpP4plot(x[type])
+                        for (j in seq(22)) {
+                            matrixER[[type]] <- cbind(matrixER[[type]], .computeEmpP4plot(x["Chromosomes", j][type]))
+                        }
+                        colnames(matrixER[[type]]) <- c("Genome", paste0("Chrom", seq(22)))
+                    },
+                    {
+                        for (j in what) {
+                            matrixER[[type]] <- cbind(matrixER[[type]], .computeEmpP4plot(x["Chromosomes", j][type]))
+                        }
+                        colnames(matrixER[[type]]) <- paste0("Chrom", what)
+                    }
+                )
+            } else {
+                for (j in what) {
+                    matrixER[[type]] <- cbind(matrixER[[type]], .computeEmpP4plot(x["Chromosomes", j][type]))
+                }
+                colnames(matrixER[[type]]) <- paste0("Chrom", what)
             }
-            colnames(matrixER[[type]]) <- paste0("Chrom", what)
+        }
+    } else {
+        matrixER <- list(eSNP = NULL, xSNP = NULL)
+        for (type in types) {
+            if (length(what)==1) {
+                switch(EXPR = as.character(what),
+                    "Genome" = {
+                        matrixER[[type]] <- .computeER4plot(x[type])
+                        colnames(matrixER[[type]]) <- "Genome"
+                    },
+                    "All" = {
+                        matrixER[[type]] <- .computeER4plot(x[type])
+                        for (j in seq(22)) {
+                            matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
+                        }
+                        colnames(matrixER[[type]]) <- c("Genome", paste0("Chrom", seq(22)))
+                    },
+                    {
+                        for (j in what) {
+                            matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
+                        }
+                        colnames(matrixER[[type]]) <- paste0("Chrom", what)
+                    }
+                )
+            } else {
+                for (j in what) {
+                    matrixER[[type]] <- cbind(matrixER[[type]], .computeER4plot(x["Chromosomes", j][type]))
+                }
+                colnames(matrixER[[type]]) <- paste0("Chrom", what)
+            }
         }
     }
     if (ggplot) {
@@ -1040,8 +1101,12 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
             listPlots <- list()
             for (type in types) {
                 if (pvalue) {
-                    matrixER[[type]] <- apply(matrixER[[type]], 2, pnorm, lower.tail = FALSE)
-                    ylab <- "P-Value"
+                    if (x@Call$reSample$empiricPvalue) {
+                        ylab <- "P-Value (Empirical)"
+                    } else {
+                        matrixER[[type]] <- apply(matrixER[[type]], 2, pnorm, lower.tail = FALSE)
+                        ylab <- "P-Value (From Z-statistic)"
+                    }
                 } else {
                     ylab <- "Z statistic"
                 }
@@ -1151,8 +1216,13 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
         par(mfrow = c(1, length(types)))
         for (type in types) {
             if (pvalue) {
-                matrixER[[type]] <- apply(matrixER[[type]], 2, pnorm, lower.tail = FALSE)
-                ylab <- "P-Value"
+                if (x@Call$reSample$empiricPvalue) {
+                    matrixER[[type]] <- .computeEmpP4plot(x[type])
+                    ylab <- "P-Value (Empirical)"
+                } else {
+                    matrixER[[type]] <- apply(matrixER[[type]], 2, pnorm, lower.tail = FALSE)
+                    ylab <- "P-Value (From Z-statistic)"
+                }
             } else {
                 ylab <- "Z statistic"
             }
