@@ -1,6 +1,8 @@
 2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.6
         * R/Global.R: 'readEnrichment' works with at least one snp list in 'snpListDir'.
+        * R/Global.R: Fix 'mclapply2' under operating systems which are not Linux.
+        * R/Global.R: Fix 'maxCores' under operating systems which are not Linux.
         * man/snpEnrichment-package.Rd: Update example.
         * inst/example.R: Update according to changes in 'snpEnrichment-package.Rd'.
         * README.md: Update according to changes in 'snpEnrichment-package.Rd'.
