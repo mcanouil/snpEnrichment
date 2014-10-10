@@ -1,3 +1,10 @@
+2014-10-10 Mickael Canouil
+        * DESCRIPTION: version is 1.5.3
+        * R/Global.R: Fix an issue under Windows systems with mclapply
+        * R/enrichment.R: 'plot' method is consitent with parameters used in 'reSample' (e.g. 'empiricPvalue')
+        * README.md: Some corrections.
+
+
 2014-09-29 Mickael Canouil
         * DESCRIPTION: version is 1.5.2
         * R/Global.R: Add some internal functions to check files needed by 'initFiles', 'writeLD' and 'readEnrichment' functions.
@@ -14,7 +21,7 @@
 2014-09-26 Mickael Canouil
         * DESCRIPTION: version is 1.5.0
         * R/Global.R: Fix a bug in 'compareEnich' when 'xSNP' was missing in "object.*".
-        * man/*.Rd: Some correction in example.
+        * man/*.Rd: Some corrections in example.
 
 
 2014-09-23 Mickael Canouil
