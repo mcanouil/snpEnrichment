@@ -1,4 +1,9 @@
 2014-10-10 Mickael Canouil
+        * DESCRIPTION: version is 1.5.6
+        * R/Global.R: 'readEnrichment' works with at least one snp list in 'snpListDir'.
+
+
+2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.5
         * man/*.Rd: Replace 'summary' by 'print' according to R code changes.
         * inst/example.R: Replace 'summary' by 'print' according to R code changes.
