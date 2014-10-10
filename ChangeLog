@@ -6,6 +6,8 @@
             Some bim files could not found according to the sorting method in the folder.
         * R/enrichment.R: 'plot' method is consitent with parameters used in 'reSample' (e.g. 'empiricPvalue')
         * README.md: Some corrections.
+        * R/*.R: Change default value for 'onlyGenome' parameter to 'TRUE'.
+        * man/*.Rd: Update according to R code changes.
 
 
 2014-09-29 Mickael Canouil

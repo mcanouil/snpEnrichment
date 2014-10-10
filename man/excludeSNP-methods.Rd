@@ -24,7 +24,7 @@ excludeSNP(object, excludeFile, mc.cores = 1)
     \item{excludeFile}{[vector(character)]: a list of SNPs to remove from a previous enrichment analysis. A path to a file which the first column are the SNPs.}
     \item{mc.cores}{[numeric]: the number of cores to use (default is \code{mc.cores=1}), i.e. at most how many child processes will be run simultaneously.
     Must be at least one, and parallelization requires at least two cores.}
-    % \item{onlyGenome}{[logical]: \code{onlyGenome=FALSE} (default) compute resampling step for all chromosomes.}
+    % \item{onlyGenome}{[logical]: \code{onlyGenome=TRUE} (default) compute resampling step for all chromosomes.}
 }
 
 % \details{}
