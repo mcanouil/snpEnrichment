@@ -45,8 +45,8 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{Enrichment}
 
 \examples{
-#######################
-### 1. Data preparation
+###################
+### 1. Prepare data
 \dontrun{
 snpInfoDir <- system.file("extdata/snpInfo",
                           package = "snpEnrichment")
