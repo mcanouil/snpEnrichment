@@ -194,13 +194,13 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
         switch(EXPR = i,
             "Loss" = {return(x@Loss)},
             "Data" = {
-                resData <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
+                resData <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
                     return(x@Chromosomes[[iChr]]@Data)
                 })
                 return(do.call("rbind", resData))
             },
             "LD" = {
-                resLD <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
+                resLD <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
                     return(x@Chromosomes[[iChr]]@LD)
                 })
                 return(unlist(resLD))
@@ -245,13 +245,13 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
                 switch(EXPR = i,
                     "Loss" = {return(x@Loss)},
                     "Data" = {
-                        resData <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
+                        resData <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
                             return(x@Chromosomes[[iChr]]@Data)
                         })
                         return(do.call("rbind", resData))
                     },
                     "LD" = {
-                        resLD <- mclapply2(seq(22), mc.cores = min(22, mc.cores), function (iChr) {
+                        resLD <- mclapply2(seq(22), mc.cores = min(22, detectCores()), function (iChr) {
                             return(x@Chromosomes[[iChr]]@LD)
                         })
                         return(unlist(resLD))
@@ -348,13 +348,13 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
                 switch(EXPR = i,
                     "Signal" = {return(eval(parse(text = paste0('list(', paste(paste0("x@Chromosomes$Chrom", j, "@Data[, c('SNP', 'PVALUE')]"), collapse = ", "), ')'))))},
                     "Data" = {
-                        resData <- mclapply2(j, mc.cores = min(length(j), mc.cores), function (iChr) {
+                        resData <- mclapply2(j, mc.cores = min(length(j), detectCores()), function (iChr) {
                             return(x@Chromosomes[[iChr]]@Data)
                         })
                         return(do.call("rbind", resData))
                     },
                     "LD" = {
-                        resLD <- mclapply2(j, mc.cores = min(length(j), mc.cores), function (iChr) {
+                        resLD <- mclapply2(j, mc.cores = min(length(j), detectCores()), function (iChr) {
                             return(x@Chromosomes[[iChr]]@LD)
                         })
                         return(unlist(resLD))
