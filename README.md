@@ -29,7 +29,9 @@ library(snpEnrichment)
 ```r
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
+
 initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
+
 writeLD(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL,
         ldThresh = 0.8, depth = 1000, mc.cores = 1)
 ```
@@ -55,7 +57,7 @@ reSample(object = toy_M1,
          empiricPvalue = FALSE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
-         onlyGenome = FALSE)
+         onlyGenome = TRUE)
 ```
 OR
 ```r
@@ -65,7 +67,7 @@ reSample(object = toyEnrichment,
          empiricPvalue = FALSE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
-         onlyGenome = FALSE)
+         onlyGenome = TRUE)
 ```
 
 ### 5. Further analysis: Exclude SNP from original list.
