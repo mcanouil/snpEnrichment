@@ -60,8 +60,8 @@ writeLD(pattern = "Chrom", snpInfoDir, signalFile,
         mc.cores = 1)}
 
 
-###################
-### 2. Reading data
+################
+### 2. Read data
 \dontrun{
 snpListDir <- system.file("extdata/List",
                           package = "snpEnrichment")
@@ -76,8 +76,8 @@ toyData <- readEnrichment(pattern = "Chrom", signalFile,
 toyData}
 
 
-########################
-### 3. Computing results
+######################
+### 3. Compute results
 \dontrun{
 reSample(object = toyData,
          nSample = 10,
