@@ -48,9 +48,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{methods}
 
 \examples{
-\dontrun{
-data(toyEnrichment)
+\dontrun{data(toyEnrichment)
 reSample(toyEnrichment, 10)
-plot(toyEnrichment)
-}
+plot(toyEnrichment)}
 }

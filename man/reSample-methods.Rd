@@ -65,13 +65,11 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{methods}
 
 \examples{
-\dontrun{
-data(toyEnrichment)
+\dontrun{data(toyEnrichment)
 reSample(object = toyEnrichment,
          nSample = 10,
          empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          onlyGenome = TRUE)
-toyEnrichment
-}
+toyEnrichment}
 }

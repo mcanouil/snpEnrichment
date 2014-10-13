@@ -54,12 +54,10 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{Enrichment}
 
 \examples{
-\dontrun{
-signalFile <- system.file("extdata/Signal/toySignal.txt",
+\dontrun{signalFile <- system.file("extdata/Signal/toySignal.txt",
                           package = "snpEnrichment")
 snpInfoDir <- system.file("extdata/snpInfo",
                           package = "snpEnrichment")
 writeLD(pattern = "Chrom", snpInfoDir, signalFile,
-        ldDir = NULL, ldThresh = 0.8, mc.cores = 1)
-}
+        ldDir = NULL, ldThresh = 0.8, mc.cores = 1)}
 }

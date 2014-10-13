@@ -60,8 +60,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{initialize}
 
 \examples{
-\dontrun{
-snpListDir <- system.file("extdata/List",
+\dontrun{snpListDir <- system.file("extdata/List",
                           package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt",
                           package = "snpEnrichment")
@@ -80,6 +79,5 @@ toyData <- readEnrichment(pattern = "Chrom",
                          LD = FALSE,
                          ldDir = NULL,
                          mc.cores = 1)
-toyData
-}
+toyData}
 }
