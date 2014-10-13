@@ -49,14 +49,12 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{initialize}
 
 \examples{
-\dontrun{
-snpInfoDir <- system.file("extdata/snpInfo",
+\dontrun{snpInfoDir <- system.file("extdata/snpInfo",
                           package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt",
                           package = "snpEnrichment")
 initFiles(pattern = "Chrom",
           snpInfoDir,
           signalFile,
-          mc.cores = 1)
-}
+          mc.cores = 1)}
 }

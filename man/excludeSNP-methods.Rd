@@ -48,8 +48,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{methods}
 
 \examples{
-\dontrun{
-data(toyEnrichment)
+\dontrun{data(toyEnrichment)
 excludeFile <- c(
     "rs4376885", "rs17690928", "rs6460708", "rs13061537", "rs11769827",
     "rs12717054", "rs2907627", "rs1380109", "rs7024214", "rs7711972",
@@ -67,6 +66,5 @@ excludeFile <- system.file("extdata/Exclude/toyExclude.txt",
                            package = "snpEnrichment")
 
 toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
-toyEnrichment_exclude
-}
+toyEnrichment_exclude}
 }

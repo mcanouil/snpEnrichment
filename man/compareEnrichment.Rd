@@ -60,8 +60,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{Enrichment}
 
 \examples{
-\dontrun{
-data(toyEnrichment)
+\dontrun{data(toyEnrichment)
 
 reSample(object = toyEnrichment,
          nSample = 10,
@@ -94,6 +93,5 @@ compareResults <- compareEnrichment(object.x = toyEnrichment,
                                     nSample = 10,
                                     empiricPvalue = FALSE,
                                     mc.cores = 1,
-                                    onlyGenome = TRUE)
-}
+                                    onlyGenome = TRUE)}
 }

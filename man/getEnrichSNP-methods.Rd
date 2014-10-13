@@ -20,7 +20,7 @@ Get all eSNP/xSNP which are enriched
 
 \arguments{
     \item{object}{[Enrichment]: an object of class \code{\linkS4class{Enrichment}}.}
-    \item{type}{[character]: choose if \code{"eSNP"} or \code{"xSNP"} have to extracted.}
+    \item{type}{[character]: extract \code{eSNP} or \code{xSNP} data.}
 }
 
 % \details{}
@@ -45,9 +45,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{methods}
 
 \examples{
-\dontrun{
-data(toyEnrichment)
+\dontrun{data(toyEnrichment)
 eSNPenriched <- getEnrichSNP(object = toyEnrichment, type = "eSNP")
-head(eSNPenriched)
-}
+head(eSNPenriched)}
 }

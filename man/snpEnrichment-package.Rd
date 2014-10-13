@@ -47,8 +47,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \examples{
 ###################
 ### 1. Prepare data
-\dontrun{
-snpInfoDir <- system.file("extdata/snpInfo",
+\dontrun{snpInfoDir <- system.file("extdata/snpInfo",
                           package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt",
                           package = "snpEnrichment")
@@ -57,14 +56,12 @@ initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
 
 writeLD(pattern = "Chrom", snpInfoDir, signalFile,
         ldDir = NULL, ldThresh = 0.8, depth = 1000,
-        mc.cores = 1)
-}
+        mc.cores = 1)}
 
 
 ################
 ### 2. Read data
-\dontrun{
-snpListDir <- system.file("extdata/List",
+\dontrun{snpListDir <- system.file("extdata/List",
                           package = "snpEnrichment")
 data(transcript)
 transcriptFile <- transcript
@@ -74,26 +71,22 @@ toyData <- readEnrichment(pattern = "Chrom", signalFile,
                          snpInfoDir, distThresh = 1000,
                          sigThresh = 0.05, LD = TRUE,
                          ldDir = NULL, mc.cores = 1)
-toyData
-}
+toyData}
 
 
 ######################
 ### 3. Compute results
-\dontrun{
-reSample(object = toyData,
+\dontrun{reSample(object = toyData,
          nSample = 10,
          empiricPvalue = TRUE,
          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
          mc.cores = 1,
-         onlyGenome = TRUE)
-}
+         onlyGenome = TRUE)}
 
 
 #######################
 ### 4. Further analysis: Exclude SNP from original list.
-\dontrun{
-excludeFile <- c(
+\dontrun{excludeFile <- c(
     "rs4376885", "rs17690928", "rs6460708", "rs13061537", "rs11769827",
     "rs12717054", "rs2907627", "rs1380109", "rs7024214", "rs7711972",
     "rs9658282", "rs11750720", "rs1793268", "rs774568", "rs6921786",
@@ -118,19 +111,16 @@ compareResults <- compareEnrichment(object.x = toyData,
                                     nSample = 10,
                                     empiricPvalue = TRUE,
                                     mc.cores = 1,
-                                    onlyGenome = TRUE)
-}
+                                    onlyGenome = TRUE)}
 
 
 ####################
 ### 5. Watch results
-\dontrun{
-show(toyData)
+\dontrun{show(toyData)
 print(toyData)
 head(getEnrichSNP(toyData, type = "xSNP"))
 
 show(toyData_exclude)
 print(toyData_exclude)
-head(getEnrichSNP(toyData_exclude, type = "eSNP"))
-}
+head(getEnrichSNP(toyData_exclude, type = "eSNP"))}
 }
