@@ -33,7 +33,7 @@ Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
 \seealso{
 Overview : \code{\link{snpEnrichment-package}} \cr
 Classes : \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}}, \code{\linkS4class{EnrichSNP}} \cr
-Methods :  \code{\link{plot}}, \code{\link{reSample}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+Methods : \code{\link{plot}}, \code{\link{reSample}}, \code{\link{getEnrichSNP}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
             \code{\link{enrichment}}, \code{\link{is.enrichment}}, \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr
 Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
 }
@@ -57,7 +57,8 @@ initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
 
 writeLD(pattern = "Chrom", snpInfoDir, signalFile,
         ldDir = NULL, ldThresh = 0.8, depth = 1000,
-        mc.cores = 1)}
+        mc.cores = 1)
+}
 
 
 ################
@@ -73,7 +74,8 @@ toyData <- readEnrichment(pattern = "Chrom", signalFile,
                          snpInfoDir, distThresh = 1000,
                          sigThresh = 0.05, LD = TRUE,
                          ldDir = NULL, mc.cores = 1)
-toyData}
+toyData
+}
 
 
 ######################
@@ -116,7 +118,8 @@ compareResults <- compareEnrichment(object.x = toyData,
                                     nSample = 10,
                                     empiricPvalue = TRUE,
                                     mc.cores = 1,
-                                    onlyGenome = TRUE)}
+                                    onlyGenome = TRUE)
+}
 
 
 ####################
@@ -124,7 +127,10 @@ compareResults <- compareEnrichment(object.x = toyData,
 \dontrun{
 show(toyData)
 print(toyData)
+head(getEnrichSNP(toyData, type = "xSNP"))
 
 show(toyData_exclude)
-print(toyData_exclude)}
+print(toyData_exclude)
+head(getEnrichSNP(toyData_exclude, type = "eSNP"))
+}
 }

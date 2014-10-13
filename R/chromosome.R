@@ -122,7 +122,7 @@ setMethod(f = "[", signature = "Chromosome", definition = function (x, i, j, dro
         "LD" = {return(x@LD)},
         "eSNP" = {return(x@eSNP)},
         "xSNP" = {return(x@xSNP)},
-        stop('[Chromosome:get] ', i, ' is not a "Chromosome" slot', call. = FALSE)
+        stop('[Chromosome:get] ', i, ' is not a "Chromosome" slot.', call. = FALSE)
     )
 })
 
@@ -133,7 +133,7 @@ setMethod(f = "[<-", signature = "Chromosome", definition = function (x, i, j, v
         "LD" = {x@LD <- value},
         "eSNP" = {x@eSNP <- value},
         "xSNP" = {x@xSNP <- value},
-        stop('[Chromosome:get] ', i, ' is not a "Chromosome" slot', call. = FALSE)
+        stop('[Chromosome:get] ', i, ' is not a "Chromosome" slot.', call. = FALSE)
     )
     validObject(x)
     return(invisible(x))
@@ -157,7 +157,7 @@ setMethod(f = "computeER", signature = "Chromosome", definition = function (obje
         })
         return(object)
     } else {
-        stop('[Chromosome:computeER] "Chromosome" object is required', call. = FALSE)
+        stop('[Chromosome:computeER] "Chromosome" object is required.', call. = FALSE)
     }
 })
 
@@ -258,7 +258,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
         object@Data <- data
         return(object)
     } else {
-        stop('[Chromosome:doLDblock] "Chromosome" Object is required', call. = FALSE)
+        stop('[Chromosome:doLDblock] "Chromosome" Object is required.', call. = FALSE)
     }
 })
 
@@ -267,12 +267,12 @@ setMethod(f = "reSample", signature = "Chromosome", definition = function (objec
     if (!missing(object)) {
         if (nSample<10) {
             nSample = 10
-            warning('[Enrichment:reSample] nSample was increased to 10', call. = FALSE)
+            warning('[Enrichment:reSample] nSample was increased to 10.', call. = FALSE)
         } else {}
         result <- .reSample(object = object, nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores)
         return(result)
     } else {
-        stop('[Enrichment:reSample] "Enrichment" object is required', call. = FALSE)
+        stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
     }
 })
 
@@ -321,7 +321,7 @@ setMethod(f = "reset", signature = "Chromosome", definition = function (object, 
                 object[type]@Resampling <- matrix(0, ncol = 5, nrow = 0)
             }
         },
-        stop('[Enrichment:reset] ', i, ' is not a "Enrichment" slot', call. = FALSE)
+        stop('[Enrichment:reset] ', i, ' is not a "Enrichment" slot.', call. = FALSE)
     )
     return(object)
 })

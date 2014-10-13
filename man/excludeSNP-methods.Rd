@@ -24,7 +24,6 @@ excludeSNP(object, excludeFile, mc.cores = 1)
     \item{excludeFile}{[vector(character)]: a list of SNPs to remove from a previous enrichment analysis. A path to a file which the first column are the SNPs.}
     \item{mc.cores}{[numeric]: the number of cores to use (default is \code{mc.cores=1}), i.e. at most how many child processes will be run simultaneously.
     Must be at least one, and parallelization requires at least two cores.}
-    % \item{onlyGenome}{[logical]: \code{onlyGenome=TRUE} (default) compute resampling step for all chromosomes.}
 }
 
 % \details{}
@@ -38,7 +37,7 @@ Return the object given in argument where lists of SNPs are updated by removing 
 \seealso{
 Overview : \code{\link{snpEnrichment-package}} \cr
 Classes : \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}}, \code{\linkS4class{EnrichSNP}} \cr
-Methods :  \code{\link{plot}}, \code{\link{reSample}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+Methods : \code{\link{plot}}, \code{\link{reSample}}, \code{\link{getEnrichSNP}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
             \code{\link{enrichment}}, \code{\link{is.enrichment}}, \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr
 Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
 }
@@ -68,5 +67,6 @@ excludeFile <- system.file("extdata/Exclude/toyExclude.txt",
                            package = "snpEnrichment")
 
 toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
-toyEnrichment_exclude}
+toyEnrichment_exclude
+}
 }

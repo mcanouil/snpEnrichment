@@ -121,7 +121,7 @@ setMethod(f = "[", signature = "EnrichSNP", definition = function (x, i, j, drop
         "Z" = {return(x@Z)},
         "PValue" = {return(x@PValue)},
         "Resampling" = {return(x@Resampling)},
-        stop('[EnrichSNP:get] ', i, ' is not a "EnrichSNP" slot', call. = FALSE)
+        stop('[EnrichSNP:get] ', i, ' is not a "EnrichSNP" slot.', call. = FALSE)
     )
 })
 
@@ -134,7 +134,7 @@ setMethod(f = "[<-", signature = "EnrichSNP", definition = function (x, i, j, va
         "Z" = {x@Z <- value},
         "PValue" = {x@PValue <- value},
         "Resampling" = {x@Resampling <- value},
-        stop('[EnrichSNP:set] ', i, ' is not a "EnrichSNP" slot', call. = FALSE)
+        stop('[EnrichSNP:set] ', i, ' is not a "EnrichSNP" slot.', call. = FALSE)
     )
     validObject(x)
     return(x)
@@ -149,7 +149,7 @@ setMethod(f = "reset", signature = "EnrichSNP", definition = function (object, i
         "Z" = {object@Z <- numeric()},
         "PValue" = {object@PValue <- numeric()},
         "Resampling" = {object@Resampling <- matrix(0, ncol = 5, nrow = 0)},
-        stop('[EnrichSNP:reset] ', i, ' is not a "EnrichSNP" slot', call. = FALSE)
+        stop('[EnrichSNP:reset] ', i, ' is not a "EnrichSNP" slot.', call. = FALSE)
     )
     return(object)
 })
