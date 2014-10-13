@@ -921,7 +921,7 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
         colnames(res[["xSNP"]]) <- namesRes
 
         cat("############# Comparison End ###############\n")
-        warning("compareEnrichment is in development!", call. = FALSE)
+        warning("[Enrichment:compareEnrichment] This function is in development!", call. = FALSE)
         return(invisible(list(summary = res, object1 = enrichObject1, object2 = enrichObject2, comparison = result)))
     } else {
         stop('[Enrichment:compareEnrichment] "Enrichment" object is required.', call. = FALSE)
