@@ -57,11 +57,13 @@ Class \code{\linkS4class{EnrichSNP}}, directly.\cr
         \item{object["slotName"]:}{Get the value of the field \code{slotName}.}
         \item{object["slotName"]<-value:}{Set \code{value} to the field \code{slotName}.}
         \item{show(object):}{Return the formatted values of \code{\linkS4class{Enrichment}} object.}
-        % \item{print(object):}{Return the formatted values of \code{\linkS4class{Enrichment}} object.}
+        \item{print(object, what, type):}{Return a summary table of an \code{\linkS4class{Enrichment}} object.}
         % \item{computeER(object, sigThresh):}{Compute Enrichment Ratio for \code{\linkS4class{Enrichment}} object (internal use only).}
-        \item{reSample(object, nSample, MAFpool, mc.cores, onlyGenome):}{Compute P-Values based upon a resampling of SNPs (\code{eSNP} and \code{xSNP}) and update an \code{\linkS4class{Enrichment}} object.}
+        \item{reSample(object, nSample, MAFpool, mc.cores, onlyGenome):}{Compute P-Values based upon a resampling of SNPs (\code{eSNP} and \code{xSNP}) and update the \code{\linkS4class{Enrichment}} object.}
         \item{excludeSNP(object, excludeFile, mc.cores):}{Excludes SNPs given in \code{excludeFile} from the original list of eSNPs (xSNPs). Then a new enrichment analysis is computed.}
-        % \item{reset(object, "slotName"):}{Reset the field \code{slotName}.}
+        \item{reset(object, "slotName"):}{Reset the field \code{slotName}.}
+        \item{plot(object, what, type, ggplot, pvalue):}{Plot p-values or Z-statistics convergence.}
+        \item{getEnrichSNP(object, type):}{Return eSNP/xSNP which are enriched as a \code{data.frame}.}
     }
 }
 
@@ -70,7 +72,7 @@ Class \code{\linkS4class{EnrichSNP}}, directly.\cr
 \seealso{
 Overview : \code{\link{snpEnrichment-package}} \cr
 Classes : \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}}, \code{\linkS4class{EnrichSNP}} \cr
-Methods : \code{\link{plot}}, \code{\link{reSample}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+Methods : \code{\link{plot}}, \code{\link{reSample}}, \code{\link{getEnrichSNP}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
             \code{\link{enrichment}}, \code{\link{is.enrichment}}, \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr
 Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
 }
@@ -116,5 +118,6 @@ excludeFile <- c(
 )
 
 toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
-print(toyEnrichment_exclude)}
+print(toyEnrichment_exclude)
+}
 }

@@ -1,3 +1,11 @@
+2014-10-13 Mickael Canouil
+        * DESCRIPTION: version is 1.5.7
+        * R/*.R: Add function 'getEnrichSNP'.
+        * man/*.Rd: Update according to R code changes and some corrections.
+        * NAMESPACE: Updata according to R code changes.
+
+
+
 2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.6
         * R/Global.R: 'readEnrichment' works with at least one snp list in 'snpListDir'.

@@ -99,7 +99,9 @@ compareResults <- compareEnrichment(object.x = toyData,
 ```r
 show(toyData)
 print(toyData)
+head(getEnrichSNP(toyData, type = "xSNP"))
 
 show(toyData_exclude)
 print(toyData_exclude)
+head(getEnrichSNP(toyData_exclude, type = "eSNP"))
 ```

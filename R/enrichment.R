@@ -696,7 +696,7 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
 
 setMethod(f = "excludeSNP", signature = "Enrichment", definition = function (object, excludeFile, mc.cores = 1) {
     if (missing(excludeFile)) {
-        stop('[Enrichment:excludeSNP] argument "excludeFile" is missing' , call. = FALSE)
+        stop('[Enrichment:excludeSNP] argument "excludeFile" is missing.' , call. = FALSE)
     } else {
         cat("########## Exclude SNP list Start ##########\n")
         if (all(class(try(close(file(excludeFile)), silent = TRUE))!="try-error")) {
@@ -921,6 +921,7 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
         colnames(res[["xSNP"]]) <- namesRes
 
         cat("############# Comparison End ###############\n")
+        warning("compareEnrichment is in development!", call. = FALSE)
         return(invisible(list(summary = res, object1 = enrichObject1, object2 = enrichObject2, comparison = result)))
     } else {
         stop('[Enrichment:compareEnrichment] "Enrichment" object is required.', call. = FALSE)
@@ -1201,7 +1202,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
             multiplot(plotlist = listPlots, cols = length(listPlots))
             return(invisible(listPlots))
         } else {
-            stop("[snpEnrichment:plot] \"ggPlot2\" and \"grid\" packages must be installed with \"ggplot=TRUE\"", call. = FALSE)
+            stop('[Enrichment:plot] "ggPlot2" and "grid" packages must be installed with "ggplot=TRUE".', call. = FALSE)
         }
     } else {
         par(mfrow = c(1, length(type)))
@@ -1234,4 +1235,24 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
         }
         return(invisible())
     }
+})
+
+
+setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function (object, type = "eSNP") {
+    alpha <- object["Call"][["readEnrichment"]][["sigThresh"]]
+    resData <- switch(type,
+        "eSNP" = {
+            object["Data"][object["Data"][, "PVALUE"]<alpha & object["Data"][, type]==1, ]
+        },
+        "xSNP" = {
+            if (object["Call"][["readEnrichment"]][["LD"]]) {
+                object["Data"][object["Data"][, "PVALUE"]<alpha & object["Data"][, type]==1, ]
+            } else {
+                warning('[Enrichment:getEnrichSNP] significant "eSNP" are returned instead of "xSNP",\n    "readEnrichment" should be run with "LD=TRUE".', call. = FALSE)
+                object["Data"][object["Data"][, "PVALUE"]<alpha & object["Data"][, type]==1, ]
+            }
+        },
+        stop('[Enrichment:getEnrichSNP] "type" should be equal to "eSNP" or "xSNP".', call. = FALSE)
+    )
+    return(resData)
 })
