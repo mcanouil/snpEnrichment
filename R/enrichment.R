@@ -161,9 +161,9 @@ setMethod(f = "print", signature = "Enrichment", definition = function (x, what 
                 })
                 for (iArg in names(tmpArgs)) {
                     res <- c(res, paste0(iArg,
-                                        ifelse(type[[iArg]]=="character", "=\"", "="),
+                                        ifelse(type[[iArg]]=="character", '="', "="),
                                         ifelse(type[[iArg]]=="NULL" | type[[iArg]]=="name", deparse(tmpArgs[[iArg]]), tmpArgs[[iArg]]),
-                                        ifelse(type[[iArg]]=="character", "\"", "")))
+                                        ifelse(type[[iArg]]=="character", '"', "")))
                 }
                 cat(paste0("    ", names(args[iFuncArg]), '(', paste(res, collapse = paste0(", \n", paste(rep(" ", nchar(names(args[iFuncArg]))+5), collapse = ""))), ')\n'))
             }
@@ -689,16 +689,16 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         assign("maxCores", min(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
         if (get("minCores", envir = warnings.env)==get("maxCores", envir = warnings.env)) {
             if (get("minCores", envir = warnings.env)!=mc.cores) {
-                warning(paste0("[Enrichment:reSample] To avoid memory overload \"mc.cores\" was decreased to ",
+                warning(paste0('[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to ',
                                 get("minCores", envir = warnings.env), "."), call. = FALSE)
             } else {}
         } else {
-            warning(paste0("[Enrichment:reSample] To avoid memory overload \"mc.cores\" was decreased to min=",
+            warning(paste0('[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to min=',
                             get("minCores", envir = warnings.env), " and max=",
                             get("maxCores", envir = warnings.env), "."), call. = FALSE)
         }
         cat("######## Resample Enrichment Done ##########\n")
-        cat(paste0("*** Object \"", nameObject, "\" has been updated. ***\n\n"))
+        cat(paste0('*** Object "', nameObject, '" has been updated. ***\n\n'))
         return(invisible(result))
     } else {
         stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
