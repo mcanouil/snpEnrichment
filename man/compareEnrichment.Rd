@@ -36,10 +36,9 @@ compareEnrichment(object.x, object.y, pattern = "Chrom",
 
 \value{
 Return a \code{list} of three elements:
-    \item{summary}{Two \code{data.frame} which summarize for \code{eSNP} and/or \code{xSNP} the enrichment analyses and the comparison between them.}
-    \item{object1}{\code{\linkS4class{Enrichment}} object passed in \code{object.x} with resampling data.}
-    \item{object2}{\code{\linkS4class{Enrichment}} object passed in \code{object.y} with resampling data.}
-    \item{comparison}{\code{\linkS4class{Enrichment}} object from the comparison between \code{object.x} and \code{object.y}.}
+    \item{object.xy}{\code{\linkS4class{Enrichment}} object from the comparison between \code{object.x} and \code{object.y}.}
+    \item{object.x}{\code{\linkS4class{Enrichment}} object passed in \code{object.x} with resampling data.}
+    \item{object.y}{\code{\linkS4class{Enrichment}} object passed in \code{object.y} with resampling data.}
 }
 
 \note{

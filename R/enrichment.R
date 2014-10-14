@@ -72,14 +72,22 @@ setMethod(f = "print", signature = "Enrichment", definition = function (x, what 
     if (is.null(type) | any(!type%in%c("eSNP", "xSNP"))) {
         stop('[Enrichment:print] "type" must be: "eSNP" and/or "xSNP".', call. = FALSE)
     } else {}
+    empiricPvalue <- x["Call"][["reSample"]][["empiricPvalue"]]
+    if (is.null(empiricPvalue)) {
+        empiricPvalue <- FALSE
+    } else {}
+
     if (length(what)==1) {
         switch(EXPR = as.character(what),
             "Genome" = {
                 res <- list()
                 for (iType in type) {
                     resTmp <- print(x[iType])
-                    colnames(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", iType)
+                    colnames(resTmp) <- c("EnrichmentRatio", "Z", "PValue", "nSample", "TotalSNP", iType)
                     rownames(resTmp) <-  paste("Chrom", iType, sep = ":")
+                    if (empiricPvalue) {
+                        resTmp <- resTmp[, -grep("Z", colnames(resTmp))]
+                    } else {}
                     res[[iType]] <- resTmp
                 }
                 if (length(type)==1) {
@@ -99,7 +107,10 @@ setMethod(f = "print", signature = "Enrichment", definition = function (x, what 
                     }))
                     resTmp <- rbind(resTmp, tmp)
                     rownames(resTmp) <- c("Genome", paste0("Chrom", seq(22)))
-                    colnames(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", iType)
+                    colnames(resTmp) <- c("EnrichmentRatio", "Z", "PValue", "nSample", "TotalSNP", iType)
+                    if (empiricPvalue) {
+                        resTmp <- resTmp[, -grep("Z", colnames(resTmp))]
+                    } else {}
                     res[[iType]] <- resTmp
                 }
                 if (length(type)==1) {
@@ -109,24 +120,25 @@ setMethod(f = "print", signature = "Enrichment", definition = function (x, what 
                 }
             },
             {
-                return(print(x["Chromosomes", what], type = type))
+                res <- print(x["Chromosomes", what], type = type)
+                rownames(res) <- paste0("Chrom", what, ":", type)
+                return(res)
             }
         )
     } else {
-        res <- list()
-        for (iType in type) {
-            tmp <- do.call("rbind", lapply(what, function (n) {
-                print(x["Chromosomes", n], type = iType)
-            }))
-            rownames(tmp) <- paste0("Chrom", what)
-            colnames(tmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", iType)
-            res[[iType]] <- tmp
-        }
-        if (length(type)==1) {
-            return(res[[1]])
-        } else {
-            return(res)
-        }
+        if (!is.numeric(what)) {
+            stop('[Enrichment:print] "what" must be: "Genome", "All" or a numeric vector.', call. = FALSE)
+        } else {}
+        resTmp <- lapply(what, function (iWhat) { print(x["Chromosomes", iWhat], type = type)})
+        res <- do.call("rbind", resTmp)
+        whatNames <- sapply(what, function (iWhat) {
+            return(paste0("Chrom", iWhat))
+        })
+        rownames(res) <- paste0(rep(whatNames, each = length(type)), ":", type)
+        if (empiricPvalue) {
+            res <- res[, -grep("Z", colnames(res))]
+        } else {}
+        return(res)
     }
 })
 
@@ -851,6 +863,9 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
             MAFpool <- c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5)
         } else{}
 
+        object.x@Call$reSample$empiricPvalue <- empiricPvalue
+        object.y@Call$reSample$empiricPvalue <- empiricPvalue
+
         l1 <- object.x@eSNP@List
         l2 <- object.y@eSNP@List
         if (identical(l1, l2)) {
@@ -922,7 +937,11 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
 
         cat("############# Comparison End ###############\n")
         warning("[Enrichment:compareEnrichment] This function is in development!", call. = FALSE)
-        return(invisible(list(summary = res, object1 = enrichObject1, object2 = enrichObject2, comparison = result)))
+        if (onlyGenome) {
+            return(invisible(list(object.xy = print(result, what = "Genome"), object.x = print(enrichObject1, what = "Genome"), object.y = print(enrichObject2, what = "Genome"))))
+        } else {
+            return(invisible(list(object.xy = print(result), object.x = print(enrichObject1), object.y = print(enrichObject2))))
+        }
     } else {
         stop('[Enrichment:compareEnrichment] "Enrichment" object is required.', call. = FALSE)
     }
