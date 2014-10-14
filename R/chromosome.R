@@ -65,7 +65,7 @@ setMethod(f = "print", signature = "Chromosome", definition = function (x, type 
     res <- list()
     for (iType in type) {
         resTmp <- print(x[iType])
-        colnames(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", iType)
+        colnames(resTmp) <- c("EnrichmentRatio", "Z", "PValue", "nSample", "TotalSNP", iType)
         rownames(resTmp) <-  paste("Chrom", iType, sep = ":")
         res[[iType]] <- resTmp
     }

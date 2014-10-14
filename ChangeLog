@@ -1,3 +1,11 @@
+2014-10-14 Mickael Canouil
+        * DESCRIPTION: version is 1.5.8
+        * R/enrichment.R: Update 'print' method to print results according to the parameter 'empiricPvalue' in 'reSample' function.
+        * R/enrichment.R: Update 'compareEnrichment' according to changes in 'print' method.
+        * R/chromosome.R: Some minor changes.
+        * man/compareEnrichment.Rd: Update according to R code changes.
+
+
 2014-10-13 Mickael Canouil
         * DESCRIPTION: version is 1.5.7
         * R/*.R: Add function 'getEnrichSNP' and some minor corrections.
