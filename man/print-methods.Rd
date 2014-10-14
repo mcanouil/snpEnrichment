@@ -30,7 +30,7 @@ Print method (S4)
 % \details{}
 
 \value{
-Return a \code{matrix} (\code{type = "eSNP"}) or a list of two \code{matrix} (\code{type = c("eSNP", "xSNP")}) for classes \code{\linkS4class{Enrichment}} and  \code{\linkS4class{Chromosome}}.\cr
+Return a \code{matrix} for classes \code{\linkS4class{Enrichment}} and  \code{\linkS4class{Chromosome}}.\cr
 }
 
 % \note{}

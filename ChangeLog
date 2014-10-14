@@ -4,6 +4,7 @@
         * R/enrichment.R: Update 'compareEnrichment' according to changes in 'print' method.
         * R/chromosome.R: Some minor changes.
         * man/compareEnrichment.Rd: Update according to R code changes.
+        * man/print-methods.Rd: Update according to R code changes.
 
 
 2014-10-13 Mickael Canouil
