@@ -385,12 +385,44 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 }
 
 
+.splitByChrom <- function (pattern, snpListFile, directory) {
+    if (missing(snpListFile)) {
+        # stop('[Enrichment:splitByChrom] argument(s) missing.', call. = FALSE)
+        stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
+    } else {}
+    snpList <- read.delim(file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
+                            na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
+    switch(EXPR = as.character(ncol(snpList)),
+        # "1" = {stop('[Enrichment:splitByChrom] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
+        "1" = {stop('[Enrichment:readEnrichment] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
+        "2" = {colnames(snpList) <- c("CHR", "SNP")},
+        "3" = {colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")},
+        colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
+    )
+    if (ncol(snpList)>3) {
+        snpList <- snpList[, c("CHR", "SNP", "TRANSCRIPT")]
+    } else {}
+    filePathDetails <- unlist(strsplit(snpListFile, "/"))
+    if (is.null(directory)) {
+        filePath <- paste0(c(filePathDetails[-length(filePathDetails)], ""), collapse = "/")
+    } else {
+        dir.create(paste0(directory, "snpList/"), showWarnings = FALSE)
+        filePath <- paste0(directory, "snpList/")
+    }
+    by(snpList, snpList[, "CHR"], function (snpListChr) {
+        write.table(snpListChr, file = paste0(filePath, pattern, unique(snpListChr[, "CHR"]), "-", filePathDetails[length(filePathDetails)]), sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
+    })
+    # cat(paste0('*** File "', filePathDetails[length(filePathDetails)], '" has been splitted into ', length(unique(snpList[, "CHR"])), ' chromosomes. ***\n\n'))
+    return(filePath)
+}
+
+
 readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALSE, snpListDir, snpInfoDir, distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, mc.cores = 1) {
     cat("############# Read Enrichment ##############\n")
     if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
         stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
     } else {}
-    tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment")
+    tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/")
     if (length(grep("\\.signal", list.files(tmpDir))) != 22 & length(grep("\\.all", list.files(tmpDir))) != 22) {
         stop('[Enrichment:readEnrichment] "initFiles" must be run before.', call. = FALSE)
     } else {}
@@ -406,10 +438,16 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     }
 
     snpInfoDir <- .checkFilePath(snpInfoDir)
-    snpListDir <- .checkFilePath(snpListDir)
     .checkSnpInfoDir(snpInfoDir)
     .checkSignalFile(signalFile)
-    .checkSnpListDir(snpListDir, pattern)
+
+    if (length(list.files(snpListDir)) == 0) {
+        snpListDir <- .splitByChrom(pattern = pattern, snpListFile = snpListDir, directory = tmpDir)
+    } else {
+        snpListDir <- .checkFilePath(snpListDir)
+        .checkSnpListDir(snpListDir, pattern)
+    }
+
     cat("  Read Chromosomes:\n    ")
     resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
@@ -535,8 +573,10 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
 
     # unlink(tmpDir, recursive = TRUE) # add parameter to ask if temporary directory should be cleaned
     if (is.null(ldDir)) {
-        formal[["ldDir"]] <- paste0(tmpDir, "/snpEnrichment/")
-    } else {}
+        formal[["ldDir"]] <- tmpDir
+    } else {
+        formal[["ldDir"]] <- .checkFilePath(formal[["ldDir"]])
+    }
     result@Call$readEnrichment <- formal
 
     result <- computeER(object = result, sigThresh = sigThresh, mc.cores = mc.cores)

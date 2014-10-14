@@ -25,7 +25,7 @@ readEnrichment(pattern = "Chrom", signalFile,
     The fields separator character have to be a space \code{" "} or a tabulation \code{"\\t"}.}
     \item{transcriptFile}{[character or data.frame]: character string naming a file or a \code{data.frame} with four columns: Chromomosome, trancript's name, Starting and Ending positions.
     \code{data(trancript)} can be use as parameters. Default is \code{FALSE}.}
-    \item{snpListDir}{[character]: character string naming a directory containing a list of SNPs for one or several chromosomes.}
+    \item{snpListDir}{[character]: character string naming a directory containing a list of SNPs for one or several chromosomes. \code{snpListDir} can be a single file with at least two columns: chromosome and rs name.}
     \item{snpInfoDir}{[character]: character string naming a directory containing the reference data in a PLINK format (*.bed, *.bim and *.fam).}
     \item{distThresh}{[numeric]: maximal distance (kb) between SNP and gene. \code{distThresh} is used if \code{transcriptFile} is set.}
     \item{sigThresh}{[numeric]: statistical threshold for signal (e.g. \code{sigThresh = 0.05} for a given GWAS signal) used to compute an Enrichment Ratio.}

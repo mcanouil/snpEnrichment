@@ -26,6 +26,7 @@
 \alias{.checkSnpInfoDir}
 \alias{.checkSnpListDir}
 \alias{.checkSignalFile}
+\alias{.splitByChrom}
 
 \alias{enrichSNP}
 \alias{enrichSNP-methods}
