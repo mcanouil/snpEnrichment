@@ -1,6 +1,7 @@
 2014-11-03 Mickael Canouil
         * DESCRIPTION: version is 1.5.10
         * R/Global.R: Fix a glitch in 'readEnrichment'. Sometimes chromosomes 10 and 20 are read respectively instead of 1 and 2.
+        * R/Global.R: Some minor changes.
 
 
 2014-10-14 Mickael Canouil

@@ -184,14 +184,15 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
         stop('[Enrichment:initFiles] argument(s) missing.', call. = FALSE)
     } else {}
     snpInfoDir <- .checkFilePath(snpInfoDir)
-    FILES <- list.files(snpInfoDir)
+    FILES <- list.files(snpInfoDir, pattern = ".bim")
     .checkSnpInfoDir(snpInfoDir)
     .checkSignalFile(signalFile)
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
-        newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        newPattern <- grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE)
         err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
         err2 <- try(.writeFreq(pattern = newPattern, snpInfoDir = snpInfoDir), silent = TRUE)
         cat(iChr, " ", sep = "")
@@ -223,11 +224,13 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     } else {
         ldDir <- .checkFilePath(ldDir)
     }
-    FILES <- list.files(snpInfoDir)
+    FILES <- list.files(snpInfoDir, pattern = ".bim")
     cat("Compute LD for chromosome:\n  ")
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
-        newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
-        isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
+        # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
+        # isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
+        isThereSignals <- list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE, pattern = ".signal")
         if (length(isThereSignals) != 22) {
             .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
         } else {}
@@ -425,16 +428,16 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
         stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
     } else {}
     tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/")
-    if (length(grep("\\.signal", list.files(tmpDir))) != 22 & length(grep("\\.all", list.files(tmpDir))) != 22) {
+    if (length(list.files(tmpDir), pattern = "\\.signal") != 22 & length(list.files(tmpDir, pattern = "\\.all")) != 22) {
         stop('[Enrichment:readEnrichment] "initFiles" must be run before.', call. = FALSE)
     } else {}
 
     if (is.null(ldDir)) {
-        if (LD & length(grep("\\.ld", list.files(tmpDir))) != 22) {
+        if (LD & length(list.files(tmpDir), pattern = "\\.ld") != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     } else {
-        if (LD & length(grep("\\.ld", list.files(ldDir))) != 22) {
+        if (LD & length(list.files(ldDir), pattern = "\\.ld") != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     }
@@ -454,7 +457,8 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
         if (LD) {
-            newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
+            # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
+            newPattern <- grep(paste0(pattern, iChr, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE)
             linkageData <- .readLD(pattern = newPattern, snpInfoDir = snpInfoDir, ldDir = ldDir)
 
             data <- files$data[order(files$data$POS), ]
