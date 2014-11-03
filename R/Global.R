@@ -261,7 +261,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 .readSNP <- function (pattern, snpListDir) {
     # snpListFile <- grep(pattern, sort(list.files(snpListDir, full.names = TRUE)), value = TRUE)[1]
-    snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9].*.txt"), full.names = TRUE)
+    snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = pattern, full.names = TRUE)
     if (is.na(snpListFile)) {
         snpList <- data.frame()
     } else {
@@ -352,10 +352,11 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 
 .readFiles <- function (pattern, snpInfoDir, snpListDir, distThresh) {
-    # newPattern <- unlist(strsplit(grep(paste0(pattern, "[^0-9]*.bim"), sort(list.files(snpInfoDir)), value = TRUE), ".bim"))[1]
-    eSNP <- .readSNP(pattern = pattern, snpListDir = snpListDir)
-    signal <- .readSignal(pattern = pattern)
-    plinkData <- .readFreq(pattern = pattern, snpInfoDir = snpInfoDir)
+    fullPattern <- gsub(".bim", "", grep(paste0(pattern, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
+    signalPattern <- gsub(".signal", "", grep(paste0(pattern, "[^0-9]"), list.files(paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/"), pattern = ".signal"), value = TRUE))
+    eSNP <- .readSNP(pattern = fullPattern, snpListDir = snpListDir)
+    signal <- .readSignal(pattern = signalPattern)
+    plinkData <- .readFreq(pattern = fullPattern, snpInfoDir = snpInfoDir)
 
     signalPlink <- merge(signal, plinkData, by = "SNP")
     if (nrow(eSNP)!=0) {
