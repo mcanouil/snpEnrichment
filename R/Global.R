@@ -260,7 +260,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 
 .readSNP <- function (pattern, snpListDir) {
-    snpListFile <- grep(pattern, list.files(snpListDir, full.names = TRUE), value = TRUE)[1]
+    snpListFile <- grep(pattern, sort(list.files(snpListDir, full.names = TRUE)), value = TRUE)[1]
     if (is.na(snpListFile)) {
         snpList <- data.frame()
     } else {
@@ -351,7 +351,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 
 .readFiles <- function (pattern, snpInfoDir, snpListDir, distThresh) {
-    newPattern <- unlist(strsplit(grep(paste0(pattern, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
+    newPattern <- unlist(strsplit(grep(paste0(pattern, "[^0-9]*.bim"), sort(list.files(snpInfoDir)), value = TRUE), ".bim"))[1]
     eSNP <- .readSNP(pattern = newPattern, snpListDir = snpListDir)
     signal <- .readSignal(pattern = newPattern)
     plinkData <- .readFreq(pattern = newPattern, snpInfoDir = snpInfoDir)
