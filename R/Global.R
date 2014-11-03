@@ -264,7 +264,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 .readSNP <- function (pattern, snpListDir) {
     # snpListFile <- grep(pattern, sort(list.files(snpListDir, full.names = TRUE)), value = TRUE)[1]
-    snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = pattern, full.names = TRUE)
+    snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9]"), full.names = TRUE)
     if (is.na(snpListFile)) {
         snpList <- data.frame()
     } else {
