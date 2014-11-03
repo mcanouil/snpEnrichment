@@ -428,16 +428,16 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
         stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
     } else {}
     tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/")
-    if (length(list.files(tmpDir), pattern = "\\.signal") != 22 & length(list.files(tmpDir, pattern = "\\.all")) != 22) {
+    if (length(list.files(tmpDir, pattern = "\\.signal")) != 22 & length(list.files(tmpDir, pattern = "\\.all")) != 22) {
         stop('[Enrichment:readEnrichment] "initFiles" must be run before.', call. = FALSE)
     } else {}
 
     if (is.null(ldDir)) {
-        if (LD & length(list.files(tmpDir), pattern = "\\.ld") != 22) {
+        if (LD & length(list.files(tmpDir, pattern = "\\.ld")) != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     } else {
-        if (LD & length(list.files(ldDir), pattern = "\\.ld") != 22) {
+        if (LD & length(list.files(ldDir, pattern = "\\.ld")) != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     }
