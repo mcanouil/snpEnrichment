@@ -930,10 +930,17 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function (obj
         summaryObj1 <- print(object1, what = "All")
         summaryObj2 <- print(object2, what = "All")
         summaryRes <- print(result, what = "All")
-        res[["eSNP"]] <- cbind(summaryObj1[["eSNP"]][, 1], summaryObj2[["eSNP"]][, 1], summaryObj1[["eSNP"]][, 3], summaryObj2[["eSNP"]][, 3], summaryRes[["eSNP"]][, 3:4], summaryObj1[["eSNP"]][, 6], summaryObj2[["eSNP"]][, 6])
-        res[["xSNP"]] <- cbind(summaryObj1[["xSNP"]][, 1], summaryObj2[["xSNP"]][, 1], summaryObj1[["xSNP"]][, 3], summaryObj2[["xSNP"]][, 3], summaryRes[["xSNP"]][, 3:4], summaryObj1[["xSNP"]][, 6], summaryObj2[["xSNP"]][, 6])
-        colnames(res[["eSNP"]]) <- namesRes
-        colnames(res[["xSNP"]]) <- namesRes
+        if (empiricPvalue) {
+            res[["eSNP"]] <- cbind(summaryObj1[["eSNP"]][, "EnrichmentRatio"], summaryObj2[["eSNP"]][, "EnrichmentRatio"], summaryObj1[["eSNP"]][, "PValue"], summaryObj2[["eSNP"]][, "PValue"], summaryRes[["eSNP"]][, c("PValue", "nSample")], summaryObj1[["eSNP"]][, "eSNP"], summaryObj2[["eSNP"]][, "eSNP"])
+            res[["xSNP"]] <- cbind(summaryObj1[["xSNP"]][, "EnrichmentRatio"], summaryObj2[["xSNP"]][, "EnrichmentRatio"], summaryObj1[["xSNP"]][, "PValue"], summaryObj2[["xSNP"]][, "PValue"], summaryRes[["xSNP"]][, c("PValue", "nSample")], summaryObj1[["xSNP"]][, "xSNP"], summaryObj2[["xSNP"]][, "xSNP"])
+            colnames(res[["eSNP"]]) <- namesRes
+            colnames(res[["xSNP"]]) <- namesRes
+        } else {
+            res[["eSNP"]] <- cbind(summaryObj1[["eSNP"]][, "EnrichmentRatio"], summaryObj2[["eSNP"]][, "EnrichmentRatio"], summaryObj1[["eSNP"]][, "PValue"], summaryObj2[["eSNP"]][, "PValue"], summaryRes[["eSNP"]][, c("PValue", "Z", "nSample")], summaryObj1[["eSNP"]][, "eSNP"], summaryObj2[["eSNP"]][, "eSNP"])
+            res[["xSNP"]] <- cbind(summaryObj1[["xSNP"]][, "EnrichmentRatio"], summaryObj2[["xSNP"]][, "EnrichmentRatio"], summaryObj1[["xSNP"]][, "PValue"], summaryObj2[["xSNP"]][, "PValue"], summaryRes[["xSNP"]][, c("PValue", "Z", "nSample")], summaryObj1[["xSNP"]][, "xSNP"], summaryObj2[["xSNP"]][, "xSNP"])
+            colnames(res[["eSNP"]]) <- c(namesRes[1:5], "Z", namesRes[6:8])
+            colnames(res[["xSNP"]]) <- c(namesRes[1:5], "Z", namesRes[6:8])
+        }
 
         cat("############# Comparison End ###############\n")
         warning("[Enrichment:compareEnrichment] This function is in development!", call. = FALSE)
