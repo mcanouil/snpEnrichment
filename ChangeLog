@@ -1,8 +1,55 @@
+2014-11-03 Mickael Canouil
+        * DESCRIPTION: version is 1.5.10
+        * R/Global.R: Fix a glitch in 'readEnrichment'. Sometimes chromosomes 10 and 20 are read respectively instead of 1 and 2.
+        * R/Global.R: Some minor changes.
+
+
+2014-10-14 Mickael Canouil
+        * DESCRIPTION: version is 1.5.9
+        * data/toyEnrichment.RData: Minor changes.
+        * R/Global.R: Add internal function '.splitByChrom'.
+            User is now allowed to use a single file in 'snpListDir' for 'readEnrichment' function.
+        * man/snpEnrichment-internal.Rd: Update according to R code changes.
+        * man/readEnrichment.Rd: Update according to R code changes.
+
+
+2014-10-14 Mickael Canouil
+        * DESCRIPTION: version is 1.5.8
+        * R/enrichment.R: Update 'print' method to print results according to the parameter 'empiricPvalue' in 'reSample' function.
+        * R/enrichment.R: Update 'compareEnrichment' according to changes in 'print' method.
+        * R/chromosome.R: Some minor changes.
+        * man/compareEnrichment.Rd: Update according to R code changes.
+        * man/print-methods.Rd: Update according to R code changes.
+
+
+2014-10-13 Mickael Canouil
+        * DESCRIPTION: version is 1.5.7
+        * R/*.R: Add function 'getEnrichSNP' and some minor corrections.
+        * man/*.Rd: Update according to R code changes and some corrections.
+        * NAMESPACE: Updata according to R code changes.
+        * inst/example.R: Update 'excludeFile' list according to changes in 'toyEnrichment' and 'extdata'.
+        * man/snpEnrichment-package.Rd: Update 'excludeFile' list according to changes in 'toyEnrichment' and 'extdata'.
+        * man/excludeSNP-methods.Rd: Update 'excludeFile' list according to changes in 'toyEnrichment' and 'extdata'.
+        * README.md: Update 'excludeFile' list according to changes in 'toyEnrichment' and 'extdata'.
+
+
+2014-10-10 Mickael Canouil
+        * DESCRIPTION: version is 1.5.6
+        * R/Global.R: 'readEnrichment' works with at least one snp list in 'snpListDir'.
+        * R/Global.R: Fix 'mclapply2' under operating systems which are not Linux.
+        * R/Global.R: Fix 'maxCores' under operating systems which are not Linux.
+        * man/snpEnrichment-package.Rd: Update example.
+        * inst/example.R: Update according to changes in 'snpEnrichment-package.Rd'.
+        * README.md: Update according to changes in 'snpEnrichment-package.Rd'.
+        * R/*.R: the "types" parameter is renamed "type".
+        * man/*.Rd: Update according to R code changes.
+
+
 2014-10-10 Mickael Canouil
         * DESCRIPTION: version is 1.5.5
-        * man/*.Rd: Replace 'summary' by 'print' according to R code changes.
-        * inst/example.R: Replace 'summary' by 'print' according to R code changes.
-        * README.md: Replace 'summary' by 'print' according to R code changes.
+        * man/*.Rd: Replace 'summary' by 'print'.
+        * inst/example.R: Replace 'summary' by 'print' according to changes in '*.Rd' files.
+        * README.md: Replace 'summary' by 'print' according to changes in '*.Rd' files.
 
 
 2014-10-10 Mickael Canouil

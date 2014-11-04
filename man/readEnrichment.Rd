@@ -25,7 +25,7 @@ readEnrichment(pattern = "Chrom", signalFile,
     The fields separator character have to be a space \code{" "} or a tabulation \code{"\\t"}.}
     \item{transcriptFile}{[character or data.frame]: character string naming a file or a \code{data.frame} with four columns: Chromomosome, trancript's name, Starting and Ending positions.
     \code{data(trancript)} can be use as parameters. Default is \code{FALSE}.}
-    \item{snpListDir}{[character]: character string naming a directory containing a list of SNPs for each chromosomes.}
+    \item{snpListDir}{[character]: character string naming a directory containing a list of SNPs for one or several chromosomes. \code{snpListDir} can be a single file with at least two columns: chromosome and rs name.}
     \item{snpInfoDir}{[character]: character string naming a directory containing the reference data in a PLINK format (*.bed, *.bim and *.fam).}
     \item{distThresh}{[numeric]: maximal distance (kb) between SNP and gene. \code{distThresh} is used if \code{transcriptFile} is set.}
     \item{sigThresh}{[numeric]: statistical threshold for signal (e.g. \code{sigThresh = 0.05} for a given GWAS signal) used to compute an Enrichment Ratio.}
@@ -47,7 +47,7 @@ Return an object of class \code{\linkS4class{Enrichment}} partly filled.
 \seealso{
 Overview : \code{\link{snpEnrichment-package}} \cr
 Classes : \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}}, \code{\linkS4class{EnrichSNP}} \cr
-Methods :  \code{\link{plot}}, \code{\link{reSample}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+Methods : \code{\link{plot}}, \code{\link{reSample}}, \code{\link{getEnrichSNP}}, \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
             \code{\link{enrichment}}, \code{\link{is.enrichment}}, \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr
 Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
 }
@@ -60,8 +60,7 @@ Functions : \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnri
 \keyword{initialize}
 
 \examples{
-\dontrun{
-snpListDir <- system.file("extdata/List",
+\dontrun{snpListDir <- system.file("extdata/List",
                           package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt",
                           package = "snpEnrichment")
@@ -70,7 +69,7 @@ data(transcript)
 transcriptFile <- transcript
 
 initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
-toy_M1 <- readEnrichment(pattern = "Chrom",
+toyData <- readEnrichment(pattern = "Chrom",
                          signalFile,
                          transcriptFile,
                          snpListDir,
@@ -80,5 +79,5 @@ toy_M1 <- readEnrichment(pattern = "Chrom",
                          LD = FALSE,
                          ldDir = NULL,
                          mc.cores = 1)
-toy_M1}
+toyData}
 }

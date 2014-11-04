@@ -10,20 +10,26 @@ setGeneric(name = "is.enrichment", def = function (object) {standardGeneric("is.
 setGeneric(name = "is.chromosome", def = function (object) {standardGeneric("is.chromosome")})
 setGeneric(name = "is.EnrichSNP", def = function (object) {standardGeneric("is.EnrichSNP")})
 setGeneric(name = "reset", def = function (object, i) {standardGeneric("reset")})
+setGeneric(name = "getEnrichSNP", def = function (object, type = "eSNP") {standardGeneric("getEnrichSNP")})
 
 setMethod(f = "reSample", signature = "ANY", definition = function (object, nSample, sigThresh, MAFpool, mc.cores) {
     if (!(is.enrichment(object) & is.chromosome(object))) {
-        stop('[Method:reSample] not available for "', class(object), '" object', call. = FALSE)
+        stop('[Method:reSample] not available for "', class(object), '" object.', call. = FALSE)
     } else {}
 })
 setMethod(f = "excludeSNP", signature = "ANY", definition = function (object, excludeFile, mc.cores = 1) {
     if (!is.enrichment(object)) {
-        stop('[Method:excludeSNP] not available for "', class(object), '" object', call. = FALSE)
+        stop('[Method:excludeSNP] not available for "', class(object), '" object.', call. = FALSE)
     } else {}
 })
 setMethod(f = "reset", signature = "ANY", definition = function (object, i) {
     if (!(is.enrichment(object) & is.chromosome(object))) {
-        stop('[Method:reset] not available for "', class(object), '" object', call. = FALSE)
+        stop('[Method:reset] not available for "', class(object), '" object.', call. = FALSE)
+    } else {}
+})
+setMethod(f = "getEnrichSNP", signature = "ANY", definition = function (object, type = "eSNP") {
+    if (!(is.enrichment(object))) {
+        stop('[Method:getEnrichSNP] not available for "', class(object), '" object.', call. = FALSE)
     } else {}
 })
 
@@ -52,7 +58,7 @@ GC <- function (verbose = getOption("verbose"), reset = FALSE) {
 
 
 maxCores <- function (mc.cores = 1) {
-    if (Sys.info()[["sysname"]] != "Windows") {
+    if (Sys.info()[["sysname"]] == "Linux") {
         nbCores <- detectCores()
         mc.cores.old <- mc.cores
         if (file.exists("/proc/meminfo")) {
@@ -71,13 +77,15 @@ maxCores <- function (mc.cores = 1) {
         } else {
             mc.cores <- ifelse(mc.cores.old>nbCores, nbCores, mc.cores.old)
         }
-    } else {}
+    } else {
+        mc.cores <- 1
+    }
     return(mc.cores)
 }
 
 
 mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L), mc.cleanup = TRUE, mc.allow.recursive = TRUE) {
-    if (Sys.info()[["sysname"]] == "Windows") {
+    if (Sys.info()[["sysname"]] != "Linux") {
         mc.cores <- 1
     } else {
         mc.cores <- min(detectCores(), mc.cores)
@@ -100,7 +108,7 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
                         colClasses = c("character", "numeric"), na.string = c("NA", ""),
                         check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"))
         } else {
-            stop('[Enrichment:initFiles] only " " and "\t" are allowed as columns separator in Signal file', call. = FALSE)
+            stop('[Enrichment:initFiles] only " " and "\t" are allowed as columns separator in Signal file.', call. = FALSE)
         }
     }
 
@@ -141,14 +149,14 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 
 .checkSnpInfoDir <- function (snpInfoDir) {
     snpInfoDir <- .checkFilePath(snpInfoDir)
-    if (length(grep("*.bim", list.files(snpInfoDir)))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", list.files(snpInfoDir))), " 'bim' files found when 22 is needed."), call. = FALSE)
+    if (length(list.files(snpInfoDir, pattern = "*.bim"))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.bim")), " 'bim' files found when 22 is needed."), call. = FALSE)
     } else {}
-    if (length(grep("*.bed", list.files(snpInfoDir)))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.bim", list.files(snpInfoDir))), " 'bed' files found when 22 is needed."), call. = FALSE)
+    if (length(list.files(snpInfoDir, pattern = "*.bed"))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.bed")), " 'bed' files found when 22 is needed."), call. = FALSE)
     } else {}
-    if (length(grep("*.fam", list.files(snpInfoDir)))!=22) {
-         stop(paste0("[Enrichment:initFiles] Only ", length(grep("*.fam", list.files(snpInfoDir))), " 'bim' files found when 22 is needed."), call. = FALSE)
+    if (length(list.files(snpInfoDir, pattern = "*.fam"))!=22) {
+         stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.fam")), " 'fam' files found when 22 is needed."), call. = FALSE)
     } else {}
     return(invisible())
 }
@@ -164,9 +172,8 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 
 .checkSnpListDir <- function (snpListDir, pattern) {
     snpListDir <- .checkFilePath(snpListDir)
-    howManyList <- length(grep(pattern, list.files(snpListDir)))
-    if (howManyList!=22) {
-         stop(paste0("[Enrichment:readEnrichment] Only ", howManyList, " snp list files found when 22 is needed."), call. = FALSE)
+    if (length(list.files(snpListDir, pattern = pattern))==0) {
+         stop(paste0("[Enrichment:readEnrichment] No snp list file found when at least one is needed."), call. = FALSE)
     } else {}
     return(invisible())
 }
@@ -174,17 +181,18 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 
 initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
     if (missing(snpInfoDir) | missing(signalFile)) {
-        stop('[Enrichment:initFiles] argument(s) missing', call. = FALSE)
+        stop('[Enrichment:initFiles] argument(s) missing.', call. = FALSE)
     } else {}
     snpInfoDir <- .checkFilePath(snpInfoDir)
-    FILES <- list.files(snpInfoDir)
+    FILES <- list.files(snpInfoDir, pattern = ".bim")
     .checkSnpInfoDir(snpInfoDir)
     .checkSignalFile(signalFile)
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
-        newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
         err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
         err2 <- try(.writeFreq(pattern = newPattern, snpInfoDir = snpInfoDir), silent = TRUE)
         cat(iChr, " ", sep = "")
@@ -204,7 +212,7 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
 
 writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldThresh = 0.8, depth = 1000, mc.cores = 1) {
     if (missing(pattern) | missing(snpInfoDir) | missing(signalFile) | missing(ldThresh)) {
-        stop('[Enrichment:writeLD] argument(s) missing', call. = FALSE)
+        stop('[Enrichment:writeLD] argument(s) missing.', call. = FALSE)
     } else {}
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
@@ -216,11 +224,13 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     } else {
         ldDir <- .checkFilePath(ldDir)
     }
-    FILES <- list.files(snpInfoDir)
+    FILES <- list.files(snpInfoDir, pattern = ".bim")
     cat("Compute LD for chromosome:\n  ")
     resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
-        newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
-        isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
+        # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
+        newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
+        # isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
+        isThereSignals <- list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE, pattern = ".signal")
         if (length(isThereSignals) != 22) {
             .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
         } else {}
@@ -253,21 +263,26 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 
 .readSNP <- function (pattern, snpListDir) {
-    snpListFile <- grep(pattern, list.files(snpListDir, full.names = TRUE), value = TRUE)[1] # add condition for empty 'snpListFile'
-    snpList <- read.delim(file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
-                            na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
-    switch(EXPR = as.character(ncol(snpList)),
-        "1" = {colnames(snpList) <- "SNP"},
-        "2" = {colnames(snpList) <- c("CHR", "SNP")},
-        "3" = {colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")},
-        colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
-    )
-    if (ncol(snpList)>=3) {
-        snpList <- snpList[, c("SNP", "TRANSCRIPT")]
-    } else {}
-    if (nrow(snpList)!=0) {
-        snpList[, "eSNP"] <- 1
-    } else {}
+    # snpListFile <- grep(pattern, sort(list.files(snpListDir, full.names = TRUE)), value = TRUE)[1]
+    snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9]"), full.names = TRUE)
+    if (is.na(snpListFile)) {
+        snpList <- data.frame()
+    } else {
+        snpList <- read.delim(file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
+                                na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
+        switch(EXPR = as.character(ncol(snpList)),
+            "1" = {colnames(snpList) <- "SNP"},
+            "2" = {colnames(snpList) <- c("CHR", "SNP")},
+            "3" = {colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")},
+            colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
+        )
+        if (ncol(snpList)>=3) {
+            snpList <- snpList[, c("SNP", "TRANSCRIPT")]
+        } else {}
+        if (nrow(snpList)!=0) {
+            snpList[, "eSNP"] <- 1
+        } else {}
+    }
     return(snpList)
 }
 
@@ -282,7 +297,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
             transcript <- transcriptFile[, 1:4]
             colnames(transcript) <- c("TRANSCRIPT", "CHR", "START", "END")
         } else {
-            stop('[Enrichment:readEnrichment] "transcriptFile" required "matrix", "data.frame" or "txt file"', call. = FALSE)
+            stop('[Enrichment:readEnrichment] "transcriptFile" required "matrix", "data.frame" or "txt file".', call. = FALSE)
         }
     }
     return(transcript)
@@ -313,7 +328,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
         "7" = {ldData <- read.delim(file = IN, header = TRUE, stringsAsFactors = FALSE, colClasses = c("NULL", "NULL", "character", "NULL", "NULL", "character", "NULL"),
                                     na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, sep = "")
         },
-        stop(paste0('[Enrichment:readEnrichment] "', pattern, '.ld" structure must be a matrix file with columns:\n       c("SNP_A", "SNP_B") or c("CHR_A", "BP_A", "SNP_A", "CHR_B", "BP_B", "SNP_B", "R2")"'), call. = FALSE)
+        stop(paste0('[Enrichment:readEnrichment] "', pattern, '.ld" structure must be a matrix file with columns:\n       c("SNP_A", "SNP_B") or c("CHR_A", "BP_A", "SNP_A", "CHR_B", "BP_B", "SNP_B", "R2")".'), call. = FALSE)
     )
     return(ldData)
 }
@@ -340,19 +355,26 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 
 .readFiles <- function (pattern, snpInfoDir, snpListDir, distThresh) {
-    newPattern <- unlist(strsplit(grep(paste0(pattern, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
-    eSNP <- .readSNP(pattern = newPattern, snpListDir = snpListDir)
-    signal <- .readSignal(pattern = newPattern)
-    plinkData <- .readFreq(pattern = newPattern, snpInfoDir = snpInfoDir)
+    fullPattern <- gsub(".bim", "", grep(paste0(pattern, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
+    signalPattern <- gsub(".signal", "", grep(paste0(pattern, "[^0-9]"), list.files(paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/"), pattern = ".signal"), value = TRUE))
+    eSNP <- .readSNP(pattern = fullPattern, snpListDir = snpListDir)
+    signal <- .readSignal(pattern = signalPattern)
+    plinkData <- .readFreq(pattern = fullPattern, snpInfoDir = snpInfoDir)
 
     signalPlink <- merge(signal, plinkData, by = "SNP")
     if (nrow(eSNP)!=0) {
         eSNPunique <- eSNP[!duplicated(eSNP[, "SNP"]), ]
         snpSignal <- merge(signalPlink, eSNPunique[, c("SNP", "eSNP")], by = "SNP", all.x = TRUE)
         snpSignal[, "eSNP"][is.na(snpSignal[, "eSNP"])] <- 0
+        snpLoss <- c(
+            length(eSNP[, "SNP"]),
+            length(unique(eSNP[, "SNP"])),
+            length(unique(intersect(eSNP[, "SNP"], signal[!is.na(signal[, "PVALUE"]), "SNP"])))
+        )
     } else {
         snpSignal <- signalPlink
         snpSignal[, "eSNP"] <- 0
+        snpLoss <- c(0, 0, 0)
     }
 
     temp <- unique(snpSignal[, c("SNP", "PVALUE", "CHR", "POS", "MAF", "eSNP")])
@@ -360,47 +382,83 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     data[, "xSNP"] <- 0
     if (any(duplicated(data[, "SNP"]))) {
         cat(data[, "SNP"][duplicated(data[, "SNP"])], "\n")
-        stop('[Enrichment:readEnrichment] Duplicated SNPs in Signal', call. = FALSE)
+        stop('[Enrichment:readEnrichment] Duplicated SNPs in Signal.', call. = FALSE)
     } else {
         rownames(data) <- data[, "SNP"]
     }
-    snpLoss <- c(length(eSNP[, "SNP"]),
-                    length(unique(eSNP[, "SNP"])),
-                    length(unique(intersect(eSNP[, "SNP"], signal[!is.na(signal[, "PVALUE"]), "SNP"]))))
     return(list(data = data, snpLoss = snpLoss))
+}
+
+
+.splitByChrom <- function (pattern, snpListFile, directory) {
+    if (missing(snpListFile)) {
+        # stop('[Enrichment:splitByChrom] argument(s) missing.', call. = FALSE)
+        stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
+    } else {}
+    snpList <- read.delim(file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
+                            na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
+    switch(EXPR = as.character(ncol(snpList)),
+        # "1" = {stop('[Enrichment:splitByChrom] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
+        "1" = {stop('[Enrichment:readEnrichment] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
+        "2" = {colnames(snpList) <- c("CHR", "SNP")},
+        "3" = {colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")},
+        colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
+    )
+    if (ncol(snpList)>3) {
+        snpList <- snpList[, c("CHR", "SNP", "TRANSCRIPT")]
+    } else {}
+    filePathDetails <- unlist(strsplit(snpListFile, "/"))
+    if (is.null(directory)) {
+        filePath <- paste0(c(filePathDetails[-length(filePathDetails)], ""), collapse = "/")
+    } else {
+        dir.create(paste0(directory, "snpList/"), showWarnings = FALSE)
+        filePath <- paste0(directory, "snpList/")
+    }
+    by(snpList, snpList[, "CHR"], function (snpListChr) {
+        write.table(snpListChr, file = paste0(filePath, pattern, unique(snpListChr[, "CHR"]), "-", filePathDetails[length(filePathDetails)]), sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
+    })
+    # cat(paste0('*** File "', filePathDetails[length(filePathDetails)], '" has been splitted into ', length(unique(snpList[, "CHR"])), ' chromosomes. ***\n\n'))
+    return(filePath)
 }
 
 
 readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALSE, snpListDir, snpInfoDir, distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, mc.cores = 1) {
     cat("############# Read Enrichment ##############\n")
     if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
-        stop('[Enrichment:readEnrichment] argument(s) missing', call. = FALSE)
+        stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
     } else {}
-    tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment")
-    if (length(grep("\\.signal", list.files(tmpDir))) != 22 & length(grep("\\.all", list.files(tmpDir))) != 22) { # change condition to work with missing chromosome (eSNP)
+    tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/")
+    if (length(list.files(tmpDir, pattern = "\\.signal")) != 22 & length(list.files(tmpDir, pattern = "\\.all")) != 22) {
         stop('[Enrichment:readEnrichment] "initFiles" must be run before.', call. = FALSE)
     } else {}
 
     if (is.null(ldDir)) {
-        if (LD & length(grep("\\.ld", list.files(tmpDir))) != 22) {
+        if (LD & length(list.files(tmpDir, pattern = "\\.ld")) != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     } else {
-        if (LD & length(grep("\\.ld", list.files(ldDir))) != 22) {
+        if (LD & length(list.files(ldDir, pattern = "\\.ld")) != 22) {
             stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
         } else {}
     }
 
     snpInfoDir <- .checkFilePath(snpInfoDir)
-    snpListDir <- .checkFilePath(snpListDir)
     .checkSnpInfoDir(snpInfoDir)
     .checkSignalFile(signalFile)
-    .checkSnpListDir(snpListDir, pattern)
+
+    if (length(list.files(snpListDir)) == 0) {
+        snpListDir <- .splitByChrom(pattern = pattern, snpListFile = snpListDir, directory = tmpDir)
+    } else {
+        snpListDir <- .checkFilePath(snpListDir)
+        .checkSnpListDir(snpListDir, pattern)
+    }
+
     cat("  Read Chromosomes:\n    ")
-    resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) { # change '22' to work with missing chromosome (eSNP)
+    resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
         if (LD) {
-            newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
+            # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
+            newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
             linkageData <- .readLD(pattern = newPattern, snpInfoDir = snpInfoDir, ldDir = ldDir)
 
             data <- files$data[order(files$data$POS), ]
@@ -471,7 +529,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
         if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " ")))>1) {
             signal <- read.delim(file = signalFile, header = TRUE, sep = " ", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"), stringsAsFactors = FALSE)
         } else {
-            stop('[Enrichment:readEnrichment] only " " and "\t" are allowed as columns separator in Signal file', call. = FALSE)
+            stop('[Enrichment:readEnrichment] only " " and "\t" are allowed as columns separator in Signal file.', call. = FALSE)
         }
     }
     loss[1, c(1, 2)] <- c(length(signal[, "SNP"]), length(unique(signal[, "SNP"])))
@@ -519,10 +577,12 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
         } else {}
     }
 
-    unlink(tmpDir, recursive = TRUE)
+    # unlink(tmpDir, recursive = TRUE) # add parameter to ask if temporary directory should be cleaned
     if (is.null(ldDir)) {
-        formal[["ldDir"]] <- paste0(tmpDir, "/snpEnrichment/")
-    } else {}
+        formal[["ldDir"]] <- tmpDir
+    } else {
+        formal[["ldDir"]] <- .checkFilePath(formal[["ldDir"]])
+    }
     result@Call$readEnrichment <- formal
 
     result <- computeER(object = result, sigThresh = sigThresh, mc.cores = mc.cores)
@@ -661,7 +721,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     eEnrichment <- object1@eSNP@Table
     eEnrichRatio <- object1@eSNP@EnrichmentRatio
     eSNPlist <- object1@eSNP@List
-    eList <- union(object1@eSNP@List, object2@eSNP@List) # All eSNP in object1 and object2
+    eList <- union(object1@eSNP@List, object2@eSNP@List)
     if (isLD) {
         xList <- union(object1@xSNP@List, object2@xSNP@List)
         data <- DATA[DATA[, "SNP"] %in% union(eList, xList), ]
