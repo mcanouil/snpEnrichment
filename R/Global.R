@@ -37,6 +37,46 @@ setMethod(f = "getEnrichSNP", signature = "ANY", definition = function (object, 
 .verbose <- function (expr) {return(invisible(capture.output(expr)))}
 
 
+
+
+#' Full Garbage Collection
+#' 
+#' \code{\link{GC}} performs garbage collection until free memory indicators
+#' show no change.
+#' 
+#' 
+#' @param verbose [logical]: if \code{TRUE}, the garbage collection prints
+#' statistics about cons cells and the space allocated for vectors.
+#' @param reset [logical]: if \code{TRUE} the values for maximum space used are
+#' reset to the current values.
+#' @return \code{\link{GC}} returns a matrix with rows \code{"Ncells"} (_cons
+#' cells_), usually 28 bytes each on 32-bit systems and 56 bytes on 64-bit
+#' systems, and \code{"Vcells"} (_vector cells_, 8 bytes each), and columns
+#' \code{"used"} and \code{"gc trigger"}, each also interpreted in megabytes
+#' (rounded up to the next 0.1Mb).
+#' 
+#' If maxima have been set for either \code{"Ncells"} or \code{"Vcells"}, a
+#' fifth column is printed giving the current limits in Mb (with \code{NA}
+#' denoting no limit).
+#' 
+#' The final two columns show the maximum space used since the last call to
+#' \code{GC(reset=TRUE)} (or since R started).
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso The \code{R Internals} manual.
+#' 
+#' \code{Memory} on R's memory management, and \code{gctorture} if you are an R
+#' developer.
+#' 
+#' \code{reg.finalizer} for actions to happen at garbage collection.
+#' @keywords GC garbage
+#' @examples
+#' 
+#' GC() # - do it now
+#' x <- integer(100000); for(i in 1:18) x <- c(x,i)
+#' GC(TRUE)
+#' GC(reset=TRUE)
+#' 
+#' @export GC
 GC <- function (verbose = getOption("verbose"), reset = FALSE) {
     while (!identical(gc(verbose, reset)[, 4], gc(verbose, reset)[, 4])) {}
     return(gc(verbose, reset))
@@ -84,6 +124,51 @@ maxCores <- function (mc.cores = 1) {
 }
 
 
+
+
+#' Parallel Versions of \code{lapply} with cores and memory control
+#' 
+#' \code{\link{mclapply2}} is a mclapply modification from parallel package, to
+#' avoid a memory overload. The maximum number of cores is computed depending
+#' on the amount of memory used by the parent process and the amount of free
+#' memory available on the machine. Note: This number is under-estimated.
+#' 
+#' 
+#' @param X a vector (atomic or list) or an expressions vector.  Other objects
+#' (including classed objects) will be coerced by \code{\link{as.list}}.
+#' @param FUN the function to be applied to (\code{mclapply}) each element of
+#' \code{X} or (\code{mcmapply}) in parallel to \code{\dots{}}.
+#' @param ... For \code{mclapply}, optional arguments to \code{FUN}.
+#' @param mc.preschedule if set to \code{TRUE} then the computation is first
+#' divided to (at most) as many jobs are there are cores and then the jobs are
+#' started, each job possibly covering more than one value.  If set to
+#' \code{FALSE} then one job is forked for each value of \code{X}.  The former
+#' is better for short computations or large number of values in \code{X}, the
+#' latter is better for jobs that have high variance of completion time and not
+#' too many values of \code{X} compared to \code{mc.cores}.
+#' @param mc.set.seed See \code{mcparallel}.
+#' @param mc.silent if set to \code{TRUE} then all output on \file{stdout} will
+#' be suppressed for all parallel processes forked (\file{stderr} is not
+#' affected).
+#' @param mc.cores The number of cores to use, i.e. at most how many child
+#' processes will be run simultaneously.  The option is initialized from
+#' environment variable \env{MC_CORES} if set.  Must be at least one, and
+#' parallelization requires at least two cores.
+#' @param mc.cleanup if set to \code{TRUE} then all children that have been
+#' forked by this function will be killed (by sending \code{SIGTERM}) before
+#' this function returns.  Under normal circumstances \code{mclapply} waits for
+#' the children to deliver results, so this option usually has only effect when
+#' \code{mclapply} is interrupted. If set to \code{FALSE} then child processes
+#' are collected, but not forcefully terminated.  As a special case this
+#' argument can be set to the number of the signal that should be used to kill
+#' the children instead of \code{SIGTERM}.
+#' @param mc.allow.recursive Unless true, calling \code{mclapply} in a child
+#' process will use the child and not fork again.
+#' @return A list of the same length as \code{X} and named by \code{X}.
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso \code{mclapply} from package parallel.
+#' @keywords mclapply2 parallel core
+#' @export mclapply2
 mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L), mc.cleanup = TRUE, mc.allow.recursive = TRUE) {
     if (Sys.info()[["sysname"]] != "Linux") {
         mc.cores <- 1
@@ -179,6 +264,57 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 }
 
 
+
+
+#' Initialize files for enrichment analysis
+#' 
+#' \code{\link{initFiles}} create several files needed to run
+#' \code{\link{readEnrichment}}. ".frq" and ".signal" are created with PLINK.
+#' LD computation can be run with \code{\link{writeLD} or with PLINK}.
+#' 
+#' 
+#' @param pattern [character]: character string containing a expression to be
+#' matched with all chromosomes files (e.g."Chrom" for files which start by
+#' "Chrom" followed by the chromosome number).
+#' @param snpInfoDir [character]: character string naming a directory
+#' containing the reference data in a PLINK format (*.bed, *.bim and *.fam).
+#' @param signalFile [character]: the name of the signal file which the data
+#' are to be read from (2 columns: "SNP" and "PVALUE").  Each row of the table
+#' appears as one line of the file.  If it does not contain an
+#' \code{_absolute_} path, the file name is \code{_relative_} to the current
+#' working directory, \code{getwd}.  The fields separator character have to be
+#' a space \code{" "} or a tabulation \code{"\t"}.
+#' @param mc.cores [numeric]: the number of cores to use (default is
+#' \code{mc.cores=1}), i.e. at most how many child processes will be run
+#' simultaneously.  Must be at least one, and parallelization requires at least
+#' two cores.
+#' @return This function writes several files, in the temporary directory
+#' (defined in \code{R_SESSION_TMPDIR}), nothing else is returned. These files
+#' are used to build an \code{\linkS4class{Enrichment}} object by
+#' \code{\link{readEnrichment}} in order to compute enrichment analysis
+#' (\code{\link{reSample}}).
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
+#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
+#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
+#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
+#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
+#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
+#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
+#' @keywords initFiles initialize
+#' @examples
+#' 
+#' \dontrun{snpInfoDir <- system.file("extdata/snpInfo",
+#'                           package = "snpEnrichment")
+#' signalFile <- system.file("extdata/Signal/toySignal.txt",
+#'                           package = "snpEnrichment")
+#' initFiles(pattern = "Chrom",
+#'           snpInfoDir,
+#'           signalFile,
+#'           mc.cores = 1)}
+#' 
+#' @export initFiles
 initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
     if (missing(snpInfoDir) | missing(signalFile)) {
         stop('[Enrichment:initFiles] argument(s) missing.', call. = FALSE)
@@ -210,6 +346,60 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
 }
 
 
+
+
+#' Linkage Disequilibrium (LD) computation with PLINK
+#' 
+#' \code{\link{writeLD}} write a '.ld' file for each chromosomes which contains
+#' the LD (r^2).
+#' 
+#' 
+#' @param pattern [character]: character string containing a expression to be
+#' matched with all chromosomes files (e.g."Chrom" for files which start by
+#' "Chrom" followed by the chromosome number).
+#' @param snpInfoDir [character]: character string naming a directory
+#' containing the reference data in a PLINK format (*.bed, *.bim and *.fam).
+#' @param signalFile [character]: the name of the signal file which the data
+#' are to be read from (2 columns: "SNP" and "PVALUE").  Each row of the table
+#' appears as one line of the file.  If it does not contain an
+#' \code{_absolute_} path, the file name is \code{_relative_} to the current
+#' working directory, \code{getwd}.  The fields separator character have to be
+#' a space \code{" "} or a tabulation \code{"\t"}.
+#' @param ldDir [character]: character string naming a directory where the
+#' linkage Disequilibrium files should be written (default \code{ldDir=NULL} is
+#' in temporary directory).
+#' @param ldThresh [numeric]: threshold value for LD calculation.
+#' @param depth [numeric]: this parameter is mandatory and controls the maximum
+#' lag between SNPs considered.
+#' @param mc.cores [numeric]: the number of cores to use (default is
+#' \code{mc.cores=1}), i.e. at most how many child processes will be run
+#' simultaneously.  Must be at least one, and parallelization requires at least
+#' two cores.
+#' @return One ".ld" file per chromosome is returned by \code{\link{writeLD}}
+#' in \code{snpInfoDir} directory.
+#' @note The LD computation can take a long time depending on number of SNPs in
+#' \code{signalFile}. It is recommended to save LD results in a directory
+#' (\code{ldDir}) which is not a temporary directory.
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
+#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
+#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
+#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
+#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
+#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
+#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
+#' @keywords initFiles Enrichment
+#' @examples
+#' 
+#' \dontrun{signalFile <- system.file("extdata/Signal/toySignal.txt",
+#'                           package = "snpEnrichment")
+#' snpInfoDir <- system.file("extdata/snpInfo",
+#'                           package = "snpEnrichment")
+#' writeLD(pattern = "Chrom", snpInfoDir, signalFile,
+#'         ldDir = NULL, ldThresh = 0.8, mc.cores = 1)}
+#' 
+#' @export writeLD
 writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldThresh = 0.8, depth = 1000, mc.cores = 1) {
     if (missing(pattern) | missing(snpInfoDir) | missing(signalFile) | missing(ldThresh)) {
         stop('[Enrichment:writeLD] argument(s) missing.', call. = FALSE)
@@ -422,6 +612,84 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 }
 
 
+
+
+#' Read and create EnrichmentRatio object
+#' 
+#' Read files created by \code{\link{initFiles}} and create an
+#' \code{\linkS4class{Enrichment}} object.
+#' 
+#' 
+#' @param pattern [character]: character string containing a expression to be
+#' matched with all chromosomes files (e.g."Chrom" for files which start by
+#' "Chrom" followed by the chromosome number).
+#' @param signalFile [character]: the name of the signal file which the data
+#' are to be read from (2 columns: "SNP" and "PVALUE").  Each row of the table
+#' appears as one line of the file.  If it does not contain an
+#' \code{_absolute_} path, the file name is \code{_relative_} to the current
+#' working directory, \code{getwd}.  The fields separator character have to be
+#' a space \code{" "} or a tabulation \code{"\t"}.
+#' @param transcriptFile [character or data.frame]: character string naming a
+#' file or a \code{data.frame} with four columns: Chromomosome, trancript's
+#' name, Starting and Ending positions.  \code{data(trancript)} can be use as
+#' parameters. Default is \code{FALSE}.
+#' @param snpListDir [character]: character string naming a directory
+#' containing a list of SNPs for one or several chromosomes. \code{snpListDir}
+#' can be a single file with at least two columns: chromosome and rs name.
+#' @param snpInfoDir [character]: character string naming a directory
+#' containing the reference data in a PLINK format (*.bed, *.bim and *.fam).
+#' @param distThresh [numeric]: maximal distance (kb) between SNP and gene.
+#' \code{distThresh} is used if \code{transcriptFile} is set.
+#' @param sigThresh [numeric]: statistical threshold for signal (e.g.
+#' \code{sigThresh = 0.05} for a given GWAS signal) used to compute an
+#' Enrichment Ratio.
+#' @param LD [logical]: \code{LD=TRUE} (default is \code{FALSE}) read LD
+#' compute with \code{\link{writeLD}} function or with PLINK.  Note that, this
+#' setting can increase the computation's time, depending on number of SNPs in
+#' the signal file.
+#' @param ldDir [character]: character string naming a directory where the
+#' linkage disequilibrium files should be read (default \code{ldDir=NULL} is in
+#' temporary directory). LD files can be the LD output from plink.
+#' @param mc.cores [numeric]: the number of cores to use (default is
+#' \code{mc.cores=1}), i.e. at most how many child processes will be run
+#' simultaneously.  Must be at least one, and parallelization requires at least
+#' two cores.
+#' @return Return an object of class \code{\linkS4class{Enrichment}} partly
+#' filled.
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
+#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
+#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
+#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
+#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
+#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
+#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
+#' @keywords readEnrichment initFiles writeLD initialize
+#' @examples
+#' 
+#' \dontrun{snpListDir <- system.file("extdata/List",
+#'                           package = "snpEnrichment")
+#' signalFile <- system.file("extdata/Signal/toySignal.txt",
+#'                           package = "snpEnrichment")
+#' snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
+#' data(transcript)
+#' transcriptFile <- transcript
+#' 
+#' initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
+#' toyData <- readEnrichment(pattern = "Chrom",
+#'                          signalFile,
+#'                          transcriptFile,
+#'                          snpListDir,
+#'                          snpInfoDir,
+#'                          distThresh = 1000,
+#'                          sigThresh = 0.05,
+#'                          LD = FALSE,
+#'                          ldDir = NULL,
+#'                          mc.cores = 1)
+#' toyData}
+#' 
+#' @export readEnrichment
 readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALSE, snpListDir, snpInfoDir, distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, mc.cores = 1) {
     cat("############# Read Enrichment ##############\n")
     if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
