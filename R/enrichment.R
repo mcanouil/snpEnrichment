@@ -17,6 +17,61 @@ setClass(
         Loss = data.frame(),
         Call = list(readEnrichment = list(pattern = NULL, signalFile = NULL, transcriptFile = NULL, snpListDir = NULL, snpInfoDir = NULL,
                                             distThresh = NULL, sigThresh = NULL, LD = NULL, ldDir = NULL, mc.cores = NULL),
+
+
+#' Compute enrichment analysis on an \code{\linkS4class{Enrichment}} object
+#' 
+#' After \code{\link{initFiles}} and \code{\link{readEnrichment}} has been run.
+#' \code{\link{reSample}} computes a statistic value and a p-value for each
+#' chromosomes and for the whole genome.
+#' 
+#' 
+#' @name reSample
+#' @aliases reSample reSample-methods reSample,Chromosome-method
+#' reSample,Enrichment-method reSample,ANY-method
+#' @docType methods
+#' @param object [Enrichment or Chromosome]: an object to be updated. It is
+#' intended, an object returned by the \code{\link{readEnrichment}} function.
+#' @param nSample [numeric]: the number of resampling done by
+#' \code{\link{reSample}} for p-values computation (minimum is 100).
+#' @param empiricPvalue [logical]: \code{empiricPvalue=TRUE} (default) compute
+#' PValue based on the null distribution (resampling).  If
+#' \code{empiricPvalue=TRUE}, the empirical p-values are computed instead.
+#' @param sigThresh [numeric]: statistical threshold for signal (e.g.
+#' \code{sigThresh = 0.05} for a given GWAS signal) used to compute an
+#' Enrichment Ratio.
+#' @param MAFpool [vector(numeric)]: either a numeric vector giving the breaks
+#' points of intervals into which SNP's MAF (Minor Allele Frequency) is to be
+#' split.
+#' @param mc.cores [numeric]: the number of cores to use (default is
+#' \code{mc.cores=1}), i.e. at most how many child processes will be run
+#' simultaneously.  Must be at least one, and parallelization requires at least
+#' two cores.
+#' @param onlyGenome [logical]: \code{onlyGenome=TRUE} (default) compute
+#' resampling step for all chromosomes.
+#' @return Return the object given in argument, updated by the resampling
+#' results.
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
+#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
+#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
+#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
+#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
+#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
+#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
+#' @keywords reSample methods
+#' @examples
+#' 
+#' \dontrun{data(toyEnrichment)
+#' reSample(object = toyEnrichment,
+#'          nSample = 10,
+#'          empiricPvalue = TRUE,
+#'          MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
+#'          onlyGenome = TRUE)
+#' toyEnrichment}
+#' 
+#' @export reSample
                         reSample = list(object = NULL, nSample = NULL, empiricPvalue = NULL, MAFpool = NULL, mc.cores = NULL, onlyGenome = NULL)),
         eSNP = enrichSNP(),
         xSNP = enrichSNP(),
