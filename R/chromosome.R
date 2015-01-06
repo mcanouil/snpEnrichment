@@ -175,7 +175,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
             names(i) <- NULL
             return(i)
         }))
-        LDblockTmp <- mclapply2(seq(length(byBlock)), mc.cores = nbCores, function (jBlock) {
+        LDblockTmp <- mclapply2(seq_along(byBlock), mc.cores = nbCores, function (jBlock) {
             isIn <- which(data[, "SNP"] %in% byBlock[[jBlock]])
             if (length(isIn) > 0) {
                 return(range(data[which(data[, "SNP"] %in% byBlock[[jBlock]]), "POS"]))
