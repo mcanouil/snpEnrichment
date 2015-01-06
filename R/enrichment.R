@@ -639,7 +639,7 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function (objec
         formal <- as.list(names(formals(as.character(sysCall))))
         names(formal) <- formal
         if (is.null(names(argsSNP))) {
-            names(argsSNP) <- names(formal)[seq(length(argsSNP))]
+            names(argsSNP) <- names(formal)[seq_along(argsSNP)]
         } else {
             emptyNames <- which(names(argsSNP)=="")
             names(argsSNP)[emptyNames] <- names(formal)[emptyNames]
