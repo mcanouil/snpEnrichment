@@ -1089,7 +1089,8 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
         is.installed <- function (mypkg) {
             is.element(mypkg, installed.packages()[,1])
         }
-        if (all(is.installed(c("ggplot2", "grid")))) {
+        # if (all(is.installed(c("ggplot2", "grid")))) {
+        if (require("ggplot2") & require("grid")) {
             require(ggplot2)
             require(grid)
 
