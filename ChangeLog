@@ -1,16 +1,17 @@
-2015-01-15 Mickael Canouil
+2015-02-09 Mickael Canouil
         * DESCRIPTION: version is 1.6.3
-        *R/enrichment.R: Minor changes.
+        * DESCRIPTION: Change maintainer email.
+        * R/enrichment.R: Minor changes.
 
 2015-01-05 Mickael Canouil
         * DESCRIPTION: version is 1.6.2
-        *R/enrichment.R: Minor changes.
-        *R/chromosome.R: Minor changes.
-        *R/Global.R: Minor changes.
+        * R/enrichment.R: Minor changes.
+        * R/chromosome.R: Minor changes.
+        * R/Global.R: Minor changes.
 
 2014-11-17 Mickael Canouil
         * DESCRIPTION: version is 1.6.1
-        *R/enrichment.R: Minor changes.
+        * R/enrichment.R: Minor changes.
 
 2014-11-04 Mickael Canouil
         * DESCRIPTION: version is 1.6.0
