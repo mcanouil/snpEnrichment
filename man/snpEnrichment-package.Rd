@@ -13,9 +13,9 @@ Implements classes and methods for large-scale SNP enrichment analysis (e.g. SNP
     \tabular{ll}{
     Package: \tab snpEnrichment\cr
     Title: \tab SNPs enrichment analysis\cr
-    Author: \tab Mickael Canouil <mickael.canouil at good.ibl.fr>\cr
+    Author: \tab Mickael Canouil\cr
     Contributor: \tab Loic Yengo\cr
-    Maintainer: \tab Mickael Canouil <mickael.canouil at good.ibl.fr>\cr
+    Maintainer: \tab Mickael Canouil\cr
     % Description: \tab Implements classes and methods for large-scale SNP enrichment analysis \cr (e.g. SNPs associated with genes expression and a GWAS signal) \cr
     License: \tab GPL (>= 2)\cr
     Depends: \tab R (>= 3.0.0), methods\cr
