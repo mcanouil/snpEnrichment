@@ -1,3 +1,7 @@
+2015-03-10 Mickael Canouil
+        * DESCRIPTION: version is 1.6.4
+        * R/enrichment.R: Update 'getEnrichSNP' to add information about related eSNP for xSNP.
+
 2015-02-09 Mickael Canouil
         * DESCRIPTION: version is 1.6.3
         * DESCRIPTION: Change maintainer email.
