@@ -1280,8 +1280,8 @@ setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function (o
                 dataLDtmp <- dataLD[dataLD %in% xSNP[, "SNP"]]
                 dataLDtmp <- cbind(SNP_A = names(dataLDtmp), SNP_B = dataLDtmp)
                 dataLDtmp <- dataLDtmp[dataLDtmp[, "SNP_A"]%in%dataSNP[dataSNP[, "eSNP"]%in%1, "SNP"], ]
-                xSNPld <- do.call("rbind", by(dataLDtmp, dataLDtmp[, "SNP_B"], function (iDta) {
-                    cbind(xSNP = unique(iDta[, "SNP_B"]), LD_with_eSNP = paste(iDta[, "SNP_A"], collapse = ";"))
+                xSNPld <- do.call("rbind",by(dataLDtmp, dataLDtmp[, "SNP_B"], function (iDta) {
+                      cbind(xSNP = unique(as.character(iDta[, "SNP_B"])), LD_with_eSNP = paste(iDta[, "SNP_A"], collapse = ";"))
                 }))
                 merge(xSNP, xSNPld, by.x = "SNP", by.y = "xSNP")
             } else {
