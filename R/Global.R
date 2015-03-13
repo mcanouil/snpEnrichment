@@ -392,13 +392,11 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
 
 .splitByChrom <- function (pattern, snpListFile, directory) {
     if (missing(snpListFile)) {
-        # stop('[Enrichment:splitByChrom] argument(s) missing.', call. = FALSE)
         stop('[Enrichment:readEnrichment] argument(s) missing.', call. = FALSE)
     } else {}
     snpList <- read.delim(file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
                             na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
     switch(EXPR = as.character(ncol(snpList)),
-        # "1" = {stop('[Enrichment:splitByChrom] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
         "1" = {stop('[Enrichment:readEnrichment] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)},
         "2" = {colnames(snpList) <- c("CHR", "SNP")},
         "3" = {colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")},
