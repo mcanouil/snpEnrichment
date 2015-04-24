@@ -30,16 +30,16 @@
         <section id="main-content">
           <p><a href="https://travis-ci.org/mcanouil/snpEnrichment"><img src="https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master" alt="Build Status"></a></p>
 
-<h2>
-<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h2>
+<h1>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h1>
 
 <p>Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.</p>
 
-<h2>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+<h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
 
-<h3>
-<a id="1-install-and-load-snpenrichment" class="anchor" href="#1-install-and-load-snpenrichment" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Install and load snpEnrichment</h3>
+<h2>
+<a id="1-install-and-load-snpenrichment" class="anchor" href="#1-install-and-load-snpenrichment" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Install and load snpEnrichment</h2>
 
 <p>To install the stable version from CRAN, simply run the following from an R console:</p>
 
@@ -54,8 +54,8 @@
 
 <div class="highlight highlight-r"><pre>library(<span class="pl-smi">snpEnrichment</span>)</pre></div>
 
-<h3>
-<a id="2-prepare-data" class="anchor" href="#2-prepare-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Prepare data</h3>
+<h2>
+<a id="2-prepare-data" class="anchor" href="#2-prepare-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Prepare data</h2>
 
 <div class="highlight highlight-r"><pre><span class="pl-smi">snpInfoDir</span> <span class="pl-k">&lt;-</span> system.file(<span class="pl-s"><span class="pl-pds">"</span>extdata/snpInfo<span class="pl-pds">"</span></span>, <span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>snpEnrichment<span class="pl-pds">"</span></span>)
 <span class="pl-smi">signalFile</span> <span class="pl-k">&lt;-</span> system.file(<span class="pl-s"><span class="pl-pds">"</span>extdata/Signal/toySignal.txt<span class="pl-pds">"</span></span>, <span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>snpEnrichment<span class="pl-pds">"</span></span>)
@@ -65,8 +65,8 @@ initFiles(<span class="pl-v">pattern</span> <span class="pl-k">=</span> <span cl
 writeLD(<span class="pl-v">pattern</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Chrom<span class="pl-pds">"</span></span>, <span class="pl-smi">snpInfoDir</span>, <span class="pl-smi">signalFile</span>, <span class="pl-v">ldDir</span> <span class="pl-k">=</span> <span class="pl-c1">NULL</span>,
         <span class="pl-v">ldThresh</span> <span class="pl-k">=</span> <span class="pl-c1">0.8</span>, <span class="pl-v">depth</span> <span class="pl-k">=</span> <span class="pl-c1">1000</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>)</pre></div>
 
-<h3>
-<a id="3-read-data" class="anchor" href="#3-read-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Read data</h3>
+<h2>
+<a id="3-read-data" class="anchor" href="#3-read-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Read data</h2>
 
 <div class="highlight highlight-r"><pre><span class="pl-smi">snpListDir</span> <span class="pl-k">&lt;-</span> system.file(<span class="pl-s"><span class="pl-pds">"</span>extdata/List<span class="pl-pds">"</span></span>, <span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>snpEnrichment<span class="pl-pds">"</span></span>)
 data(<span class="pl-smi">transcript</span>)
@@ -79,8 +79,8 @@ data(<span class="pl-smi">transcript</span>)
 )
 <span class="pl-smi">toyData</span></pre></div>
 
-<h3>
-<a id="4-compute-results" class="anchor" href="#4-compute-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Compute results</h3>
+<h2>
+<a id="4-compute-results" class="anchor" href="#4-compute-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Compute results</h2>
 
 <div class="highlight highlight-r"><pre>reSample(<span class="pl-v">object</span> <span class="pl-k">=</span> <span class="pl-smi">toyData</span>,
          <span class="pl-v">nSample</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>,
@@ -89,8 +89,8 @@ data(<span class="pl-smi">transcript</span>)
          <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,
          <span class="pl-v">onlyGenome</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)</pre></div>
 
-<h3>
-<a id="5-further-analysis-exclude-snp-from-original-list" class="anchor" href="#5-further-analysis-exclude-snp-from-original-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Further analysis: Exclude SNP from original list.</h3>
+<h2>
+<a id="5-further-analysis-exclude-snp-from-original-list" class="anchor" href="#5-further-analysis-exclude-snp-from-original-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Further analysis: Exclude SNP from original list.</h2>
 
 <div class="highlight highlight-r"><pre><span class="pl-smi">excludeFile</span> <span class="pl-k">&lt;-</span> c(
     <span class="pl-s"><span class="pl-pds">"</span>rs4376885<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rs17690928<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rs6460708<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rs13061537<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rs11769827<span class="pl-pds">"</span></span>,
@@ -121,8 +121,8 @@ data(<span class="pl-smi">transcript</span>)
                                     <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,
                                     <span class="pl-v">onlyGenome</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)</pre></div>
 
-<h3>
-<a id="6-watch-results" class="anchor" href="#6-watch-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Watch results</h3>
+<h2>
+<a id="6-watch-results" class="anchor" href="#6-watch-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Watch results</h2>
 
 <div class="highlight highlight-r"><pre>show(<span class="pl-smi">toyData</span>)
 print(<span class="pl-smi">toyData</span>)
