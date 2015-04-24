@@ -1,5 +1,6 @@
 snpEnrichment
 =============
+[![Build Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
 
 Implements classes and methods for large scale SNP enrichment analysis.
 (e.g. SNPs associated with genes expression in a GWAS signal)
