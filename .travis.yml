@@ -5,7 +5,7 @@ warnings_are_errors: true
 sudo: required
 
 bioc_packages:
-    -snpStats
+    - snpStats
 
 notifications:
     email:
