@@ -37,3 +37,7 @@ export(
 
 importFrom(parallel, mclapply, detectCores)
 importFrom(snpStats, read.plink, col.summary, ld)
+importFrom("grDevices", "hcl", "rainbow")
+importFrom("graphics", "lines", "par")
+importFrom("stats", "median", "na.exclude", "pnorm", "reshape", "var")
+importFrom("utils", "capture.output", "installed.packages", "read.delim", "read.table", "write.table")
