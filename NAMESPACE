@@ -1,4 +1,6 @@
 import(methods)
+import(ggplot2)
+import(grid)
 exportMethods(
     "[",
     "[<-",

@@ -1138,8 +1138,9 @@ setMethod(f = "plot", signature = "Enrichment", definition = function (x, what =
                 tmpDF$IID <- factor(colnames(matrixER[[iType]]), levels = c("Genome", paste0("Chrom", seq(22))), labels = c("Genome", paste0("Chrom", seq(22))))
                 tmp <- reshape(tmpDF, idvar = "IID", direction = "long", varying = list(grep("R", colnames(tmpDF))), times = cnames)
                 colnames(tmp) <- c("IID", "Resampling", "Z")
+                tmp[, "Resampling"] <- as.numeric(tmp[, "Resampling"])
 
-                p <- ggplot(data = tmp, aes(x = as.numeric(Resampling), y = Z, colour = IID)) + geom_line()
+                p <- ggplot(data = tmp, aes_string(x = "Resampling", y = "Z", colour = "IID")) + geom_line()
                 noGridColour <- "transparent" # c("gray90", "grey95")
                 base_size <- 12
                 base_family <- ""
