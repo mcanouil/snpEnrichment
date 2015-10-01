@@ -35,8 +35,8 @@ export(
     "mclapply2"
 )
 
-importFrom(parallel, mclapply, detectCores)
-importFrom(snpStats, read.plink, col.summary, ld)
+importFrom("parallel", "mclapply", "detectCores")
+importFrom("snpStats", "read.plink", "col.summary", "ld")
 importFrom("grDevices", "hcl", "rainbow")
 importFrom("graphics", "lines", "par")
 importFrom("stats", "median", "na.exclude", "pnorm", "reshape", "var")

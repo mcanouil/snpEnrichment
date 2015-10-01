@@ -1,14 +1,14 @@
 Package: snpEnrichment
 Type: Package
 Title: SNPs Enrichment Analysis
-Version: 1.6.6
+Version: 1.7.0
 Date: 2015-10-01
 Authors@R: c(person("Mickael", "Canouil", role = c("aut", "cre"), email = "mickael.canouil@cnrs.fr"),
     person("Loic", "Yengo", role = "ctb", email = "loic.yengo@good.ibl.fr"))
 Description: Implements classes and methods for large scale SNP enrichment analysis (e.g. SNPs associated with genes expression in a GWAS signal).
 License: GPL (>= 2)
 Depends: R (>= 3.0.0), methods
-Imports: parallel, snpStats, grid, ggplot2
+Imports: parallel, snpStats, grid, ggplot2, grDevices, graphics, stats, utils
 URL: https://github.com/mcanouil/snpEnrichment
 Encoding: UTF-8
 BugReports: https://github.com/mcanouil/snpEnrichment/issues

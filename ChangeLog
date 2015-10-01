@@ -1,4 +1,9 @@
 2015-10-01 Mickael Canouil
+        * DESCRIPTION: version is 1.7.0
+        * NAMESPACE: Update to fix warnings from R CMD check using R version 3.2.2.
+        * DESCRIPTION: Update according to new imports in NAMESPACE.
+
+2015-10-01 Mickael Canouil
         * DESCRIPTION: version is 1.6.6
         * NAMESPACE: Update to fix warnings from R CMD check using R version 3.2.2.
         * R/enrichment.R: Update 'plot' method to fix global definition warnings.
