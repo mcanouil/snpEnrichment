@@ -1,3 +1,8 @@
+2015-10-01 Mickael Canouil
+        * DESCRIPTION: version is 1.6.6
+        * NAMESPACE: Update to fix warnings from R CMD check using R version 3.2.2.
+        * R/enrichment.R: Update 'plot' method to fix global definition warnings.
+
 2015-04-30 Mickael Canouil
         * DESCRIPTION: version is 1.6.5
         * tests/RUN-TEST_snpEnrichment.R: Add a test script.
