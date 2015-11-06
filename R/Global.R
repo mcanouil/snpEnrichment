@@ -66,7 +66,7 @@ maxCores <- function (mc.cores = 1) {
             sysMemFree <- memInfo[grep('^MemFree:', memInfo)]
             sysMemCached <- memInfo[grep('^Cached:', memInfo)]
             sysMemAvailable <- 0.95*(as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemFree)) + as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemCached)))
-            sysProc <- as.numeric(unlist(strsplit(system(paste("ps v", Sys.getpid()), intern = TRUE)[2], " +"))[8])
+            sysProc <- as.numeric(unlist(strsplit(system(paste("ps v", Sys.getpid()), intern = TRUE)[2], " +"), use.names = FALSE)[8])
             mc.cores <- max(min(as.numeric(mc.cores), floor(sysMemAvailable/sysProc)), 1)
             if (mc.cores > nbCores) {
                 mc.cores <- nbCores
@@ -98,12 +98,12 @@ mclapply2 <- function (X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, m
 
 .writeSignal <- function (pattern, snpInfoDir, signalFile) {
     tmpDir <- gsub("\\\\", "/", tempdir())
-    if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t")))>1) {
+    if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE))>1) {
         signal <- read.delim(file = signalFile, header = TRUE, sep = "\t", stringsAsFactors = FALSE,
                         colClasses = c("character", "numeric"), na.string = c("NA", ""),
                         check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"))
     } else {
-        if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " ")))>1) {
+        if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " "), use.names = FALSE))>1) {
             signal <- read.delim(file = signalFile, header = TRUE, sep = " ", stringsAsFactors = FALSE,
                         colClasses = c("character", "numeric"), na.string = c("NA", ""),
                         check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"))
@@ -190,7 +190,7 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
     tmpDir <- gsub("\\\\", "/", tempdir())
     dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
     cat("All files are ready for chromosome:\n  ")
-    resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
+    resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
         newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
         err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
@@ -202,7 +202,7 @@ initFiles <- function (pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) 
             return(invisible())
         }
     })
-    if (any(unlist(resParallel)=="ERROR")) {
+    if (any(unlist(resParallel, use.names = FALSE)=="ERROR")) {
         stop("[Enrichment:initFiles] initialize files failed.", call. = FALSE)
     } else {}
     cat("\n\n")
@@ -226,7 +226,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     }
     FILES <- list.files(snpInfoDir, pattern = ".bim")
     cat("Compute LD for chromosome:\n  ")
-    resParallel <- mclapply2(X = seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
+    resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
         newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
         # isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
@@ -242,7 +242,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
             ldData <- replace(ldData, grep(TRUE, isNA), 0)
         } else {}
         ldData <- apply(ldData, 1, function (li) { which(li>ldThresh) })
-        resLD <- data.frame(matrix(unlist(strsplit(names(unlist(ldData)), "\\.")), ncol = 2, byrow = TRUE, dimnames = list(NULL, c("SNP_A", "SNP_B"))), stringsAsFactors = FALSE)
+        resLD <- data.frame(matrix(unlist(strsplit(names(unlist(ldData)), "\\."), use.names = FALSE), ncol = 2, byrow = TRUE, dimnames = list(NULL, c("SNP_A", "SNP_B"))), stringsAsFactors = FALSE)
         resLD <- resLD[which(resLD[, 1]!=resLD[, 2]), ]
 
         ### Check LD distance
@@ -405,7 +405,7 @@ writeLD <- function (pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ld
     if (ncol(snpList)>3) {
         snpList <- snpList[, c("CHR", "SNP", "TRANSCRIPT")]
     } else {}
-    filePathDetails <- unlist(strsplit(snpListFile, "/"))
+    filePathDetails <- unlist(strsplit(snpListFile, "/"), use.names = FALSE)
     if (is.null(directory)) {
         filePath <- paste0(c(filePathDetails[-length(filePathDetails)], ""), collapse = "/")
     } else {
@@ -452,7 +452,7 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     }
 
     cat("  Read Chromosomes:\n    ")
-    resParallel <- mclapply2(seq(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
+    resParallel <- mclapply2(seq_len(22), mc.cores = min(22, mc.cores), FUN = function (iChr) {
         files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
         if (LD) {
             # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
@@ -508,23 +508,23 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
         cat(iChr, " ", sep = "")
         return(list(resChr, snpLoss, signalLoss))
     })
-    names(resParallel) <- paste0("Chrom", seq(22))
+    names(resParallel) <- paste0("Chrom", seq_len(22))
 
     result = enrichment()
     result@Chromosomes <- lapply(resParallel, "[[", 1)
     snpLoss <- t(sapply(resParallel, "[[", 2))
     signalLoss <- rowSums(sapply(resParallel, "[[", 3))
     loss <- rbind(Signal = signalLoss, Genome = apply(snpLoss, 2, sum), snpLoss)
-    colnames(loss) <- c("Rows", "Unique", "Intersect.Signal", "CIS")[seq(ncol(loss))]
+    colnames(loss) <- c("Rows", "Unique", "Intersect.Signal", "CIS")[seq_len(ncol(loss))]
 
-    SNPs <- result["List", seq(22)]
+    SNPs <- result["List", seq_len(22)]
     result@eSNP@List <- SNPs[["eSNP"]]
     result@xSNP@List <- SNPs[["xSNP"]]
 
-    if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t")))>1) {
+    if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE))>1) {
         signal <- read.delim(file = signalFile, header = TRUE, sep = "\t", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"), stringsAsFactors = FALSE)
     } else {
-        if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " ")))>1) {
+        if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " "), use.names = FALSE))>1) {
             signal <- read.delim(file = signalFile, header = TRUE, sep = " ", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names =  c("SNP", "PVALUE"), stringsAsFactors = FALSE)
         } else {
             stop('[Enrichment:readEnrichment] only " " and "\t" are allowed as columns separator in Signal file.', call. = FALSE)
@@ -635,8 +635,8 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     rm(data)
 
     cat(0, ".. ", sep = "")
-    resParallel <- mclapply2(X = seq(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
-        eSNPlistRandom <- unlist(sapply(seq(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}))
+    resParallel <- mclapply2(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
+        eSNPlistRandom <- unlist(sapply(seq_len(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}), use.names = FALSE)
         eSNPenrichStats <- table(assoc, factor(SNPlist%in%eSNPlistRandom, levels = c(FALSE, TRUE)), deparse.level = 0)
         if (isLD) {
             xSNPlistRandom <- intersect(SNPlist, unique(chrLD[which(names(chrLD)%in%eSNPlistRandom)]))
@@ -664,8 +664,8 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     rm(resParallel)
 
     while (iSample<nSample) {
-        resParallel <- mclapply2(X = seq(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
-            eSNPlistRandom <- unlist(sapply(seq(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}))
+        resParallel <- mclapply2(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
+            eSNPlistRandom <- unlist(sapply(seq_len(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}), use.names = FALSE)
             eSNPenrichStats <- table(assoc, factor(SNPlist%in%eSNPlistRandom, levels = c(FALSE, TRUE)), deparse.level = 0)
             if (isLD) {
                 xSNPlistRandom <- intersect(SNPlist, unique(chrLD[which(names(chrLD)%in%eSNPlistRandom)]))
@@ -750,8 +750,8 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     rm(data)
 
     cat("0.. ")
-    resParallel <- mclapply2(X = seq(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
-        eSNPlistRandom <- unlist(sapply(seq(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}))
+    resParallel <- mclapply2(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
+        eSNPlistRandom <- unlist(sapply(seq_len(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}), use.names = FALSE)
         eSNPenrichStats <- table(assoc_eSNP, factor(eList%in%eSNPlistRandom, levels = c(FALSE, TRUE)))
         eTmp <- c(c(eSNPenrichStats), .enrichmentRatio(eSNPenrichStats))
         if (isLD) {
@@ -803,8 +803,8 @@ readEnrichment <- function (pattern = "Chrom", signalFile, transcriptFile = FALS
     rm(resParallel)
 
     while (iSample<nSample) {
-        resParallel <- mclapply2(X = seq(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
-            eSNPlistRandom <- unlist(sapply(seq(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}))
+        resParallel <- mclapply2(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function (i) {
+            eSNPlistRandom <- unlist(sapply(seq_len(nPool), function (g) {sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))}), use.names = FALSE)
             eSNPenrichStats <- table(assoc_eSNP, factor(eList%in%eSNPlistRandom, levels = c(FALSE, TRUE)))
             eTmp <- c(c(eSNPenrichStats), .enrichmentRatio(eSNPenrichStats))
             if (isLD) {
