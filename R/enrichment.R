@@ -145,7 +145,7 @@ setMethod(f = "print", signature = "Enrichment", definition = function (x, what 
 
 .Enrichment.show <- function (object) {
     .showArgs <- function (args) {
-        for (iFuncArg in seq_len(args)) {
+        for (iFuncArg in seq(args)) {
             if (is.null(unlist(args[iFuncArg], use.names = FALSE))) {
                 cat(paste0("    ", names(args[iFuncArg]), '() : Not yet called.\n'))
             } else {
