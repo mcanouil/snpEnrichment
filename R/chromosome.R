@@ -82,8 +82,8 @@ setMethod(f = "print", signature = "Chromosome", definition = function (x, type 
 
 .Chromosome.show <- function (object) {
     cat("  ~ Data :", paste0("(", paste(dim(object@Data), collapse = "x"), ")"))
-        nrowShow <- seq(min(5 , nrow(object@Data)))
-        ncolShow <- seq(min(10 , ncol(object@Data)))
+        nrowShow <- seq_len(min(5 , nrow(object@Data)))
+        ncolShow <- seq_len(min(10 , ncol(object@Data)))
         if (nrow(object@Data) == 0) {
             cat(" NA")
         } else {
@@ -98,7 +98,7 @@ setMethod(f = "print", signature = "Chromosome", definition = function (x, type 
         } else {
             cat("\n")
             if (length(object@LD) > 5) {
-                tmpLD <- object@LD[seq(5)]
+                tmpLD <- object@LD[seq_len(5)]
             } else {
                 tmpLD <- object@LD
             }
@@ -192,7 +192,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
         rm(chrLD, byBlock)
 
         blockLim <- NULL
-        for (iBlock in seq(nrow(LDblock))) {
+        for (iBlock in seq_len(nrow(LDblock))) {
             if (iBlock == 1) {
                 POS <- LDblock[iBlock, ]
                 blockLim <- rbind(blockLim, POS)
@@ -216,11 +216,11 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
         }
         rm(LDblock)
 
-        blockLim <- cbind(blockLim, seq(nrow(blockLim)))
+        blockLim <- cbind(blockLim, seq_len(nrow(blockLim)))
         colnames(blockLim) <- c("MIN", "MAX", "IDBLOCK")
-        rownames(blockLim) <- seq(nrow(blockLim))
+        rownames(blockLim) <- seq_len(nrow(blockLim))
         blockLim <- cbind(blockLim, LENGTH = NA)
-        resParallel <- mclapply2(seq(nrow(blockLim)), mc.cores = nbCores, function (li) {
+        resParallel <- mclapply2(seq_len(nrow(blockLim)), mc.cores = nbCores, function (li) {
             blockLim[li, "LENGTH"] <- as.integer(blockLim[li, "MAX"])-as.integer(blockLim[li, "MIN"])
             return(blockLim[li, ])
         })
@@ -229,7 +229,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
 
         data <- data[order(data[, "POS"]), ]
         data[, c("MIN", "MAX", "IDBLOCK", "LENGTH", "MAFmedian")] <- as.numeric(NA)
-        tmpChr <- mclapply2(seq(nrow(blockLim)), mc.cores = nbCores, function (i) {
+        tmpChr <- mclapply2(seq_len(nrow(blockLim)), mc.cores = nbCores, function (i) {
             m <- blockLim[i, ]
             interv <- seq(from = which(data[, "POS"] == m["MIN"]), to = which(data[, "POS"] == m["MAX"]))
             interv
@@ -243,7 +243,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function (obje
 
         missingData <- data[!data[, "SNP"]%in%dataTmp[, "SNP"], ]
         maxIDBLOCK <- max(dataTmp[, "IDBLOCK"])
-        for (iRow in seq(nrow(missingData))) {
+        for (iRow in seq_len(nrow(missingData))) {
             missingData[iRow, "MIN"] <- missingData[iRow, "POS"]
             missingData[iRow, "MAX"] <- missingData[iRow, "POS"]
             missingData[iRow, "LENGTH"] <- missingData[iRow, "MAX"] - missingData[iRow, "MIN"]

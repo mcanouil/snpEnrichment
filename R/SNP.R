@@ -62,18 +62,19 @@ setMethod(f = "is.EnrichSNP", signature = "ANY", definition = function (object) 
 
 
 setMethod(f = "print", signature = "EnrichSNP", definition = function (x) {
-    EnrichmentRatio <- eval(parse(text = paste0('x@EnrichmentRatio')))
-    Z <- eval(parse(text = paste0('x@Z')))
-    PValue <- eval(parse(text = paste0('x@PValue')))
-    Resampling <- eval(parse(text = paste0('nrow(x@Resampling)')))
-    Data <- eval(parse(text = paste0('sum(x@Table)')))
-    List <- eval(parse(text = paste0('length(x@List)')))
-    resTmp <- c(if (length(EnrichmentRatio)==0) {NA} else {EnrichmentRatio},
-                if (length(Z)==0) {NA} else {Z},
-                if (length(PValue)==0) {NA} else {PValue},
-                Resampling,
-                Data,
-                List
+    EnrichmentRatio <- x@EnrichmentRatio
+    Z <- x@Z
+    PValue <- x@PValue
+    Resampling <- nrow(x@Resampling)
+    Data <- sum(x@Table)
+    List <- length(x@List)
+    resTmp <- c(
+        if (length(EnrichmentRatio)==0) {NA} else {EnrichmentRatio},
+        if (length(Z)==0) {NA} else {Z},
+        if (length(PValue)==0) {NA} else {PValue},
+        Resampling,
+        Data,
+        List
     )
     names(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", "eSNP")
     res <- t(resTmp)
