@@ -371,7 +371,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function (x, i, j, dro
                         resLD <- mclapply2(j, mc.cores = min(length(j), detectCores()), function (iChr) {
                             return(x@Chromosomes[[iChr]]@LD)
                         })
-                        return(unlist(resLD, usE.names = FALSE))
+                        return(unlist(resLD, use.names = FALSE))
                     },
                     "Call" = {return(x@Call)},
                     "List" = {

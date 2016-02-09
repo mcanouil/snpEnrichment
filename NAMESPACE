@@ -1,6 +1,6 @@
 import(methods)
 import(ggplot2)
-import(grid)
+# import(grid)
 exportMethods(
     "[",
     "[<-",
@@ -41,3 +41,4 @@ importFrom("grDevices", "hcl", "rainbow")
 importFrom("graphics", "lines", "par")
 importFrom("stats", "median", "na.exclude", "pnorm", "reshape", "var")
 importFrom("utils", "capture.output", "installed.packages", "read.delim", "read.table", "write.table")
+importFrom("grid", "grid.newpage", "pushViewport", "viewport", "grid.layout")
