@@ -1,3 +1,7 @@
+2016-02-09 Mickael Canouil
+        * DESCRIPTION: version is 1.7.2
+        * R/*.R: Minor code optimisation.
+
 2015-10-01 Mickael Canouil
         * DESCRIPTION: version is 1.7.1
         * R/*.R: Minor code optimisation.
