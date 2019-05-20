@@ -2,10 +2,10 @@ snpEnrichment
 =============
 [![Build Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
 
-http://mcanouil.github.io/snpEnrichment
-
 Implements classes and methods for large scale SNP enrichment analysis.
 (e.g. SNPs associated with genes expression in a GWAS signal)
+
+** Not maintained anymore **
 
 ## Note
 Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
