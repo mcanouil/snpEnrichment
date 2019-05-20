@@ -5,7 +5,7 @@ snpEnrichment
 Implements classes and methods for large scale SNP enrichment analysis.
 (e.g. SNPs associated with genes expression in a GWAS signal)
 
-** Not maintained anymore **
+*Not maintained anymore*
 
 ## Note
 Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
