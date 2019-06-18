@@ -1,6 +1,10 @@
 snpEnrichment
 =============
 [![Build Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
+[![CRAN_Download_total](http://cranlogs.r-pkg.org/badges/grand-total/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
+[![cran checks_summary](https://cranchecks.info/badges/summary/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
+[![cran checks_worst](https://cranchecks.info/badges/worst/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
 
 Implements classes and methods for large scale SNP enrichment analysis.
 (e.g. SNPs associated with genes expression in a GWAS signal)
