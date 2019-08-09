@@ -1,24 +1,28 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 # SNPs Enrichment Analysis <!--<img src="man/figures/snpEnrichment_hex.png" align="right" width="120" /> -->
 
 <!-- badges: start -->
-
-[![Lifecycle:
-retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)
-[![GitHub
-tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label=%22latest%20tag%22)](https://github.com/mcanouil/snpEnrichment)
-[![Travis-CI Build
-Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/mcanouil/snpEnrichment?branch=master&svg=true)](https://ci.appveyor.com/project/mcanouil/snpEnrichment)
-[![Coverage Status
-(codecov)](https://codecov.io/gh/mcanouil/snpEnrichment/branch/master/graph/badge.svg)](https://codecov.io/gh/mcanouil/snpEnrichment)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-ago/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
-[![cran
-checks\_worst](https://cranchecks.info/badges/worst/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
-[![CRAN\_Download\_total](http://cranlogs.r-pkg.org/badges/grand-total/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
+[![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)
+[![GitHub tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label="latest tag")](https://github.com/mcanouil/snpEnrichment)
+[![Travis-CI Build Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mcanouil/snpEnrichment?branch=master&svg=true)](https://ci.appveyor.com/project/mcanouil/snpEnrichment)
+[![Coverage Status (codecov)](https://codecov.io/gh/mcanouil/snpEnrichment/branch/master/graph/badge.svg)](https://codecov.io/gh/mcanouil/snpEnrichment)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
+[![cran checks_worst](https://cranchecks.info/badges/worst/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
+[![CRAN_Download_total](http://cranlogs.r-pkg.org/badges/grand-total/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
 <!--[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2719/badge)](https://bestpractices.coreinfrastructure.org/projects/2719) -->
 <!--[![cran checks_summary](https://cranchecks.info/badges/summary/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html) -->
 <!--[![CRAN_Download_month](http://cranlogs.r-pkg.org/badges/snpEnrichment?color=brightgreen)](https://cran.r-project.org/package=snpEnrichment) -->
@@ -32,7 +36,7 @@ Implements classes and methods for large scale SNP enrichment analysis
 
 ## Installation
 
-``` r
+```{r, eval = FALSE}
 # Install snpEnrichment from CRAN:
 install.packages("snpEnrichment")
 
@@ -41,20 +45,18 @@ install.packages("snpEnrichment")
 remotes::install_github("mcanouil/snpEnrichment")
 ```
 
+
 ## Overview
 
-**Note**: Internal data management in ‘snpEnrichment’ use RefSNP (rs)
-IDs.
+**Note**: Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
 
 ### Load snpEnrichment
-
-``` r
+```r
 library(snpEnrichment)
 ```
 
 ### Prepare data
-
-``` r
+```r
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
 
@@ -72,8 +74,7 @@ writeLD(
 ```
 
 ### Read data
-
-``` r
+```r
 snpListDir <- system.file("extdata/List", package = "snpEnrichment")
 data(transcript)
 transcriptFile <- transcript
@@ -94,8 +95,7 @@ toyData
 ```
 
 ### Compute results
-
-``` r
+```r
 reSample(
   object = toyData,
   nSample = 10,
@@ -106,9 +106,9 @@ reSample(
 )
 ```
 
-### 5\. Further analysis: Exclude SNP from original list.
 
-``` r
+### 5. Further analysis: Exclude SNP from original list.
+```r
 excludeFile <- c(
   "rs4376885", "rs17690928", "rs6460708", "rs13061537", "rs11769827",
   "rs12717054", "rs2907627", "rs1380109", "rs7024214", "rs7711972",
@@ -126,13 +126,13 @@ excludeFile <- c(
 excludeFile <- system.file("extdata/Exclude/toyExclude.txt", package = "snpEnrichment")
 ```
 
-``` r
+```r
 toyData_exclude <- excludeSNP(toyData, excludeFile, mc.cores = 1)
 ```
 
-**Warning:** `compareEnrichment` is in development\!\!
+**Warning:** `compareEnrichment` is in development!!
 
-``` r
+```r
 compareResults <- compareEnrichment(
   object.x = toyData,
   object.y = toyData_exclude,
@@ -145,8 +145,7 @@ compareResults <- compareEnrichment(
 ```
 
 ### Watch results
-
-``` r
+```r
 show(toyData)
 print(toyData)
 head(getEnrichSNP(toyData, type = "xSNP"))
@@ -158,12 +157,9 @@ head(getEnrichSNP(toyData_exclude, type = "eSNP"))
 
 ## Getting help
 
-If you encounter a clear bug, please file a minimal reproducible example
-on [github](https://github.com/mcanouil/CARoT/issues). For questions and
-other discussion, please contact the package maintainer.
+If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/mcanouil/CARoT/issues).
+For questions and other discussion, please contact the package maintainer.
 
------
-
-Please note that this project is released with a [Contributor Code of
-Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
+---
+Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
+By participating in this project you agree to abide by its terms.
