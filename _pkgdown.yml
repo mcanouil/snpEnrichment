@@ -1,0 +1,10 @@
+template:
+  params:
+    bootswatch: simplex
+
+development:
+  mode: auto
+
+authors:
+  Mickaël Canouil:
+    href: http://mickael.canouil.fr

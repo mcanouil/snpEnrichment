@@ -1,14 +1,28 @@
 Package: snpEnrichment
 Type: Package
 Title: SNPs Enrichment Analysis
-Version: 1.7.2
-Date: 2016-02-09
-Authors@R: c(person("Mickael", "Canouil", role = c("aut", "cre"), email = "mickael.canouil@cnrs.fr"),
-    person("Loic", "Yengo", role = "ctb", email = "loic.yengo@cnrs.fr"))
+Version: 1.8.0.9000
+Authors@R: c(
+    person("Mickael", "Canouil", role = c("aut", "cre"), email = "mickael.canouil@cnrs.fr"),
+    person("Loic", "Yengo", role = "ctb", email = "loic.yengo@cnrs.fr")
+  )
 Description: Implements classes and methods for large scale SNP enrichment analysis (e.g. SNPs associated with genes expression in a GWAS signal).
 License: GPL (>= 2)
-Depends: R (>= 3.0.0), methods
-Imports: parallel, snpStats, ggplot2, grDevices, graphics, stats, utils
-URL: https://github.com/mcanouil/snpEnrichment
-Encoding: UTF-8
+URL: https://github.com/mcanouil/snpEnrichment, https://mcanouil.github.io/snpEnrichment
 BugReports: https://github.com/mcanouil/snpEnrichment/issues
+Depends: 
+    R (>= 3.5.0), 
+    methods
+Imports: 
+    parallel, 
+    snpStats, 
+    ggplot2, 
+    grDevices, 
+    graphics, 
+    stats, 
+    utils
+LazyData: true
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Encoding: UTF-8
