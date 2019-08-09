@@ -3,7 +3,9 @@
 ## Minor improvements and fixes
 * In `R/*estimate_ethnicity*.R`, 
     + use tidy style.
-
+* In `DESCRIPTION`, 
+    + a little change in Title and Description to clearly state the package uses a sampling approach.
+    + setup package to use roxygen2.
 
 # snpEnrichment 1.7.0
 * NAMESPACE: Update to fix warnings from R CMD check using R version 3.2.2.
