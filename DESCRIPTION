@@ -28,4 +28,5 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 Suggests: 
     testthat,
-    covr
+    covr,
+    knitr
