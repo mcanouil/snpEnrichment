@@ -69,6 +69,11 @@ methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x
 })
 
 
+#' .EnrichSNP.show
+#'
+#' @param object
+#'
+#' @keywords internal
 .EnrichSNP.show <- function(object) {
   cat(
     "   - List :",
