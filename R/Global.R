@@ -1,79 +1,79 @@
-setGeneric(
+methods::setGeneric(
   name = "enrichSNP",
   def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) standardGeneric("enrichSNP")
 )
-setGeneric(
+methods::setGeneric(
   name = "chromosome",
   def = function(Data, LD, eSNP, xSNP) standardGeneric("chromosome")
 )
-setGeneric(
+methods::setGeneric(
   name = "enrichment",
   def = function(Loss, Call, eSNP, xSNP, Chromosomes) standardGeneric("enrichment")
 )
-setGeneric(
+methods::setGeneric(
   name = "doLDblock",
   def = function(object, mc.cores = 1) standardGeneric("doLDblock")
 )
-setGeneric(
+methods::setGeneric(
   name = "excludeSNP",
   def = function(object, excludeFile, mc.cores = 1) standardGeneric("excludeSNP")
 )
-setGeneric(
+methods::setGeneric(
   name = "computeER",
   def = function(object, sigThresh = 0.05, mc.cores = 1) standardGeneric("computeER")
 )
-setGeneric(
+methods::setGeneric(
   name = "reSample",
   def = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) standardGeneric("reSample")
 )
-setGeneric(
+methods::setGeneric(
   name = "compareEnrichment",
   def = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) standardGeneric("compareEnrichment")
 )
-setGeneric(
+methods::setGeneric(
   name = "is.enrichment",
   def = function(object) standardGeneric("is.enrichment")
 )
-setGeneric(
+methods::setGeneric(
   name = "is.chromosome",
   def = function(object) standardGeneric("is.chromosome")
 )
-setGeneric(
+methods::setGeneric(
   name = "is.EnrichSNP",
   def = function(object) standardGeneric("is.EnrichSNP")
 )
-setGeneric(
+methods::setGeneric(
   name = "reset",
   def = function(object, i) standardGeneric("reset")
 )
-setGeneric(
+methods::setGeneric(
   name = "getEnrichSNP",
   def = function(object, type = "eSNP") standardGeneric("getEnrichSNP")
 )
 
-setMethod(f = "reSample", signature = "ANY", definition = function(object, nSample, sigThresh, MAFpool, mc.cores) {
+methods::setMethod(f = "reSample", signature = "ANY", definition = function(object, nSample, sigThresh, MAFpool, mc.cores) {
   if (!(is.enrichment(object) & is.chromosome(object))) {
     stop('[Method:reSample] not available for "', class(object), '" object.', call. = FALSE)
   }
 })
-setMethod(f = "excludeSNP", signature = "ANY", definition = function(object, excludeFile, mc.cores = 1) {
+methods::setMethod(f = "excludeSNP", signature = "ANY", definition = function(object, excludeFile, mc.cores = 1) {
   if (!is.enrichment(object)) {
     stop('[Method:excludeSNP] not available for "', class(object), '" object.', call. = FALSE)
   }
 })
-setMethod(f = "reset", signature = "ANY", definition = function(object, i) {
+methods::setMethod(f = "reset", signature = "ANY", definition = function(object, i) {
   if (!(is.enrichment(object) & is.chromosome(object))) {
     stop('[Method:reset] not available for "', class(object), '" object.', call. = FALSE)
   }
 })
-setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(object, type = "eSNP") {
+methods::setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(object, type = "eSNP") {
   if (!(is.enrichment(object))) {
     stop('[Method:getEnrichSNP] not available for "', class(object), '" object.', call. = FALSE)
   }
 })
 
 
-.verbose <- function(expr) invisible(capture.output(expr))
+.verbose <- function(expr) invisible(utils::capture.output(expr))
 
 
 GC <- function(verbose = getOption("verbose"), reset = FALSE) {
@@ -87,7 +87,7 @@ GC <- function(verbose = getOption("verbose"), reset = FALSE) {
 
 maxCores <- function(mc.cores = 1) {
   if (Sys.info()[["sysname"]] == "Linux") {
-    nbCores <- detectCores()
+    nbCores <- parallel::detectCores()
     mc.cores.old <- mc.cores
     if (file.exists("/proc/meminfo")) {
       memInfo <- readLines("/proc/meminfo")
@@ -114,9 +114,9 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
   if (Sys.info()[["sysname"]] != "Linux") {
     mc.cores <- 1
   } else {
-    mc.cores <- min(detectCores(), mc.cores)
+    mc.cores <- min(parallel::detectCores(), mc.cores)
   }
-  return(mclapply(
+  return(parallel::mclapply(
     X = X, FUN = FUN, ...,
     mc.preschedule = mc.preschedule, mc.set.seed = mc.set.seed, mc.silent = mc.silent,
     mc.cores = maxCores(mc.cores), mc.cleanup = mc.cleanup, mc.allow.recursive = mc.allow.recursive
@@ -127,14 +127,14 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 .writeSignal <- function(pattern, snpInfoDir, signalFile) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE)) > 1) {
-    signal <- read.delim(
+    signal <- utils::read.delim(
       file = signalFile, header = TRUE, sep = "\t", stringsAsFactors = FALSE,
       colClasses = c("character", "numeric"), na.string = c("NA", ""),
       check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE")
     )
   } else {
     if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " "), use.names = FALSE)) > 1) {
-      signal <- read.delim(
+      signal <- utils::read.delim(
         file = signalFile, header = TRUE, sep = " ", stringsAsFactors = FALSE,
         colClasses = c("character", "numeric"), na.string = c("NA", ""),
         check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE")
@@ -144,7 +144,7 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
     }
   }
 
-  chrom.bim <- read.delim(
+  chrom.bim <- utils::read.delim(
     file = paste0(snpInfoDir, pattern, ".bim"), header = FALSE, stringsAsFactors = FALSE,
     colClasses = c("numeric", "character", "NULL", "NULL", "NULL", "NULL"), na.string = c("NA", ""),
     check.names = FALSE, strip.white = TRUE, col.names = c("CHR", "SNP", "", "", "", "")
@@ -160,7 +160,7 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 
 .readSignal <- function(pattern) {
   tmpDir <- gsub("\\\\", "/", tempdir())
-  read.delim(
+  utils::read.delim(
     file = paste0(tmpDir, "/snpEnrichment/", pattern, ".signal"), header = TRUE, stringsAsFactors = FALSE,
     colClasses = c("NULL", "character", "numeric"), na.string = c("NA", ""),
     check.names = FALSE, strip.white = TRUE, col.names = c("", "SNP", "PVALUE")
@@ -172,14 +172,14 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
   tmpDir <- gsub("\\\\", "/", tempdir())
   IN <- paste0(snpInfoDir, pattern)
   OUT <- paste0(tmpDir, "/snpEnrichment/", pattern)
-  plinkData <- read.plink(bed = paste0(IN, ".bed"), bim = paste0(IN, ".bim"), fam = paste0(IN, ".fam"), select.snps = .readSignal(pattern)[, "SNP"])
-  plinkFreq <- col.summary(plinkData$genotypes)
+  plinkData <- snpStats::read.plink(bed = paste0(IN, ".bed"), bim = paste0(IN, ".bim"), fam = paste0(IN, ".fam"), select.snps = .readSignal(pattern)[, "SNP"])
+  plinkFreq <- snpStats::col.summary(plinkData$genotypes)
   plinkFreq <- cbind(snp.name = rownames(plinkFreq), MAF = plinkFreq[, "MAF"])
   plinkRes <- merge(plinkData$map, plinkFreq, by = "snp.name")
   plinkRes <- plinkRes[, c("chromosome", "snp.name", "position", "MAF")]
   plinkRes[, "MAF"] <- as.numeric(as.character(plinkRes[, "MAF"]))
   colnames(plinkRes) <- c("CHR", "SNP", "POS", "MAF")
-  write.table(plinkRes, paste0(OUT, ".all"), row.names = FALSE, sep = "\t")
+  utils::write.table(plinkRes, paste0(OUT, ".all"), row.names = FALSE, sep = "\t")
   invisible()
 }
 
@@ -264,13 +264,13 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
     if (length(isThereSignals) != 22) .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
     IN <- paste0(snpInfoDir, newPattern)
     OUT <- paste0(tmpDir, "/snpEnrichment/", newPattern)
-    plinkData <- read.plink(bed = paste0(IN, ".bed"), bim = paste0(IN, ".bim"), fam = paste0(IN, ".fam"), select.snps = .readSignal(newPattern)[, "SNP"])
-    ldData <- ld(x = plinkData$genotypes, depth = min(ncol(plinkData$genotypes) - 1, depth), stats = "R.squared")
+    plinkData <- snpStats::read.plink(bed = paste0(IN, ".bed"), bim = paste0(IN, ".bim"), fam = paste0(IN, ".fam"), select.snps = .readSignal(newPattern)[, "SNP"])
+    ldData <- snpStats::ld(x = plinkData$genotypes, depth = min(ncol(plinkData$genotypes) - 1, depth), stats = "R.squared")
     if (any(isNA <- is.na(ldData))) ldData <- replace(ldData, grep(TRUE, isNA), 0)
     ldData <- apply(ldData, 1, function(li) which(li > ldThresh))
     resLD <- data.frame(matrix(unlist(strsplit(names(unlist(ldData)), "\\."), use.names = FALSE), ncol = 2, byrow = TRUE, dimnames = list(NULL, c("SNP_A", "SNP_B"))), stringsAsFactors = FALSE)
     resLD <- resLD[which(resLD[, 1] != resLD[, 2]), ]
-    write.table(resLD[, c("SNP_A", "SNP_B")], file = paste0(ldDir, newPattern, ".ld"), sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
+    utils::write.table(resLD[, c("SNP_A", "SNP_B")], file = paste0(ldDir, newPattern, ".ld"), sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
     cat(iChr, " ", sep = "")
   })
   cat("\n\n")
@@ -283,7 +283,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   if (is.na(snpListFile)) {
     snpList <- data.frame()
   } else {
-    snpList <- read.delim(
+    snpList <- utils::read.delim(
       file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
       na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE
     )
@@ -302,7 +302,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 
 .readTranscript <- function(transcriptFile) {
   if (all(class(try(close(file(transcriptFile)), silent = TRUE)) != "try-error")) {
-    transcript <- read.delim(file = transcriptFile, header = TRUE, stringsAsFactors = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
+    transcript <- utils::read.delim(file = transcriptFile, header = TRUE, stringsAsFactors = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
     transcript <- transcript[, 1:4]
     colnames(transcript) <- c("TRANSCRIPT", "CHR", "START", "END")
   } else {
@@ -319,7 +319,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 
 .readFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
-  read.delim(
+  utils::read.delim(
     file = paste0(tmpDir, "/snpEnrichment/", pattern, ".all"), header = TRUE, stringsAsFactors = FALSE,
     colClasses = c("numeric", "character", "integer", "numeric"), na.string = c("NA", ""),
     check.names = FALSE, strip.white = TRUE, col.names = c("CHR", "SNP", "POS", "MAF")
@@ -334,16 +334,16 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   } else {
     IN <- paste0(.checkFilePath(ldDir), pattern, ".ld")
   }
-  nbCol <- as.character(ncol(read.table(text = readLines(con = IN, n = 1), stringsAsFactors = FALSE)))
+  nbCol <- as.character(ncol(utils::read.table(text = readLines(con = IN, n = 1), stringsAsFactors = FALSE)))
   switch(EXPR = nbCol,
     "2" = {
-      read.delim(
+      utils::read.delim(
         file = IN, header = TRUE, stringsAsFactors = FALSE, colClasses = c("character", "character"),
         na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, sep = "\t"
       )
     },
     "7" = {
-      read.delim(
+      utils::read.delim(
         file = IN, header = TRUE, stringsAsFactors = FALSE, colClasses = c("NULL", "NULL", "character", "NULL", "NULL", "character", "NULL"),
         na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, sep = ""
       )
@@ -356,7 +356,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 .checkTranscript <- function(data, transcriptFile, distThresh) {
   if (any(transcriptFile != FALSE)) {
     transcript <- .readTranscript(transcriptFile = transcriptFile)
-    transcriptCHR <- na.exclude(transcript[transcript[, "CHR"] == unique(data[, "CHR"]), c("START", "END")])
+    transcriptCHR <- stats::na.exclude(transcript[transcript[, "CHR"] == unique(data[, "CHR"]), c("START", "END")])
 
     cisFunc <- function(line, distThresh, dataTranscript) {
       position <- as.numeric(line[4])
@@ -412,7 +412,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   if (missing(snpListFile)) {
     stop("[Enrichment:readEnrichment] argument(s) missing.", call. = FALSE)
   }
-  snpList <- read.delim(
+  snpList <- utils::read.delim(
     file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
     na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE
   )
@@ -433,7 +433,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
     filePath <- paste0(directory, "snpList/")
   }
   by(snpList, snpList[, "CHR"], function(snpListChr) {
-    write.table(snpListChr, file = paste0(filePath, pattern, unique(snpListChr[, "CHR"]), "-", filePathDetails[length(filePathDetails)]), sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
+    utils::write.table(snpListChr, file = paste0(filePath, pattern, unique(snpListChr[, "CHR"]), "-", filePathDetails[length(filePathDetails)]), sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
   })
   filePath
 }
@@ -540,10 +540,10 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   result@xSNP@List <- SNPs[["xSNP"]]
 
   if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE)) > 1) {
-    signal <- read.delim(file = signalFile, header = TRUE, sep = "\t", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE"), stringsAsFactors = FALSE)
+    signal <- utils::read.delim(file = signalFile, header = TRUE, sep = "\t", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE"), stringsAsFactors = FALSE)
   } else {
     if (length(unlist(strsplit(readLines(signalFile, n = 1), split = " "), use.names = FALSE)) > 1) {
-      signal <- read.delim(file = signalFile, header = TRUE, sep = " ", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE"), stringsAsFactors = FALSE)
+      signal <- utils::read.delim(file = signalFile, header = TRUE, sep = " ", colClasses = c("character", "numeric"), na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, col.names = c("SNP", "PVALUE"), stringsAsFactors = FALSE)
     } else {
       stop('[Enrichment:readEnrichment] only " " and "\t" are allowed as columns separator in Signal file.', call. = FALSE)
     }

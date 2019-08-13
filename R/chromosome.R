@@ -1,12 +1,12 @@
-setClass(
+methods::setClass(
   Class = "Chromosome",
-  representation = representation(
+  representation = methods::representation(
     Data = "data.frame",
     LD = "character",
     eSNP = "EnrichSNP",
     xSNP = "EnrichSNP"
   ),
-  prototype = prototype(
+  prototype = methods::prototype(
     Data = data.frame(),
     LD = character(),
     eSNP = enrichSNP(),
@@ -15,7 +15,7 @@ setClass(
 )
 
 
-setMethod(f = "chromosome", signature = "ANY", definition = function(Data, LD, eSNP, xSNP) {
+methods::setMethod(f = "chromosome", signature = "ANY", definition = function(Data, LD, eSNP, xSNP) {
   if (missing(Data)) {
     Data <- data.frame()
     if (missing(eSNP)) {
@@ -29,11 +29,11 @@ setMethod(f = "chromosome", signature = "ANY", definition = function(Data, LD, e
     }
   }
   if (missing(LD)) LD <- character()
-  new("Chromosome", Data = Data, LD = LD, eSNP = eSNP, xSNP = xSNP)
+  methods::new("Chromosome", Data = Data, LD = LD, eSNP = eSNP, xSNP = xSNP)
 })
 
 
-setMethod(f = "is.chromosome", signature = "ANY", definition = function(object) {
+methods::setMethod(f = "is.chromosome", signature = "ANY", definition = function(object) {
   if (length(object) > 1) {
     sapply(object, is.chromosome)
   } else {
@@ -42,7 +42,7 @@ setMethod(f = "is.chromosome", signature = "ANY", definition = function(object) 
 })
 
 
-setMethod(f = "print", signature = "Chromosome", definition = function(x, type = c("eSNP", "xSNP")) {
+methods::setMethod(f = "print", signature = "Chromosome", definition = function(x, type = c("eSNP", "xSNP")) {
   if (missing(x)) {
     stop('[Chromosome:print] "x" is missing.', call. = FALSE)
   }
@@ -99,14 +99,14 @@ setMethod(f = "print", signature = "Chromosome", definition = function(x, type =
   cat("\n")
   invisible(object)
 }
-setMethod(f = "show", signature = "Chromosome", definition = function(object) {
+methods::setMethod(f = "show", signature = "Chromosome", definition = function(object) {
   cat("     ~~~ Class:", class(object), "~~~\n")
   .Chromosome.show(object)
   invisible(object)
 })
 
 
-setMethod(f = "[", signature = "Chromosome", definition = function(x, i, j, drop) {
+methods::setMethod(f = "[", signature = "Chromosome", definition = function(x, i, j, drop) {
   switch(EXPR = i,
     "Data" = x@Data,
     "LD" = x@LD,
@@ -117,7 +117,7 @@ setMethod(f = "[", signature = "Chromosome", definition = function(x, i, j, drop
 })
 
 
-setMethod(f = "[<-", signature = "Chromosome", definition = function(x, i, j, value) {
+methods::setMethod(f = "[<-", signature = "Chromosome", definition = function(x, i, j, value) {
   switch(EXPR = i,
     "Data" = x@Data <- value,
     "LD" = x@LD <- value,
@@ -125,12 +125,12 @@ setMethod(f = "[<-", signature = "Chromosome", definition = function(x, i, j, va
     "xSNP" = x@xSNP <- value,
     stop("[Chromosome:get] ", i, ' is not a "Chromosome" slot.', call. = FALSE)
   )
-  validObject(x)
+  methods::validObject(x)
   invisible(x)
 })
 
 
-setMethod(f = "computeER", signature = "Chromosome", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
+methods::setMethod(f = "computeER", signature = "Chromosome", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
   if (missing(object)) {
     stop('[Chromosome:computeER] "Chromosome" object is required.', call. = FALSE)
   }
@@ -151,7 +151,7 @@ setMethod(f = "computeER", signature = "Chromosome", definition = function(objec
 })
 
 
-setMethod(f = "doLDblock", signature = "Chromosome", definition = function(object, mc.cores = 1) {
+methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = function(object, mc.cores = 1) {
   if (missing(object)) {
     stop('[Chromosome:doLDblock] "Chromosome" Object is required.', call. = FALSE)
   }
@@ -175,7 +175,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function(objec
     }
   })
   LDblock <- do.call("rbind", unique(LDblockTmp))
-  LDblock <- na.exclude(LDblock)
+  LDblock <- stats::na.exclude(LDblock)
   rm(LDblockTmp)
 
   names(byBlock) <- NULL
@@ -225,7 +225,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function(objec
     interv <- seq(from = which(data[, "POS"] == m["MIN"]), to = which(data[, "POS"] == m["MAX"]))
     interv
     data[interv, c("MIN", "MAX", "IDBLOCK", "LENGTH")] <- matrix(rep(m, length(interv)), nrow = length(interv), byrow = TRUE)
-    data[which(data[, "IDBLOCK"] %in% m["IDBLOCK"]), "MAFmedian"] <- median(data[data[, "IDBLOCK"] %in% m["IDBLOCK"], "MAF"])
+    data[which(data[, "IDBLOCK"] %in% m["IDBLOCK"]), "MAFmedian"] <- stats::median(data[data[, "IDBLOCK"] %in% m["IDBLOCK"], "MAF"])
     data[interv, ]
   })
 
@@ -251,7 +251,7 @@ setMethod(f = "doLDblock", signature = "Chromosome", definition = function(objec
 })
 
 
-setMethod(
+methods::setMethod(
   f = "reSample",
   signature = "Chromosome",
   definition = function(
@@ -277,7 +277,7 @@ setMethod(
 )
 
 
-setMethod(f = "reset", signature = "Chromosome", definition = function(object, i) {
+methods::setMethod(f = "reset", signature = "Chromosome", definition = function(object, i) {
   switch(EXPR = i,
     "Data" = object@Data <- data.frame(),
     "LD" = object@LD <- character(),
