@@ -66,6 +66,11 @@ methods::setMethod(f = "print", signature = "Chromosome", definition = function(
 })
 
 
+#' .Chromosome.show
+#'
+#' @param object
+#'
+#' @keywords internal
 .Chromosome.show <- function(object) {
   cat("  ~ Data :", paste0("(", paste(dim(object@Data), collapse = "x"), ")"))
   nrowShow <- seq_len(min(5, nrow(object@Data)))

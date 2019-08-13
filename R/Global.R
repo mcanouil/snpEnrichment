@@ -73,18 +73,47 @@ methods::setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(
 })
 
 
-.verbose <- function(expr) invisible(utils::capture.output(expr))
+#' .verbose
+#'
+#' @param expr
+#'
+#' @keywords internal
+.verbose <- function(expr) {
+  invisible(utils::capture.output(expr))
+}
 
 
+#' GC
+#'
+#' `GC` performs garbage collection until free memory indicators show no change.
+#'
+#' @param verbose A `logical`. If `TRUE`, the garbage collection prints statistics about cons cells
+#'   and the space allocated for vectors.
+#' @param reset A `logical`. If `TRUE` the values for maximum space used are reset
+#'   to the current values.
+#'
+#' @keywords internal
 GC <- function(verbose = getOption("verbose"), reset = FALSE) {
   while (!identical(gc(verbose, reset)[, 4], gc(verbose, reset)[, 4])) {}
   gc(verbose, reset)
 }
 
 
-.checkFilePath <- function(path) gsub("/*$", "/", path)
+#' .checkFilePath
+#'
+#' @param path
+#'
+#' @keywords internal
+.checkFilePath <- function(path) {
+  gsub("/*$", "/", path)
+}
 
 
+#' maxCores
+#'
+#' @param mc.cores
+#'
+#' @keywords internal
 maxCores <- function(mc.cores = 1) {
   if (Sys.info()[["sysname"]] == "Linux") {
     nbCores <- parallel::detectCores()
@@ -110,6 +139,19 @@ maxCores <- function(mc.cores = 1) {
 }
 
 
+#' mclapply2
+#'
+#' @param X
+#' @param FUN
+#' @param ...
+#' @param mc.preschedule
+#' @param mc.set.seed
+#' @param mc.silent
+#' @param mc.cores
+#' @param mc.cleanup
+#' @param mc.allow.recursive
+#'
+#' @keywords internal
 mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L), mc.cleanup = TRUE, mc.allow.recursive = TRUE) {
   if (Sys.info()[["sysname"]] != "Linux") {
     mc.cores <- 1
@@ -124,6 +166,13 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .writeSignal
+#'
+#' @param pattern
+#' @param snpInfoDir
+#' @param signalFile
+#'
+#' @keywords internal
 .writeSignal <- function(pattern, snpInfoDir, signalFile) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE)) > 1) {
@@ -158,6 +207,11 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .readSignal
+#'
+#' @param pattern
+#'
+#' @keywords internal
 .readSignal <- function(pattern) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   utils::read.delim(
@@ -168,6 +222,12 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .writeFreq
+#'
+#' @param pattern
+#' @param snpInfoDir
+#'
+#' @keywords internal
 .writeFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   IN <- paste0(snpInfoDir, pattern)
@@ -184,6 +244,11 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .checkSnpInfoDir
+#'
+#' @param snpInfoDir
+#'
+#' @keywords internal
 .checkSnpInfoDir <- function(snpInfoDir) {
   snpInfoDir <- .checkFilePath(snpInfoDir)
   if (length(list.files(snpInfoDir, pattern = "*.bim")) != 22) {
@@ -199,6 +264,11 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .checkSignalFile
+#'
+#' @param signalFile
+#'
+#' @keywords internal
 .checkSignalFile <- function(signalFile) {
   if (!file.exists(signalFile)) {
     stop(paste0("[Enrichment:initFiles] ", signalFile, " doesn't exist."), call. = FALSE)
@@ -207,6 +277,12 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' .checkSnpListDir
+#'
+#' @param snpListDir
+#' @param pattern
+#'
+#' @keywords internal
 .checkSnpListDir <- function(snpListDir, pattern) {
   snpListDir <- .checkFilePath(snpListDir)
   if (length(list.files(snpListDir, pattern = pattern)) == 0) {
@@ -216,6 +292,17 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
 }
 
 
+#' initFiles
+#'
+#' @param pattern
+#' @param snpInfoDir
+#' @param signalFile
+#' @param mc.cores
+#'
+#' @return
+#' @export
+#'
+#' @examples
 initFiles <- function(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
   if (missing(snpInfoDir) | missing(signalFile)) {
     stop("[Enrichment:initFiles] argument(s) missing.", call. = FALSE)
@@ -242,6 +329,20 @@ initFiles <- function(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
 }
 
 
+#' writeLD
+#'
+#' @param pattern
+#' @param snpInfoDir
+#' @param signalFile
+#' @param ldDir
+#' @param ldThresh
+#' @param depth
+#' @param mc.cores
+#'
+#' @return
+#' @export
+#'
+#' @examples
 writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldThresh = 0.8, depth = 1000, mc.cores = 1) {
   if (missing(pattern) | missing(snpInfoDir) | missing(signalFile) | missing(ldThresh)) {
     stop("[Enrichment:writeLD] argument(s) missing.", call. = FALSE)
@@ -278,6 +379,12 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .readSNP
+#'
+#' @param pattern
+#' @param snpListDir
+#'
+#' @keywords internal
 .readSNP <- function(pattern, snpListDir) {
   snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9]"), full.names = TRUE)
   if (is.na(snpListFile)) {
@@ -300,6 +407,11 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .readTranscript
+#'
+#' @param transcriptFile
+#'
+#' @keywords internal
 .readTranscript <- function(transcriptFile) {
   if (all(class(try(close(file(transcriptFile)), silent = TRUE)) != "try-error")) {
     transcript <- utils::read.delim(file = transcriptFile, header = TRUE, stringsAsFactors = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)
@@ -317,6 +429,12 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .readFreq
+#'
+#' @param pattern
+#' @param snpInfoDir
+#'
+#' @keywords internal
 .readFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   utils::read.delim(
@@ -327,6 +445,13 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .readLD
+#'
+#' @param pattern
+#' @param snpInfoDir
+#' @param ldDir
+#'
+#' @keywords internal
 .readLD <- function(pattern, snpInfoDir, ldDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   if (missing(ldDir) | is.null(ldDir)) {
@@ -353,6 +478,13 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .checkTranscript
+#'
+#' @param data
+#' @param transcriptFile
+#' @param distThresh
+#'
+#' @keywords internal
 .checkTranscript <- function(data, transcriptFile, distThresh) {
   if (any(transcriptFile != FALSE)) {
     transcript <- .readTranscript(transcriptFile = transcriptFile)
@@ -372,6 +504,14 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .readFiles
+#'
+#' @param pattern
+#' @param snpInfoDir
+#' @param snpListDir
+#' @param distThresh
+#'
+#' @keywords internal
 .readFiles <- function(pattern, snpInfoDir, snpListDir, distThresh) {
   fullPattern <- gsub(".bim", "", grep(paste0(pattern, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
   signalPattern <- gsub(".signal", "", grep(paste0(pattern, "[^0-9]"), list.files(paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/"), pattern = ".signal"), value = TRUE))
@@ -408,6 +548,13 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' .splitByChrom
+#'
+#' @param pattern
+#' @param snpListFile
+#' @param directory
+#'
+#' @keywords internal
 .splitByChrom <- function(pattern, snpListFile, directory) {
   if (missing(snpListFile)) {
     stop("[Enrichment:readEnrichment] argument(s) missing.", call. = FALSE)
@@ -439,6 +586,23 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
 }
 
 
+#' readEnrichment
+#'
+#' @param pattern
+#' @param signalFile
+#' @param transcriptFile
+#' @param snpListDir
+#' @param snpInfoDir
+#' @param distThresh
+#' @param sigThresh
+#' @param LD
+#' @param ldDir
+#' @param mc.cores
+#'
+#' @return
+#' @export
+#'
+#' @examples
 readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE, snpListDir, snpInfoDir, distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, mc.cores = 1) {
   cat("############# Read Enrichment ##############\n")
   if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
@@ -600,12 +764,27 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
 }
 
 
+#' .enrichmentRatio
+#'
+#' @param table
+#'
+#' @keywords internal
 .enrichmentRatio <- function(table) {
   tmp <- as.numeric(table)
   (tmp[1] * tmp[4]) / (tmp[2] * tmp[3])
 }
 
 
+#' .reSample
+#'
+#' @param object
+#' @param nSample
+#' @param empiricPvalue
+#' @param sigThresh
+#' @param MAFpool
+#' @param mc.cores
+#'
+#' @keywords internal
 .reSample <- function(object, nSample, empiricPvalue, sigThresh, MAFpool, mc.cores) {
   nResampling <- nrow(object@eSNP@Resampling)
   data <- object["Data"]
@@ -725,6 +904,17 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
 }
 
 
+#' .compareEnrich
+#'
+#' @param object1
+#' @param object2
+#' @param nSample
+#' @param empiricPvalue
+#' @param sigThresh
+#' @param MAFpool
+#' @param mc.cores
+#'
+#' @keywords internal
 .compareEnrich <- function(object1, object2, nSample, empiricPvalue, sigThresh, MAFpool, mc.cores) {
   DATA <- object1["Data"]
   chrLD <- object1["LD"]

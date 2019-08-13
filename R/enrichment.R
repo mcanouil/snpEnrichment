@@ -179,6 +179,11 @@ methods::setMethod(
 )
 
 
+#' .Enrichment.show
+#'
+#' @param object
+#'
+#' @keywords internal
 .Enrichment.show <- function(object) {
   .showArgs <- function(args) {
     for (iFuncArg in seq(args)) {
