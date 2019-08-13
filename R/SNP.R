@@ -1,3 +1,38 @@
+#' Class \code{"\linkS4class{EnrichSNP}"}
+#'
+#' This class is defined to summarize the enrichment analysis. It's a part of
+#' \code{\linkS4class{Chromosome}} and \code{\linkS4class{Enrichment}} classes.
+#'
+#'
+#' @name EnrichSNP-class
+#' @aliases EnrichSNP-class EnrichSNP [,EnrichSNP-method
+#' [,EnrichSNP,ANY,ANY,ANY-method [<-,EnrichSNP-method
+#' [<-,EnrichSNP,ANY,ANY,ANY-method show,EnrichSNP-method
+#' print,EnrichSNP-method
+#' @docType class
+#' @note \code{\linkS4class{EnrichSNP}} object is not intended to be use
+#' directly by user. It is a part of the \code{\linkS4class{Enrichment}} and
+#' \code{\linkS4class{Chromosome}} object.
+#' @section Slots: \describe{ \item{List}{[vector(character)]: a list of SNPs
+#' used to compute enrichment (e.g. eSNP or xSNP).} \item{Table}{[matrix]:
+#' Contingency table with SNPs (columns) and P-Values from signal (rows).}
+#' \item{EnrichmentRatio}{[numeric]: Enrichment Ratio is computed on the
+#' contingency table (\code{Table} slot).} \item{Z}{[numeric]: A statistic
+#' computed from \code{EnrichmentRatio} and resampling results.}
+#' \item{PValue}{[numeric]: P-Value associated with the statistic \code{Z}.}
+#' \item{Resampling}{[matrix]: A matrix with by row, the contingency table and
+#' the odds ratio for each resampling.} }
+#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
+#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
+#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
+#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
+#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
+#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
+#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
+#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
+#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
+#' @keywords classes class enrichSNP
+#'
 methods::setClass(
   Class = "EnrichSNP",
   representation = methods::representation(
@@ -18,6 +53,10 @@ methods::setClass(
   )
 )
 
+methods::setGeneric(
+  name = "enrichSNP",
+  def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) standardGeneric("enrichSNP")
+)
 
 methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) {
   if (missing(List)) List <- character()
@@ -37,75 +76,6 @@ methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(Lis
   )
 })
 
-
-methods::setMethod(f = "is.EnrichSNP", signature = "ANY", definition = function(object) {
-  if (length(object) > 1) {
-    sapply(object, is.EnrichSNP)
-  } else {
-    class(object) == "EnrichSNP"
-  }
-})
-
-
-methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x) {
-  EnrichmentRatio <- x@EnrichmentRatio
-  Z <- x@Z
-  PValue <- x@PValue
-  Resampling <- nrow(x@Resampling)
-  Data <- sum(x@Table)
-  List <- length(x@List)
-  resTmp <- c(
-    if (length(EnrichmentRatio) == 0) NA else EnrichmentRatio,
-    if (length(Z) == 0) NA else Z,
-    if (length(PValue) == 0) NA else PValue,
-    Resampling,
-    Data,
-    List
-  )
-  names(resTmp) <- c("EnrichmentRatio", "Z", "PVALUE", "nbSample", "SNP", "eSNP")
-  res <- t(resTmp)
-  rownames(res) <- "eSNP"
-  res
-})
-
-
-#' .EnrichSNP.show
-#'
-#' @param object
-#'
-#' @keywords internal
-.EnrichSNP.show <- function(object) {
-  cat(
-    "   - List :",
-    paste0("(", length(object@List), ")"),
-    if (length(object@List) <= 5) {
-      if (length(object@List) == 0) "NA" else object@List
-    } else {
-      paste(paste(object@List[seq(5)], collapse = " "), "...")
-    }
-  )
-  cat("\n   - Table :", paste0("(", paste(dim(object@Table), collapse = "x"), ")"))
-  if (all(object@Table == 0)) {
-    cat(" NA")
-  } else {
-    cat("\n")
-    resFormat <- cbind(c("", rownames(object@Table)), rbind(colnames(object@Table), apply(round(object@Table, digits = 4), 2, as.character)))
-    cat(paste("     ", apply(apply(matrix(paste0(" ", resFormat, " "), nrow = nrow(resFormat)), 2, format, justify = "centre"), 1, paste, collapse = ""), "\n", sep = "", collapse = ""))
-  }
-  cat("\n   - EnrichmentRatio :", ifelse(length(object@EnrichmentRatio) == 0, NA, object@EnrichmentRatio))
-  cat("\n   - Z               :", ifelse(length(object@Z) == 0, NA, object@Z))
-  cat("\n   - PValue          :", ifelse(length(object@PValue) == 0, NA, ifelse((object@PValue == 0 & nrow(object@Resampling) != 0), paste0("<", 1 / nrow(object@Resampling)), object@PValue)))
-  cat("\n   - Resampling      :", paste0("(", paste(dim(object@Resampling), collapse = "x"), ")"), ifelse(nrow(object@Resampling) == 0, 0, nrow(object@Resampling)))
-  cat("\n")
-  invisible(object)
-}
-methods::setMethod(f = "show", signature = "EnrichSNP", definition = function(object) {
-  cat("     ~~~ Class:", class(object), "~~~\n")
-  .EnrichSNP.show(object)
-  invisible(object)
-})
-
-
 methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i, j, drop) {
   switch(EXPR = i,
     "List" = x@List,
@@ -117,7 +87,6 @@ methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i,
     stop("[EnrichSNP:get] ", i, ' is not a "EnrichSNP" slot.', call. = FALSE)
   )
 })
-
 
 methods::setMethod(f = "[<-", signature = "EnrichSNP", definition = function(x, i, j, value) {
   switch(EXPR = i,
@@ -131,18 +100,4 @@ methods::setMethod(f = "[<-", signature = "EnrichSNP", definition = function(x, 
   )
   methods::validObject(x)
   x
-})
-
-
-methods::setMethod(f = "reset", signature = "EnrichSNP", definition = function(object, i) {
-  switch(EXPR = i,
-    "List" = object@List <- character(),
-    "Table" = object@Table <- matrix(0, ncol = 2, nrow = 2),
-    "EnrichmentRatio" = object@EnrichmentRatio <- numeric(),
-    "Z" = object@Z <- numeric(),
-    "PValue" = object@PValue <- numeric(),
-    "Resampling" = object@Resampling <- matrix(0, ncol = 5, nrow = 0),
-    stop("[EnrichSNP:reset] ", i, ' is not a "EnrichSNP" slot.', call. = FALSE)
-  )
-  object
 })
