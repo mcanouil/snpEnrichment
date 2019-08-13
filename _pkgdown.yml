@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: lumen
+    bootswatch: darkly
 
 development:
   mode: auto
