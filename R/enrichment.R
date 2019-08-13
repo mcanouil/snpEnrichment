@@ -1,13 +1,13 @@
-setClass(
+methods::setClass(
   Class = "Enrichment",
-  representation = representation(
+  representation = methods::representation(
     Loss = "data.frame",
     Call = "list",
     eSNP = "EnrichSNP",
     xSNP = "EnrichSNP",
     Chromosomes = "list"
   ),
-  prototype = prototype(
+  prototype = methods::prototype(
     Loss = data.frame(),
     Call = list(
       readEnrichment = list(
@@ -33,7 +33,7 @@ setClass(
 )
 
 
-setMethod(
+methods::setMethod(
   f = "enrichment",
   signature = "ANY",
   definition = function(Loss, Call, eSNP, xSNP, Chromosomes) {
@@ -82,7 +82,7 @@ setMethod(
       ))
       xSNP <- enrichSNP(List = List)
     }
-    new(
+    methods::new(
       "Enrichment",
       Loss = Loss,
       Call = Call,
@@ -94,7 +94,7 @@ setMethod(
 )
 
 
-setMethod(f = "is.enrichment", signature = "ANY", definition = function(object) {
+methods::setMethod(f = "is.enrichment", signature = "ANY", definition = function(object) {
   if (length(object) > 1) {
     sapply(object, is.enrichment)
   } else {
@@ -103,7 +103,7 @@ setMethod(f = "is.enrichment", signature = "ANY", definition = function(object) 
 })
 
 
-setMethod(
+methods::setMethod(
   f = "print",
   signature = "Enrichment",
   definition = function(x, what = "Genome", type = c("eSNP", "xSNP")) {
@@ -260,14 +260,14 @@ setMethod(
   cat("\n")
   invisible(object)
 }
-setMethod(f = "show", signature = "Enrichment", definition = function(object) {
+methods::setMethod(f = "show", signature = "Enrichment", definition = function(object) {
   cat("    ~~~ Class:", class(object), "~~~ \n")
   .Enrichment.show(object)
   invisible(object)
 })
 
 
-setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
+methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
     switch(EXPR = i,
@@ -275,7 +275,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
       "Data" = {
         resData <- mclapply2(
           X = seq_len(22),
-          mc.cores = min(22, detectCores()),
+          mc.cores = min(22, parallel::detectCores()),
           FUN = function(iChr) x@Chromosomes[[iChr]]@Data
         )
         do.call("rbind", resData)
@@ -283,7 +283,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
       "LD" = {
         resLD <- mclapply2(
           X = seq_len(22),
-          mc.cores = min(22, detectCores()),
+          mc.cores = min(22, parallel::detectCores()),
           FUN = function(iChr) x@Chromosomes[[iChr]]@LD
         )
         unlist(resLD, use.names = FALSE)
@@ -331,7 +331,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
           "Data" = {
             resData <- mclapply2(
               X = seq_len(22),
-              mc.cores = min(22, detectCores()),
+              mc.cores = min(22, parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@Data
             )
             do.call("rbind", resData)
@@ -339,7 +339,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
           "LD" = {
             resLD <- mclapply2(
               X = seq_len(22),
-              mc.cores = min(22, detectCores()),
+              mc.cores = min(22, parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@LD
             )
             unlist(resLD, use.names = FALSE)
@@ -442,7 +442,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
           "Data" = {
             resData <- mclapply2(
               X = j,
-              mc.cores = min(length(j), detectCores()),
+              mc.cores = min(length(j), parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@Data
             )
             do.call("rbind", resData)
@@ -450,7 +450,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
           "LD" = {
             resLD <- mclapply2(
               X = j,
-              mc.cores = min(length(j), detectCores()),
+              mc.cores = min(length(j), parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@LD
             )
             unlist(resLD, use.names = FALSE)
@@ -613,7 +613,7 @@ setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop
 })
 
 
-setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, value) {
+methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, value) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
     switch(EXPR = i,
@@ -660,12 +660,12 @@ setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, va
       }
     }
   }
-  validObject(x)
+  methods::validObject(x)
   x
 })
 
 
-setMethod(f = "computeER", signature = "Enrichment", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
+methods::setMethod(f = "computeER", signature = "Enrichment", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
   if (missing(object)) {
     stop('[Enrichment:computeER] "Enrichment" object is required.', call. = FALSE)
   }
@@ -695,7 +695,7 @@ setMethod(f = "computeER", signature = "Enrichment", definition = function(objec
 })
 
 
-setMethod(f = "reSample", signature = "Enrichment", definition = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
+methods::setMethod(f = "reSample", signature = "Enrichment", definition = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
   if (missing(object)) {
     stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
   }
@@ -805,13 +805,13 @@ setMethod(f = "reSample", signature = "Enrichment", definition = function(object
 })
 
 
-setMethod(f = "excludeSNP", signature = "Enrichment", definition = function(object, excludeFile, mc.cores = 1) {
+methods::setMethod(f = "excludeSNP", signature = "Enrichment", definition = function(object, excludeFile, mc.cores = 1) {
   if (missing(excludeFile)) {
     stop('[Enrichment:excludeSNP] argument "excludeFile" is missing.', call. = FALSE)
   }
   cat("########## Exclude SNP list Start ##########\n")
   if (all(class(try(close(file(excludeFile)), silent = TRUE)) != "try-error")) {
-    eSNPexclude <- read.delim(file = excludeFile, header = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, stringsAsFactors = FALSE, sep = "\t")
+    eSNPexclude <- utils::read.delim(file = excludeFile, header = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, stringsAsFactors = FALSE, sep = "\t")
   } else {
     eSNPexclude <- excludeFile
   }
@@ -869,7 +869,7 @@ setMethod(f = "excludeSNP", signature = "Enrichment", definition = function(obje
 })
 
 
-setMethod(f = "reset", signature = "Enrichment", definition = function(object, i) {
+methods::setMethod(f = "reset", signature = "Enrichment", definition = function(object, i) {
   switch(EXPR = i,
     "Loss" = object@Loss <- data.frame(),
     "Data" = object@Chromosomes <- lapply(object@Chromosomes, reset, i = "Data"),
@@ -939,7 +939,7 @@ setMethod(f = "reset", signature = "Enrichment", definition = function(object, i
 })
 
 
-setMethod(f = "compareEnrichment", signature = "ANY", definition = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {
+methods::setMethod(f = "compareEnrichment", signature = "ANY", definition = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {
   if (missing(object.x) | missing(object.y)) {
     stop('[Enrichment:compareEnrichment] "Enrichment" object is required.', call. = FALSE)
   }
@@ -1072,7 +1072,7 @@ setMethod(f = "compareEnrichment", signature = "ANY", definition = function(obje
 })
 
 
-setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = "Genome", type = c("eSNP", "xSNP"), ggplot = FALSE, pvalue = TRUE, ...) {
+methods::setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = "Genome", type = c("eSNP", "xSNP"), ggplot = FALSE, pvalue = TRUE, ...) {
   if (is.null(unlist(x@Call$reSample, use.names = FALSE))) {
     stop('[Enrichment:plot] "reSample" have to be run before "plot".', call. = FALSE)
   }
@@ -1104,7 +1104,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
       resamplingInterv <- resampling[1:k]
       resamplingClean <- resamplingInterv[!(is.na(resamplingInterv) | is.infinite(resamplingInterv))]
       mu <- mean(resamplingClean)
-      sigma <- sqrt(var(resamplingClean))
+      sigma <- sqrt(stats::var(resamplingClean))
 
       if (sigma == 0 | is.na(sigma)) {
         if (mu == 0) 0 else ER - mu
@@ -1197,7 +1197,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
     }
   }
   if (ggplot) {
-    is.installed <- function(mypkg) is.element(mypkg, installed.packages()[, 1])
+    is.installed <- function(mypkg) is.element(mypkg, utils::installed.packages()[, 1])
     if (!require("ggplot2") | !require("grid")) {
       stop('[Enrichment:plot] "ggPlot2" and "grid" packages must be installed with "ggplot=TRUE".', call. = FALSE)
     }
@@ -1210,11 +1210,11 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
       if (numPlots == 1) {
         print(plots[[1]])
       } else {
-        grid.newpage()
-        pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+        grid::grid.newpage()
+        grid::pushViewport(grid::viewport(layout = grid::grid.layout(nrow(layout), ncol(layout))))
         for (i in 1:numPlots) {
           matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-          print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row, layout.pos.col = matchidx$col))
+          print(plots[[i]], vp = grid::viewport(layout.pos.row = matchidx$row, layout.pos.col = matchidx$col))
         }
       }
     }
@@ -1222,7 +1222,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
       if ((diff(h) %% 360) < 1) {
         h[2] <- h[2] - 360 / n
       }
-      hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
+      grDevices::hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
     }
     listPlots <- list()
     for (iType in type) {
@@ -1230,7 +1230,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
         if (x@Call$reSample$empiricPvalue) {
           ylab <- "P-Value (Empirical)"
         } else {
-          matrixER[[iType]] <- apply(matrixER[[iType]], 2, pnorm, lower.tail = FALSE)
+          matrixER[[iType]] <- apply(matrixER[[iType]], 2, stats::pnorm, lower.tail = FALSE)
           ylab <- "P-Value (From Z-statistic)"
         }
       } else {
@@ -1243,64 +1243,64 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
       cnames <- colnames(tmpDF)
       colnames(tmpDF) <- paste0("R", colnames(tmpDF))
       tmpDF$IID <- factor(colnames(matrixER[[iType]]), levels = c("Genome", paste0("Chrom", seq_len(22))), labels = c("Genome", paste0("Chrom", seq_len(22))))
-      tmp <- reshape(tmpDF, idvar = "IID", direction = "long", varying = list(grep("R", colnames(tmpDF))), times = cnames)
+      tmp <- stats::reshape(tmpDF, idvar = "IID", direction = "long", varying = list(grep("R", colnames(tmpDF))), times = cnames)
       colnames(tmp) <- c("IID", "Resampling", "Z")
       tmp[, "Resampling"] <- as.numeric(tmp[, "Resampling"])
 
-      p <- ggplot(data = tmp, aes_string(x = "Resampling", y = "Z", colour = "IID")) + geom_line()
+      p <- ggplot2::ggplot(data = tmp, ggplot2::aes_string(x = "Resampling", y = "Z", colour = "IID")) + ggplot2::geom_line()
       noGridColour <- "transparent"
       base_size <- 12
       base_family <- ""
-      p <- p + theme(
-        line = element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
-        rect = element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-        text = element_text(family = base_family, face = "plain", colour = "black", size = base_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
-        axis.text = element_text(size = rel(0.8), colour = "black"),
-        strip.text = element_text(size = rel(0.8)),
-        axis.line = element_blank(),
-        axis.text.x = element_text(vjust = 1),
-        axis.text.y = element_text(hjust = 1),
-        axis.ticks = element_line(colour = "black"),
-        axis.title.x = element_text(),
-        axis.title.y = element_text(angle = 90),
-        axis.ticks.length = unit(0.15, "cm"),
-        axis.ticks.margin = unit(0.1, "cm"),
-        legend.background = element_rect(fill = "white", colour = "black"),
-        legend.margin = unit(0.2, "cm"),
-        legend.key = element_rect(fill = "white", colour = "black"),
-        legend.key.size = unit(1.2, "lines"),
+      p <- p + ggplot2::theme(
+        line = ggplot2::element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
+        rect = ggplot2::element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
+        text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
+        axis.text = ggplot2::element_text(size = ggplot2::rel(0.8), colour = "black"),
+        strip.text = ggplot2::element_text(size = ggplot2::rel(0.8)),
+        axis.line = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_text(vjust = 1),
+        axis.text.y = ggplot2::element_text(hjust = 1),
+        axis.ticks = ggplot2::element_line(colour = "black"),
+        axis.title.x = ggplot2::element_text(),
+        axis.title.y = ggplot2::element_text(angle = 90),
+        axis.ticks.length = ggplot2::unit(0.15, "cm"),
+        axis.ticks.margin = ggplot2::unit(0.1, "cm"),
+        legend.background = ggplot2::element_rect(fill = "white", colour = "black"),
+        legend.margin = ggplot2::unit(0.2, "cm"),
+        legend.key = ggplot2::element_rect(fill = "white", colour = "black"),
+        legend.key.size = ggplot2::unit(1.2, "lines"),
         legend.key.height = NULL,
         legend.key.width = NULL,
-        legend.text = element_text(size = rel(0.8)),
+        legend.text = ggplot2::element_text(size = ggplot2::rel(0.8)),
         legend.text.align = NULL,
-        legend.title = element_text(size = rel(0.8), face = "bold", hjust = 0),
+        legend.title = ggplot2::element_text(size = ggplot2::rel(0.8), face = "bold", hjust = 0),
         legend.title.align = NULL,
         legend.position = "right",
         legend.direction = NULL,
         legend.justification = "center",
         legend.box = NULL,
-        panel.background = element_rect(fill = "white", colour = "black"),
-        panel.border = element_blank(),
-        panel.grid.major = element_line(colour = noGridColour[1]),
-        panel.grid.minor = element_line(colour = noGridColour[length(noGridColour)], size = 0.25),
-        panel.margin = unit(0.25, "lines"),
-        strip.background = element_rect(fill = "black", colour = "black"),
-        strip.text.x = element_text(colour = "white"),
-        strip.text.y = element_text(angle = -90, colour = "white"),
-        plot.background = element_rect(colour = "white"),
-        plot.title = element_text(size = rel(1.2)),
-        plot.margin = unit(c(1, 1, 0.5, 0.5), "lines"),
+        panel.background = ggplot2::element_rect(fill = "white", colour = "black"),
+        panel.border = ggplot2::element_blank(),
+        panel.grid.major = ggplot2::element_line(colour = noGridColour[1]),
+        panel.grid.minor = ggplot2::element_line(colour = noGridColour[length(noGridColour)], size = 0.25),
+        panel.margin = ggplot2::unit(0.25, "lines"),
+        strip.background = ggplot2::element_rect(fill = "black", colour = "black"),
+        strip.text.x = ggplot2::element_text(colour = "white"),
+        strip.text.y = ggplot2::element_text(angle = -90, colour = "white"),
+        plot.background = ggplot2::element_rect(colour = "white"),
+        plot.title = ggplot2::element_text(size = ggplot2::rel(1.2)),
+        plot.margin = ggplot2::unit(c(1, 1, 0.5, 0.5), "lines"),
         complete = TRUE
       )
-      p <- p + xlab(paste(iType, "Resampling"))
+      p <- p + ggplot2::xlab(paste(iType, "Resampling"))
       if (ncol(matrixER[[iType]]) > 1) {
-        p <- p + ylab(paste(ylab, "(scale and center)"))
+        p <- p + ggplot2::ylab(paste(ylab, "(scale and center)"))
       } else {
-        p <- p + ylab(ylab)
+        p <- p + ggplot2::ylab(ylab)
       }
-      p <- p + theme(legend.title = element_blank())
+      p <- p + ggplot2::theme(legend.title = ggplot2::element_blank())
       if (length(what) >= 5 | what == "All") {
-        p <- p + theme(legend.background = element_rect(fill = "gray90", linetype = "dotted"))
+        p <- p + ggplot2::theme(legend.background = ggplot2::element_rect(fill = "gray90", linetype = "dotted"))
       } else {
         quarter <- floor(3 / 4 * nrow(tmp)):nrow(tmp)
         rangeZtmp <- range(tmp[, "Z"])
@@ -1319,46 +1319,46 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
         inf <- apply(sapply(rangeQuarter, function(lim) lim < rangeZ), 1, all)
         sup <- apply(sapply(rangeQuarter, function(lim) lim > rangeZ), 1, all)
         if (sum(inf) <= sum(sup)) {
-          p <- p + theme(legend.justification = c(1, 0), legend.position = c(1, 0))
+          p <- p + ggplot2::theme(legend.justification = c(1, 0), legend.position = c(1, 0))
         } else {
-          p <- p + theme(legend.justification = c(1, 1), legend.position = c(1, 1))
+          p <- p + ggplot2::theme(legend.justification = c(1, 1), legend.position = c(1, 1))
         }
       }
 
       if ("Genome" %in% unique(tmp$IID)) {
-        p <- p + scale_colour_manual(values = c("black", .ggplotColours(ifelse(length(unique(tmp$IID)) - 1 > 0, length(unique(tmp$IID)) - 1, 1))))
+        p <- p + ggplot2::scale_colour_manual(values = c("black", .ggplotColours(ifelse(length(unique(tmp$IID)) - 1 > 0, length(unique(tmp$IID)) - 1, 1))))
       }
       listPlots[[iType]] <- p
     }
     multiplot(plotlist = listPlots, cols = length(listPlots))
     invisible(listPlots)
   } else {
-    par(mfrow = c(1, length(type)))
+    graphics::par(mfrow = c(1, length(type)))
     for (iType in type) {
       if (pvalue) {
         if (x@Call$reSample$empiricPvalue) {
           matrixER[[iType]] <- .computeEmpP4plot(x[iType])
           ylab <- "P-Value (Empirical)"
         } else {
-          matrixER[[iType]] <- apply(matrixER[[iType]], 2, pnorm, lower.tail = FALSE)
+          matrixER[[iType]] <- apply(matrixER[[iType]], 2, stats::pnorm, lower.tail = FALSE)
           ylab <- "P-Value (From Z-statistic)"
         }
       } else {
         ylab <- "Z statistic"
       }
       nbCol <- ncol(matrixER[[iType]])
-      ylim <- range(na.exclude(matrixER[[iType]]))
+      ylim <- range(stats::na.exclude(matrixER[[iType]]))
       xNames <- rownames(matrixER[[iType]])
-      colors <- rainbow(nbCol)
+      colors <- grDevices::rainbow(nbCol)
       if (nbCol > 1) {
         matrixER[[iType]] <- apply(matrixER[[iType]], 2, scale)
         ylab <- paste(ylab, "(scale and center)")
-        plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
+        graphics::plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
         res <- sapply(seq_len(ncol(matrixER[[iType]][, -1])), function(iER) {
-          lines(x = xNames, y = matrixER[[iType]][, iER + 1], iType = "l", ylim = ylim, col = colors[iER + 1])
+          graphics::lines(x = xNames, y = matrixER[[iType]][, iER + 1], iType = "l", ylim = ylim, col = colors[iER + 1])
         })
       } else {
-        plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
+        graphics::plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
       }
     }
     invisible()
@@ -1366,7 +1366,7 @@ setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = 
 })
 
 
-setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function(object, type = "eSNP") {
+methods::setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function(object, type = "eSNP") {
   alpha <- object["Call"][["readEnrichment"]][["sigThresh"]]
   switch(type,
     "eSNP" = object["Data"][object["Data"][, "PVALUE"] < alpha & object["Data"][, type] == 1, ],
