@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# SNPs Enrichment Analysis <!--<img src="man/figures/snpEnrichment_hex.png" align="right" width="120" /> -->
+# SNPs Enrichment Analysis With Sampling <!--<img src="man/figures/snpEnrichment_hex.png" align="right" width="120" /> -->
 
 <!-- badges: start -->
 [![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)

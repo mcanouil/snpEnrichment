@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# SNPs Enrichment Analysis <!--<img src="man/figures/snpEnrichment_hex.png" align="right" width="120" /> -->
+# SNPs Enrichment Analysis With Sampling <!--<img src="man/figures/snpEnrichment_hex.png" align="right" width="120" /> -->
 
 <!-- badges: start -->
 
