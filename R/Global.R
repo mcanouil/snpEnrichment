@@ -1,88 +1,88 @@
-setGeneric(name = "enrichSNP", def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) {
-  standardGeneric("enrichSNP")
-})
-setGeneric(name = "chromosome", def = function(Data, LD, eSNP, xSNP) {
-  standardGeneric("chromosome")
-})
-setGeneric(name = "enrichment", def = function(Loss, Call, eSNP, xSNP, Chromosomes) {
-  standardGeneric("enrichment")
-})
-setGeneric(name = "doLDblock", def = function(object, mc.cores = 1) {
-  standardGeneric("doLDblock")
-})
-setGeneric(name = "excludeSNP", def = function(object, excludeFile, mc.cores = 1) {
-  standardGeneric("excludeSNP")
-})
-setGeneric(name = "computeER", def = function(object, sigThresh = 0.05, mc.cores = 1) {
-  standardGeneric("computeER")
-})
-setGeneric(name = "reSample", def = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) {
-  standardGeneric("reSample")
-})
-setGeneric(name = "compareEnrichment", def = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {
-  standardGeneric("compareEnrichment")
-})
-setGeneric(name = "is.enrichment", def = function(object) {
-  standardGeneric("is.enrichment")
-})
-setGeneric(name = "is.chromosome", def = function(object) {
-  standardGeneric("is.chromosome")
-})
-setGeneric(name = "is.EnrichSNP", def = function(object) {
-  standardGeneric("is.EnrichSNP")
-})
-setGeneric(name = "reset", def = function(object, i) {
-  standardGeneric("reset")
-})
-setGeneric(name = "getEnrichSNP", def = function(object, type = "eSNP") {
-  standardGeneric("getEnrichSNP")
-})
+setGeneric(
+  name = "enrichSNP",
+  def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) standardGeneric("enrichSNP")
+)
+setGeneric(
+  name = "chromosome",
+  def = function(Data, LD, eSNP, xSNP) standardGeneric("chromosome")
+)
+setGeneric(
+  name = "enrichment",
+  def = function(Loss, Call, eSNP, xSNP, Chromosomes) standardGeneric("enrichment")
+)
+setGeneric(
+  name = "doLDblock",
+  def = function(object, mc.cores = 1) standardGeneric("doLDblock")
+)
+setGeneric(
+  name = "excludeSNP",
+  def = function(object, excludeFile, mc.cores = 1) standardGeneric("excludeSNP")
+)
+setGeneric(
+  name = "computeER",
+  def = function(object, sigThresh = 0.05, mc.cores = 1) standardGeneric("computeER")
+)
+setGeneric(
+  name = "reSample",
+  def = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) standardGeneric("reSample")
+)
+setGeneric(
+  name = "compareEnrichment",
+  def = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) standardGeneric("compareEnrichment")
+)
+setGeneric(
+  name = "is.enrichment",
+  def = function(object) standardGeneric("is.enrichment")
+)
+setGeneric(
+  name = "is.chromosome",
+  def = function(object) standardGeneric("is.chromosome")
+)
+setGeneric(
+  name = "is.EnrichSNP",
+  def = function(object) standardGeneric("is.EnrichSNP")
+)
+setGeneric(
+  name = "reset",
+  def = function(object, i) standardGeneric("reset")
+)
+setGeneric(
+  name = "getEnrichSNP",
+  def = function(object, type = "eSNP") standardGeneric("getEnrichSNP")
+)
 
 setMethod(f = "reSample", signature = "ANY", definition = function(object, nSample, sigThresh, MAFpool, mc.cores) {
   if (!(is.enrichment(object) & is.chromosome(object))) {
     stop('[Method:reSample] not available for "', class(object), '" object.', call. = FALSE)
-  } else {}
+  }
 })
 setMethod(f = "excludeSNP", signature = "ANY", definition = function(object, excludeFile, mc.cores = 1) {
   if (!is.enrichment(object)) {
     stop('[Method:excludeSNP] not available for "', class(object), '" object.', call. = FALSE)
-  } else {}
+  }
 })
 setMethod(f = "reset", signature = "ANY", definition = function(object, i) {
   if (!(is.enrichment(object) & is.chromosome(object))) {
     stop('[Method:reset] not available for "', class(object), '" object.', call. = FALSE)
-  } else {}
+  }
 })
 setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(object, type = "eSNP") {
   if (!(is.enrichment(object))) {
     stop('[Method:getEnrichSNP] not available for "', class(object), '" object.', call. = FALSE)
-  } else {}
+  }
 })
 
 
-.verbose <- function(expr) {
-  return(invisible(capture.output(expr)))
-}
+.verbose <- function(expr) invisible(capture.output(expr))
 
 
 GC <- function(verbose = getOption("verbose"), reset = FALSE) {
   while (!identical(gc(verbose, reset)[, 4], gc(verbose, reset)[, 4])) {}
-  return(gc(verbose, reset))
+  gc(verbose, reset)
 }
 
 
-.checkFilePath <- function(path) {
-  # END <- unlist(regmatches(path, regexec(".$", path)))
-  # START <- unlist(regmatches(path, regexec("^.", path)))
-  # if (START != "/") {
-  # path <- paste0("/", path)
-  # } else {}
-  # if (END != "/") {
-  # path <- paste0(path, "/")
-  # } else {}
-  path <- gsub("/*$", "/", path)
-  return(path)
-}
+.checkFilePath <- function(path) gsub("/*$", "/", path)
 
 
 maxCores <- function(mc.cores = 1) {
@@ -96,19 +96,17 @@ maxCores <- function(mc.cores = 1) {
       sysMemAvailable <- 0.95 * (as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemFree)) + as.numeric(gsub("[^0-9]*([0-9]*)", "\\1", sysMemCached)))
       sysProc <- as.numeric(unlist(strsplit(system(paste("ps v", Sys.getpid()), intern = TRUE)[2], " +"), use.names = FALSE)[8])
       mc.cores <- max(min(as.numeric(mc.cores), floor(sysMemAvailable / sysProc)), 1)
-      if (mc.cores > nbCores) {
-        mc.cores <- nbCores
-      } else {}
+      if (mc.cores > nbCores) mc.cores <- nbCores
       if (mc.cores != mc.cores.old) {
         warning(paste0('To avoid memory overload "mc.cores" was decreased to "', mc.cores, '".'), call. = FALSE)
-      } else {}
+      }
     } else {
       mc.cores <- ifelse(mc.cores.old > nbCores, nbCores, mc.cores.old)
     }
   } else {
     mc.cores <- 1
   }
-  return(mc.cores)
+  mc.cores
 }
 
 
@@ -156,18 +154,17 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
     'write.table(signal, file = "', tmpDir, "/snpEnrichment/", pattern,
     '.signal", quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")'
   )))
-  return(invisible())
+  invisible()
 }
 
 
 .readSignal <- function(pattern) {
   tmpDir <- gsub("\\\\", "/", tempdir())
-  signal <- read.delim(
+  read.delim(
     file = paste0(tmpDir, "/snpEnrichment/", pattern, ".signal"), header = TRUE, stringsAsFactors = FALSE,
     colClasses = c("NULL", "character", "numeric"), na.string = c("NA", ""),
     check.names = FALSE, strip.white = TRUE, col.names = c("", "SNP", "PVALUE")
   )
-  return(signal)
 }
 
 
@@ -183,7 +180,7 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
   plinkRes[, "MAF"] <- as.numeric(as.character(plinkRes[, "MAF"]))
   colnames(plinkRes) <- c("CHR", "SNP", "POS", "MAF")
   write.table(plinkRes, paste0(OUT, ".all"), row.names = FALSE, sep = "\t")
-  return(invisible())
+  invisible()
 }
 
 
@@ -191,22 +188,22 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
   snpInfoDir <- .checkFilePath(snpInfoDir)
   if (length(list.files(snpInfoDir, pattern = "*.bim")) != 22) {
     stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.bim")), " 'bim' files found when 22 is needed."), call. = FALSE)
-  } else {}
+  }
   if (length(list.files(snpInfoDir, pattern = "*.bed")) != 22) {
     stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.bed")), " 'bed' files found when 22 is needed."), call. = FALSE)
-  } else {}
+  }
   if (length(list.files(snpInfoDir, pattern = "*.fam")) != 22) {
     stop(paste0("[Enrichment:initFiles] Only ", length(list.files(snpInfoDir, pattern = "*.fam")), " 'fam' files found when 22 is needed."), call. = FALSE)
-  } else {}
-  return(invisible())
+  }
+  invisible()
 }
 
 
 .checkSignalFile <- function(signalFile) {
   if (!file.exists(signalFile)) {
     stop(paste0("[Enrichment:initFiles] ", signalFile, " doesn't exist."), call. = FALSE)
-  } else {}
-  return(invisible())
+  }
+  invisible()
 }
 
 
@@ -214,15 +211,15 @@ mclapply2 <- function(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc
   snpListDir <- .checkFilePath(snpListDir)
   if (length(list.files(snpListDir, pattern = pattern)) == 0) {
     stop(paste0("[Enrichment:readEnrichment] No snp list file found when at least one is needed."), call. = FALSE)
-  } else {}
-  return(invisible())
+  }
+  invisible()
 }
 
 
 initFiles <- function(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
   if (missing(snpInfoDir) | missing(signalFile)) {
     stop("[Enrichment:initFiles] argument(s) missing.", call. = FALSE)
-  } else {}
+  }
   snpInfoDir <- .checkFilePath(snpInfoDir)
   FILES <- list.files(snpInfoDir, pattern = ".bim")
   .checkSnpInfoDir(snpInfoDir)
@@ -231,29 +228,24 @@ initFiles <- function(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
   dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
   cat("All files are ready for chromosome:\n  ")
   resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
-    # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
     newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
     err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
     err2 <- try(.writeFreq(pattern = newPattern, snpInfoDir = snpInfoDir), silent = TRUE)
     cat(iChr, " ", sep = "")
-    if (class(err1) == "try-error" | class(err2) == "try-error") {
-      return(invisible("ERROR"))
-    } else {
-      return(invisible())
-    }
+    if (class(err1) == "try-error" | class(err2) == "try-error") invisible("ERROR") else invisible()
   })
   if (any(unlist(resParallel, use.names = FALSE) == "ERROR")) {
     stop("[Enrichment:initFiles] initialize files failed.", call. = FALSE)
-  } else {}
+  }
   cat("\n\n")
-  return(invisible())
+  invisible()
 }
 
 
 writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldThresh = 0.8, depth = 1000, mc.cores = 1) {
   if (missing(pattern) | missing(snpInfoDir) | missing(signalFile) | missing(ldThresh)) {
     stop("[Enrichment:writeLD] argument(s) missing.", call. = FALSE)
-  } else {}
+  }
   tmpDir <- gsub("\\\\", "/", tempdir())
   dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
   snpInfoDir <- .checkFilePath(snpInfoDir)
@@ -267,45 +259,26 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   FILES <- list.files(snpInfoDir, pattern = ".bim")
   cat("Compute LD for chromosome:\n  ")
   resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
-    # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), FILES, value = TRUE), ".bim"))[1]
     newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
-    # isThereSignals <- grep(".signal", list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE), value = TRUE)
     isThereSignals <- list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE, pattern = ".signal")
-    if (length(isThereSignals) != 22) {
-      .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
-    } else {}
+    if (length(isThereSignals) != 22) .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
     IN <- paste0(snpInfoDir, newPattern)
     OUT <- paste0(tmpDir, "/snpEnrichment/", newPattern)
     plinkData <- read.plink(bed = paste0(IN, ".bed"), bim = paste0(IN, ".bim"), fam = paste0(IN, ".fam"), select.snps = .readSignal(newPattern)[, "SNP"])
     ldData <- ld(x = plinkData$genotypes, depth = min(ncol(plinkData$genotypes) - 1, depth), stats = "R.squared")
-    if (any(isNA <- is.na(ldData))) {
-      ldData <- replace(ldData, grep(TRUE, isNA), 0)
-    } else {}
-    ldData <- apply(ldData, 1, function(li) {
-      which(li > ldThresh)
-    })
+    if (any(isNA <- is.na(ldData))) ldData <- replace(ldData, grep(TRUE, isNA), 0)
+    ldData <- apply(ldData, 1, function(li) which(li > ldThresh))
     resLD <- data.frame(matrix(unlist(strsplit(names(unlist(ldData)), "\\."), use.names = FALSE), ncol = 2, byrow = TRUE, dimnames = list(NULL, c("SNP_A", "SNP_B"))), stringsAsFactors = FALSE)
     resLD <- resLD[which(resLD[, 1] != resLD[, 2]), ]
-
-    ### Check LD distance
-    # snpNames <- grep("[sS][nN][pP]", colnames(plinkData$map), value = TRUE)
-    # posNames <- grep("[pP][oO][sS].*", colnames(plinkData$map), value = TRUE)
-    # tmpPlink <- plinkData$map[which(plinkData$map[, snpNames]%in%unique(unlist(resLD[, c("SNP_A", "SNP_B")]))), c(snpNames, posNames)]
-    # resLD[, "Dist"] <- apply(resLD[, c("SNP_A", "SNP_B")], 1, function (li) {
-    # abs(tmpPlink[tmpPlink[, snpNames]%in%li["SNP_A"], posNames] - tmpPlink[tmpPlink[, snpNames]%in%li["SNP_B"], posNames])
-    # })
-    # table(resLD[, "Dist"]<1000000)
-
     write.table(resLD[, c("SNP_A", "SNP_B")], file = paste0(ldDir, newPattern, ".ld"), sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
     cat(iChr, " ", sep = "")
   })
   cat("\n\n")
-  return(invisible())
+  invisible()
 }
 
 
 .readSNP <- function(pattern, snpListDir) {
-  # snpListFile <- grep(pattern, sort(list.files(snpListDir, full.names = TRUE)), value = TRUE)[1]
   snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9]"), full.names = TRUE)
   if (is.na(snpListFile)) {
     snpList <- data.frame()
@@ -315,25 +288,15 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
       na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE
     )
     switch(EXPR = as.character(ncol(snpList)),
-      "1" = {
-        colnames(snpList) <- "SNP"
-      },
-      "2" = {
-        colnames(snpList) <- c("CHR", "SNP")
-      },
-      "3" = {
-        colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")
-      },
+      "1" = colnames(snpList) <- "SNP",
+      "2" = colnames(snpList) <- c("CHR", "SNP"),
+      "3" = colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT"),
       colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
     )
-    if (ncol(snpList) >= 3) {
-      snpList <- snpList[, c("SNP", "TRANSCRIPT")]
-    } else {}
-    if (nrow(snpList) != 0) {
-      snpList[, "eSNP"] <- 1
-    } else {}
+    if (ncol(snpList) >= 3) snpList <- snpList[, c("SNP", "TRANSCRIPT")]
+    if (nrow(snpList) != 0) snpList[, "eSNP"] <- 1
   }
-  return(snpList)
+  snpList
 }
 
 
@@ -350,18 +313,17 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
       stop('[Enrichment:readEnrichment] "transcriptFile" required "matrix", "data.frame" or "txt file".', call. = FALSE)
     }
   }
-  return(transcript)
+  transcript
 }
 
 
 .readFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
-  freq <- read.delim(
+  read.delim(
     file = paste0(tmpDir, "/snpEnrichment/", pattern, ".all"), header = TRUE, stringsAsFactors = FALSE,
     colClasses = c("numeric", "character", "integer", "numeric"), na.string = c("NA", ""),
     check.names = FALSE, strip.white = TRUE, col.names = c("CHR", "SNP", "POS", "MAF")
   )
-  return(freq)
 }
 
 
@@ -375,20 +337,19 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   nbCol <- as.character(ncol(read.table(text = readLines(con = IN, n = 1), stringsAsFactors = FALSE)))
   switch(EXPR = nbCol,
     "2" = {
-      ldData <- read.delim(
+      read.delim(
         file = IN, header = TRUE, stringsAsFactors = FALSE, colClasses = c("character", "character"),
         na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, sep = "\t"
       )
     },
     "7" = {
-      ldData <- read.delim(
+      read.delim(
         file = IN, header = TRUE, stringsAsFactors = FALSE, colClasses = c("NULL", "NULL", "character", "NULL", "NULL", "character", "NULL"),
         na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE, sep = ""
       )
     },
     stop(paste0('[Enrichment:readEnrichment] "', pattern, '.ld" structure must be a matrix file with columns:\n       c("SNP_A", "SNP_B") or c("CHR_A", "BP_A", "SNP_A", "CHR_B", "BP_B", "SNP_B", "R2")".'), call. = FALSE)
   )
-  return(ldData)
 }
 
 
@@ -400,15 +361,14 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
     cisFunc <- function(line, distThresh, dataTranscript) {
       position <- as.numeric(line[4])
       CIS <- any(position > (dataTranscript[, "START"] - distThresh) & (position < (dataTranscript[, "END"] + distThresh)))
-      return(c(line, CIS = as.numeric(CIS)))
+      c(line, CIS = as.numeric(CIS))
     }
 
     temp <- unique(as.data.frame(t(apply(data, 1, cisFunc, distThresh = distThresh * 10^3, dataTranscript = transcriptCHR)), stringsAsFactors = FALSE))
-    temp <- temp[temp[, "CIS"] == 1, -grep("CIS", colnames(temp))]
+    temp[temp[, "CIS"] == 1, -grep("CIS", colnames(temp))]
   } else {
-    temp <- unique(data)
+    unique(data)
   }
-  return(temp)
 }
 
 
@@ -444,33 +404,27 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   } else {
     rownames(data) <- data[, "SNP"]
   }
-  return(list(data = data, snpLoss = snpLoss))
+  list(data = data, snpLoss = snpLoss)
 }
 
 
 .splitByChrom <- function(pattern, snpListFile, directory) {
   if (missing(snpListFile)) {
     stop("[Enrichment:readEnrichment] argument(s) missing.", call. = FALSE)
-  } else {}
+  }
   snpList <- read.delim(
     file = snpListFile, header = FALSE, stringsAsFactors = FALSE,
     na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE
   )
   switch(EXPR = as.character(ncol(snpList)),
-    "1" = {
-      stop('[Enrichment:readEnrichment] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE)
-    },
-    "2" = {
-      colnames(snpList) <- c("CHR", "SNP")
-    },
-    "3" = {
-      colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT")
-    },
+    "1" = stop('[Enrichment:readEnrichment] at least two columns are needed: "Chromosome" and "rs name".', call. = FALSE),
+    "2" = colnames(snpList) <- c("CHR", "SNP"),
+    "3" = colnames(snpList) <- c("CHR", "SNP", "TRANSCRIPT"),
     colnames(snpList)[1:3] <- c("CHR", "SNP", "TRANSCRIPT")
   )
   if (ncol(snpList) > 3) {
     snpList <- snpList[, c("CHR", "SNP", "TRANSCRIPT")]
-  } else {}
+  }
   filePathDetails <- unlist(strsplit(snpListFile, "/"), use.names = FALSE)
   if (is.null(directory)) {
     filePath <- paste0(c(filePathDetails[-length(filePathDetails)], ""), collapse = "/")
@@ -481,8 +435,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   by(snpList, snpList[, "CHR"], function(snpListChr) {
     write.table(snpListChr, file = paste0(filePath, pattern, unique(snpListChr[, "CHR"]), "-", filePathDetails[length(filePathDetails)]), sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
   })
-  # cat(paste0('*** File "', filePathDetails[length(filePathDetails)], '" has been splitted into ', length(unique(snpList[, "CHR"])), ' chromosomes. ***\n\n'))
-  return(filePath)
+  filePath
 }
 
 
@@ -490,20 +443,20 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   cat("############# Read Enrichment ##############\n")
   if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
     stop("[Enrichment:readEnrichment] argument(s) missing.", call. = FALSE)
-  } else {}
+  }
   tmpDir <- paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/")
   if (length(list.files(tmpDir, pattern = "\\.signal")) != 22 & length(list.files(tmpDir, pattern = "\\.all")) != 22) {
     stop('[Enrichment:readEnrichment] "initFiles" must be run before.', call. = FALSE)
-  } else {}
+  }
 
   if (is.null(ldDir)) {
     if (LD & length(list.files(tmpDir, pattern = "\\.ld")) != 22) {
       stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
-    } else {}
+    }
   } else {
     if (LD & length(list.files(ldDir, pattern = "\\.ld")) != 22) {
       stop('[Enrichment:readEnrichment] "writeLD" must be run before. (Or LD computation by PLINK.)', call. = FALSE)
-    } else {}
+    }
   }
 
   snpInfoDir <- .checkFilePath(snpInfoDir)
@@ -521,7 +474,6 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   resParallel <- mclapply2(seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
     files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
     if (LD) {
-      # newPattern <- unlist(strsplit(grep(paste0(pattern, iChr, "[^0-9]*.bim"), list.files(snpInfoDir), value = TRUE), ".bim"))[1]
       newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
       linkageData <- .readLD(pattern = newPattern, snpInfoDir = snpInfoDir, ldDir = ldDir)
 
@@ -572,7 +524,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     resChr <- chromosome(Data = resCheckData, LD = resChr@LD)
 
     cat(iChr, " ", sep = "")
-    return(list(resChr, snpLoss, signalLoss))
+    list(resChr, snpLoss, signalLoss)
   })
   names(resParallel) <- paste0("Chrom", seq_len(22))
 
@@ -619,71 +571,38 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
       argTmp <- argsSNP[[paramPos]]
       classTmp <- paramClass[[paramPos]]
       switch(EXPR = classTmp,
-        "character" = {
-          formal[[iArg]] <- argTmp
-        },
-        "logical" = {
-          formal[[iArg]] <- argTmp
-        },
-        "numeric" = {
-          formal[[iArg]] <- argTmp
-        },
-        "integer" = {
-          formal[[iArg]] <- argTmp
-        },
-        "NULL" = {
-          formal[[iArg]] <- "NULL"
-        },
-        "call" = {
-          formal[[iArg]] <- eval(argTmp)
-        },
+        "character" = formal[[iArg]] <- argTmp,
+        "logical" = formal[[iArg]] <- argTmp,
+        "numeric" = formal[[iArg]] <- argTmp,
+        "integer" = formal[[iArg]] <- argTmp,
+        "NULL" = formal[[iArg]] <- "NULL",
+        "call" = formal[[iArg]] <- eval(argTmp),
         "name" = {
           resEval <- eval(argTmp)
           switch(EXPR = class(resEval),
-            "character" = {
-              formal[[iArg]] <- resEval
-            },
-            "logical" = {
-              formal[[iArg]] <- resEval
-            },
-            "numeric" = {
-              formal[[iArg]] <- resEval
-            },
-            "integer" = {
-              formal[[iArg]] <- resEval
-            },
-            "matrix" = {
-              formal[[iArg]] <- argTmp
-            },
-            "data.frame" = {
-              formal[[iArg]] <- argTmp
-            },
-            "Enrichment" = {
-              formal[[iArg]] <- argTmp
-            }
+            "character" = formal[[iArg]] <- resEval,
+            "logical" = formal[[iArg]] <- resEval,
+            "numeric" = formal[[iArg]] <- resEval,
+            "integer" = formal[[iArg]] <- resEval,
+            "matrix" = formal[[iArg]] <- argTmp,
+            "data.frame" = formal[[iArg]] <- argTmp,
+            "Enrichment" = formal[[iArg]] <- argTmp
           )
         }
       )
-    } else {}
+    }
   }
-
-  # unlink(tmpDir, recursive = TRUE) # add parameter to ask if temporary directory should be cleaned
-  if (is.null(ldDir)) {
-    formal[["ldDir"]] <- tmpDir
-  } else {
-    formal[["ldDir"]] <- .checkFilePath(formal[["ldDir"]])
-  }
+  formal[["ldDir"]] <- if (is.null(ldDir)) tmpDir else .checkFilePath(formal[["ldDir"]])
   result@Call$readEnrichment <- formal
 
-  result <- computeER(object = result, sigThresh = sigThresh, mc.cores = mc.cores)
   cat("\n########### Read Enrichment Done ###########\n\n")
-  return(result)
+  computeER(object = result, sigThresh = sigThresh, mc.cores = mc.cores)
 }
 
 
 .enrichmentRatio <- function(table) {
   tmp <- as.numeric(table)
-  return((tmp[1] * tmp[4]) / (tmp[2] * tmp[3]))
+  (tmp[1] * tmp[4]) / (tmp[2] * tmp[3])
 }
 
 
@@ -709,11 +628,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   }
 
   if (isLD) {
-    if (nResampling == 0) {
-      xSNPsample <- NULL
-    } else {
-      xSNPsample <- object@xSNP@Resampling
-    }
+    xSNPsample <- if (nResampling == 0) NULL else object@xSNP@Resampling
     xEnrichment <- object@xSNP@Table
     xEnrichRatio <- object@xSNP@EnrichmentRatio
     xSNPlist <- object@xSNP@List
@@ -775,17 +690,13 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
         xTmp <- NULL
       }
       eTmp <- c(c(eSNPenrichStats), .enrichmentRatio(eSNPenrichStats))
-      return(list(eSNP = eTmp, xSNP = xTmp))
+      list(eSNP = eTmp, xSNP = xTmp)
     })
-    eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-      l$eSNP
-    })))
+    eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) l$eSNP)))
     eMeanEnrichRatio <- sum(eSNPsample[, 5]) / length(eSNPsample[, 5])
     Ze <- (eEnrichRatio - eMeanEnrichRatio) / sqrt((sum((eSNPsample[, 5] - eMeanEnrichRatio)^2)) / (length(eSNPsample[, 5]) - 1))
     if (isLD) {
-      xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-        l$xSNP
-      })))
+      xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) l$xSNP)))
       xMeanEnrichRatio <- sum(xSNPsample[, 5]) / length(xSNPsample[, 5])
       Zx <- (xEnrichRatio - xMeanEnrichRatio) / sqrt((sum((xSNPsample[, 5] - xMeanEnrichRatio)^2)) / (length(xSNPsample[, 5]) - 1))
     } else {
@@ -798,11 +709,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     rm(resParallel)
   }
 
-  if (empiricPvalue) {
-    whichPvalue <- 2
-  } else {
-    whichPvalue <- 1
-  }
+  whichPvalue <- if (empiricPvalue) 2 else whichPvalue <- 1
 
   empiricPvalue.eSNP <- sum(eEnrichRatio < eSNPsample[, 5]) / length(eSNPsample[, 5])
   statisticPvalue.eSNP <- pnorm(Ze, lower.tail = FALSE)
@@ -814,7 +721,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   } else {
     object@xSNP <- enrichSNP()
   }
-  return(object)
+  object
 }
 
 
@@ -846,13 +753,13 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     xSNPlist <- object1@xSNP@List
     xSNPlistPool <- table(data[xSNPlist, "MAFpool"])
     xSNPsample <- NULL
-  } else {}
+  }
 
   popSNP4Sample <- split(eList, data[eList, "MAFpool"])
   assoc_eSNP <- factor(data[eList, "PVALUE"] < sigThresh, levels = c(FALSE, TRUE))
   if (isLD) {
     assoc_xSNP <- factor(data[xList, "PVALUE"] < sigThresh, levels = c(FALSE, TRUE))
-  } else { }
+  }
   rm(data)
 
   cat("0.. ")
@@ -869,20 +776,18 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     } else {
       xTmp <- NULL
     }
-    return(list(eSNP = eTmp, xSNP = xTmp))
+    list(eSNP = eTmp, xSNP = xTmp)
   })
-  eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-    l$eSNP
-  })))
+  eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) l$eSNP)))
 
   eSNPanyDup <- eSNPsample[!duplicated(eSNPsample), ]
   if (is.matrix(eSNPanyDup)) {
     if (length(which(is.na(eSNPsample[, 5]))) != nrow(eSNPsample) & length(which(is.na(eSNPsample[, 5]))) > 0) {
       eSNPsample[is.na(eSNPsample[, 5]), 5] <- rep(mean(eSNPsample[(!is.na(eSNPsample[, 5]) & is.finite(eSNPsample[, 5])), 5]), length(eSNPsample[is.na(eSNPsample[, 5]), 5]))
-    } else {}
+    }
     if (length(which(is.infinite(eSNPsample[, 5]))) != nrow(eSNPsample) & length(which(is.infinite(eSNPsample[, 5]))) > 0) {
       eSNPsample[is.infinite(eSNPsample[, 5]), 5] <- rep(max(eSNPsample[!is.infinite(eSNPsample[, 5]), 5]) * 1.05, length(eSNPsample[is.infinite(eSNPsample[, 5]), 5]))
-    } else {}
+    }
     eMeanEnrichRatio <- sum(eSNPsample[, 5]) / length(eSNPsample[, 5])
     Ze <- (eEnrichRatio - eMeanEnrichRatio) / sqrt((sum((eSNPsample[, 5] - eMeanEnrichRatio)^2)) / (length(eSNPsample[, 5]) - 1))
   } else {
@@ -890,17 +795,15 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   }
 
   if (isLD) {
-    xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-      l$xSNP
-    })))
+    xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) l$xSNP)))
     xSNPanyDup <- xSNPsample[!duplicated(xSNPsample), ]
     if (is.matrix(xSNPanyDup)) {
       if (length(which(is.na(xSNPsample[, 5]))) != nrow(xSNPsample) & length(which(is.na(xSNPsample[, 5]))) > 0) {
         xSNPsample[is.na(xSNPsample[, 5]), 5] <- rep(mean(xSNPsample[(!is.na(xSNPsample[, 5]) & is.finite(xSNPsample[, 5])), 5]), length(xSNPsample[is.na(xSNPsample[, 5]), 5]))
-      } else {}
+      }
       if (length(which(is.infinite(xSNPsample[, 5]))) != nrow(xSNPsample) & length(which(is.infinite(xSNPsample[, 5]))) > 0) {
         xSNPsample[is.infinite(xSNPsample[, 5]), 5] <- rep(max(xSNPsample[!is.infinite(xSNPsample[, 5]), 5]) * 1.05, length(xSNPsample[is.infinite(xSNPsample[, 5]), 5]))
-      } else {}
+      }
       xMeanEnrichRatio <- sum(xSNPsample[, 5]) / length(xSNPsample[, 5])
       Zx <- (xEnrichRatio - xMeanEnrichRatio) / sqrt((sum((xSNPsample[, 5] - xMeanEnrichRatio)^2)) / (length(xSNPsample[, 5]) - 1))
     } else {
@@ -930,18 +833,16 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
       }
       return(list(eSNP = eTmp, xSNP = xTmp))
     })
-    eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-      l$eSNP
-    })))
+    eSNPsample <- rbind(eSNPsample, do.call("rbind", lapply(resParallel, function(l) l$eSNP)))
 
     eSNPanyDup <- eSNPsample[!duplicated(eSNPsample), ]
     if (is.matrix(eSNPanyDup)) {
       if (length(which(is.na(eSNPsample[, 5]))) != nrow(eSNPsample) & length(which(is.na(eSNPsample[, 5]))) > 0) {
         eSNPsample[is.na(eSNPsample[, 5]), 5] <- rep(mean(eSNPsample[(!is.na(eSNPsample[, 5]) & is.finite(eSNPsample[, 5])), 5]), length(eSNPsample[is.na(eSNPsample[, 5]), 5]))
-      } else {}
+      }
       if (length(which(is.infinite(eSNPsample[, 5]))) != nrow(eSNPsample) & length(which(is.infinite(eSNPsample[, 5]))) > 0) {
         eSNPsample[is.infinite(eSNPsample[, 5]), 5] <- rep(max(eSNPsample[is.finite(eSNPsample[, 5]), 5]) * 1.05, length(eSNPsample[is.infinite(eSNPsample[, 5]), 5]))
-      } else {}
+      }
       eMeanEnrichRatio <- sum(eSNPsample[, 5]) / length(eSNPsample[, 5])
       Ze <- (eEnrichRatio - eMeanEnrichRatio) / sqrt((sum((eSNPsample[, 5] - eMeanEnrichRatio)^2)) / (length(eSNPsample[, 5]) - 1))
     } else {
@@ -949,17 +850,15 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     }
 
     if (isLD) {
-      xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) {
-        l$xSNP
-      })))
+      xSNPsample <- rbind(xSNPsample, do.call("rbind", lapply(resParallel, function(l) l$xSNP)))
       xSNPanyDup <- xSNPsample[!duplicated(xSNPsample), ]
       if (is.matrix(xSNPanyDup)) {
         if (length(which(is.na(xSNPsample[, 5]))) != nrow(xSNPsample) & length(which(is.na(xSNPsample[, 5]))) > 0) {
           xSNPsample[is.na(xSNPsample[, 5]), 5] <- rep(mean(xSNPsample[(!is.na(xSNPsample[, 5]) & is.finite(xSNPsample[, 5])), 5]), length(xSNPsample[is.na(xSNPsample[, 5]), 5]))
-        } else {}
+        }
         if (length(which(is.infinite(xSNPsample[, 5]))) != nrow(xSNPsample) & length(which(is.infinite(xSNPsample[, 5]))) > 0) {
           xSNPsample[is.infinite(xSNPsample[, 5]), 5] <- rep(max(xSNPsample[is.finite(xSNPsample[, 5]), 5]) * 1.05, length(xSNPsample[is.infinite(xSNPsample[, 5]), 5]))
-        } else {}
+        }
         xMeanEnrichRatio <- sum(xSNPsample[, 5]) / length(xSNPsample[, 5])
         Zx <- (xEnrichRatio - xMeanEnrichRatio) / sqrt((sum((xSNPsample[, 5] - xMeanEnrichRatio)^2)) / (length(xSNPsample[, 5]) - 1))
       } else {
@@ -975,11 +874,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     rm(resParallel)
   }
 
-  if (empiricPvalue) {
-    whichPvalue <- 2
-  } else {
-    whichPvalue <- 1
-  }
+  whichPvalue <- if (empiricPvalue) 2 else 1
 
   empiricPvalue.eSNP <- sum(eEnrichRatio < eSNPsample[, 5]) / length(eSNPsample[, 5])
   statisticPvalue.eSNP <- pnorm(Ze, lower.tail = FALSE)
@@ -995,6 +890,6 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
     object1@Chromosomes <- lapply(object1@Chromosomes, reset, "Z")
     object1@Chromosomes <- lapply(object1@Chromosomes, reset, "PValue")
     object1@Chromosomes <- lapply(object1@Chromosomes, reset, "Resampling")
-  } else {}
-  return(object1)
+  }
+  object1
 }
