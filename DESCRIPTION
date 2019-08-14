@@ -6,7 +6,7 @@ Authors@R: c(
     person("Mickaël", "Canouil", role = c("aut", "cre"), email = "mickael.canouil@cnrs.fr"),
     person("Loic", "Yengo", role = "ctb", email = "loic.yengo@cnrs.fr")
   )
-Description:  Implements classes and methods for large scale SNP enrichment analysis 
+Description: Implements classes and methods for large scale SNP enrichment analysis 
     using a sampling approach (e.g. SNPs associated with genes expression in a GWAS signal).
 License: GPL (>= 2)
 URL: https://github.com/mcanouil/snpEnrichment, https://mcanouil.github.io/snpEnrichment
