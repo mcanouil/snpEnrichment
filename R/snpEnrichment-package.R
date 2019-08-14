@@ -6,7 +6,7 @@
 #' @note Internal data management in [snpEnrichment] use RefSNP (rs) IDs.
 #' @seealso
 #' + Overview: [snpEnrichment]
-#' + Classes: [Enrichment]
+#' + Classes: [Enrichment-class]
 #' + Methods:
 #'     - [plot]
 #'     - [reSample]

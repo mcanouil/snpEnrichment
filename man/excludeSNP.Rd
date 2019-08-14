@@ -7,7 +7,7 @@
 excludeSNP(object, excludeFile, mc.cores = 1)
 }
 \arguments{
-\item{object}{An \link{Enrichment} object filled by \link{reSample}.}
+\item{object}{An \linkS4class{Enrichment} object filled by \link{reSample}.}
 
 \item{excludeFile}{A list of SNPs to remove from a previous enrichment analysis.
 A path to a file which the first column are the SNPs.}

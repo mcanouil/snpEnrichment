@@ -8,7 +8,7 @@ compareEnrichment(object.x, object.y, pattern = "Chrom", nSample = 100,
   empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE)
 }
 \arguments{
-\item{object.x, object.y}{An \link{Enrichment} object fully filled (\emph{e.g.}, \link{readEnrichment}).}
+\item{object.x, object.y}{An \linkS4class{Enrichment} object fully filled (\emph{e.g.}, \link{readEnrichment}).}
 
 \item{pattern}{A character string containing a expression to be matched
 with all chromosomes files (\emph{e.g.}, "Chrom" for files which start by "Chrom"
@@ -28,14 +28,14 @@ Must be at least one, and parallelization requires at least two cores.}
 \value{
 Return a \code{list} of three elements:
 \itemize{
-\item object.xy \link{Enrichment} object from the comparison between \code{object.x} and \code{object.y}.
-\item object.x \link{Enrichment} object passed in \code{object.x} with resampling data.
-\item object.y \link{Enrichment} object passed in \code{object.y} with resampling data.
+\item object.xy \linkS4class{Enrichment} object from the comparison between \code{object.x} and \code{object.y}.
+\item object.x \linkS4class{Enrichment} object passed in \code{object.x} with resampling data.
+\item object.y \linkS4class{Enrichment} object passed in \code{object.y} with resampling data.
 }
 }
 \description{
 Compare the enrichment analysis between two set of SNPs.
-\link{compareEnrichment} compare two \link{Enrichment} objects.
+\link{compareEnrichment} compare two \linkS4class{Enrichment} objects.
 }
 \note{
 Still in development.

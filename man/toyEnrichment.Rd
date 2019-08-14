@@ -4,12 +4,12 @@
 \name{toyEnrichment}
 \alias{toyEnrichment}
 \title{Toy dataset with SNP data}
-\format{See class \link{Enrichment} for details about the format.}
+\format{See class \linkS4class{Enrichment} for details about the format.}
 \usage{
 toyEnrichment
 }
 \description{
-This data set gives an \link{Enrichment} object after, \link{initFiles} and \link{readEnrichment} is ran.
+This data set gives an \linkS4class{Enrichment} object after, \link{initFiles} and \link{readEnrichment} is ran.
 Compute LD for all SNPs in \code{snpListDir} files two by two. Genome Build 37.3 (hg19).
 }
 \keyword{datasets}

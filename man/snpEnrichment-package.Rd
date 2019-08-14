@@ -19,7 +19,7 @@ Internal data management in \link{snpEnrichment} use RefSNP (rs) IDs.
 \seealso{
 \itemize{
 \item Overview: \link{snpEnrichment}
-\item Classes: \link{Enrichment}
+\item Classes: \linkS4class{Enrichment}
 \item Methods:
 \itemize{
 \item \link{plot}
@@ -27,7 +27,7 @@ Internal data management in \link{snpEnrichment} use RefSNP (rs) IDs.
 \item \link{getEnrichSNP}
 \item \link{excludeSNP}
 \item \link{compareEnrichment}
-\item \link[=Enrichment]{enrichment}
+\item \link{enrichment}
 \item \link{is.enrichment}
 }
 \item Functions:
