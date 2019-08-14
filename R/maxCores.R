@@ -1,7 +1,3 @@
-#' maxCores
-#'
-#' @param mc.cores
-#' @keywords internal
 maxCores <- function(mc.cores = 1) {
   if (Sys.info()[["sysname"]] == "Linux") {
     nbCores <- parallel::detectCores()

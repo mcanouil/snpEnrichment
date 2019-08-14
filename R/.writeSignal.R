@@ -1,7 +1,3 @@
-#' .writeSignal
-#'
-#' @param signalFile
-#' @keywords internal
 .writeSignal <- function(pattern, snpInfoDir, signalFile) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   if (length(unlist(strsplit(readLines(signalFile, n = 1), split = "\t"), use.names = FALSE)) > 1) {

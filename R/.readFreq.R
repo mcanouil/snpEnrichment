@@ -1,7 +1,3 @@
-#' .readFreq
-#'
-#' @param snpInfoDir
-#' @keywords internal
 .readFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   utils::read.delim(

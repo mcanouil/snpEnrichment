@@ -1,37 +1,3 @@
-#' Print method (S4)
-#'
-#' \code{\link{print}} is a generic function used to print results.
-#'
-#'
-#' @name print-methods
-#' @aliases print print-methods print,Chromosome-method print,Enrichment-method
-#' @docType methods
-#' @param x [Enrichment or Chromosome]: an object of class
-#' \code{\linkS4class{Enrichment}} or \code{\linkS4class{Chromosome}}.
-#' @param what [character or numeric]: \code{what="Genome"} (default) to print
-#' results as a matrix. \code{what} could be \code{"All"}, \code{"Genome"} or a
-#' numeric from 1 to 22 (numeric vector is allowed).
-#' @param type [character]: select if results for \code{"eSNP"} and/or
-#' \code{"xSNP"} should be print.
-#' @return Return a \code{matrix} for classes \code{\linkS4class{Enrichment}}
-#' and \code{\linkS4class{Chromosome}}.\cr
-#' @author Mickael Canouil \email{mickael.canouil@@good.ibl.fr}
-#' @seealso Overview : \code{\link{snpEnrichment-package}} \cr Classes :
-#' \code{\linkS4class{Enrichment}}, \code{\linkS4class{Chromosome}},
-#' \code{\linkS4class{EnrichSNP}} \cr Methods : \code{\link{plot}},
-#' \code{\link{reSample}}, \code{\link{getEnrichSNP}},
-#' \code{\link{excludeSNP}}, \code{\link{compareEnrichment}}, \cr
-#' \code{\link{enrichment}}, \code{\link{is.enrichment}},
-#' \code{\link{chromosome}}, \code{\link{is.chromosome}} \cr Functions :
-#' \code{\link{initFiles}}, \code{\link{writeLD}}, \code{\link{readEnrichment}}
-#' @keywords print methods
-#' @examples
-#'
-#' data(toyEnrichment)
-#' print(toyEnrichment, "All", type = "eSNP")
-#' print(toyEnrichment, "Genome")
-#' print(toyEnrichment, 1)
-#'
 methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x) {
   EnrichmentRatio <- x@EnrichmentRatio
   Z <- x@Z

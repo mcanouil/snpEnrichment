@@ -1,7 +1,3 @@
-#' .readLD
-#'
-#' @param ldDir
-#' @keywords internal
 .readLD <- function(pattern, snpInfoDir, ldDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   if (missing(ldDir) | is.null(ldDir)) {

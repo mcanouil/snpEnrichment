@@ -1,7 +1,3 @@
-#' .compareEnrich
-#'
-#' @param mc.cores
-#' @keywords internal
 .compareEnrich <- function(object1, object2, nSample, empiricPvalue, sigThresh, MAFpool, mc.cores) {
   DATA <- object1["Data"]
   chrLD <- object1["LD"]

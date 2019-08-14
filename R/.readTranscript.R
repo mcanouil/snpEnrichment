@@ -1,7 +1,3 @@
-#' .readTranscript
-#'
-#' @param transcriptFile
-#' @keywords internal
 .readTranscript <- function(transcriptFile) {
   if (all(class(try(close(file(transcriptFile)), silent = TRUE)) != "try-error")) {
     transcript <- utils::read.delim(file = transcriptFile, header = TRUE, stringsAsFactors = FALSE, na.string = c("NA", ""), check.names = FALSE, strip.white = TRUE)

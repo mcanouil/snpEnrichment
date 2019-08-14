@@ -1,7 +1,3 @@
-#' .readFiles
-#'
-#' @param distThresh
-#' @keywords internal
 .readFiles <- function(pattern, snpInfoDir, snpListDir, distThresh) {
   fullPattern <- gsub(".bim", "", grep(paste0(pattern, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
   signalPattern <- gsub(".signal", "", grep(paste0(pattern, "[^0-9]"), list.files(paste0(gsub("\\\\", "/", tempdir()), "/snpEnrichment/"), pattern = ".signal"), value = TRUE))
