@@ -1,7 +1,3 @@
-#' .readSignal
-#'
-#' @param pattern
-#' @keywords internal
 .readSignal <- function(pattern) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   utils::read.delim(

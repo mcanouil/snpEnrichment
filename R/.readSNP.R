@@ -1,7 +1,3 @@
-#' .readSNP
-#'
-#' @param snpListDir
-#' @keywords internal
 .readSNP <- function(pattern, snpListDir) {
   snpListFile <- list.files(gsub("/$", "", snpListDir), pattern = paste0(pattern, "[^0-9]"), full.names = TRUE)
   if (is.na(snpListFile)) {

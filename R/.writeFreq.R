@@ -1,7 +1,3 @@
-#' .writeFreq
-#'
-#' @param snpInfoDir
-#' @keywords internal
 .writeFreq <- function(pattern, snpInfoDir) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   IN <- paste0(snpInfoDir, pattern)

@@ -1,7 +1,3 @@
-#' .splitByChrom
-#'
-#' @param directory
-#' @keywords internal
 .splitByChrom <- function(pattern, snpListFile, directory) {
   if (missing(snpListFile)) {
     stop("[Enrichment:readEnrichment] argument(s) missing.", call. = FALSE)

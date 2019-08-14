@@ -1,7 +1,3 @@
-#' .reSample
-#'
-#' @param mc.cores
-#' @keywords internal
 .reSample <- function(object, nSample, empiricPvalue, sigThresh, MAFpool, mc.cores) {
   nResampling <- nrow(object@eSNP@Resampling)
   data <- object["Data"]

@@ -1,7 +1,3 @@
-#' .checkSnpInfoDir
-#'
-#' @param snpInfoDir
-#' @keywords internal
 .checkSnpInfoDir <- function(snpInfoDir) {
   snpInfoDir <- .checkFilePath(snpInfoDir)
   if (length(list.files(snpInfoDir, pattern = "*.bim")) != 22) {

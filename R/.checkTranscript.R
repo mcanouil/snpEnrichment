@@ -1,7 +1,3 @@
-#' .checkTranscript
-#'
-#' @param distThresh
-#' @keywords internal
 .checkTranscript <- function(data, transcriptFile, distThresh) {
   if (any(transcriptFile != FALSE)) {
     transcript <- .readTranscript(transcriptFile = transcriptFile)
