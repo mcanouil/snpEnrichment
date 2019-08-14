@@ -4,6 +4,11 @@
 \alias{is.enrichment}
 \alias{Enrichment-class}
 \alias{enrichment}
+\alias{enrichment-ANY}
+\alias{"["-Enrichment}
+\alias{"[<-"-Enrichment}
+\alias{print-Enrichment}
+\alias{show-Enrichment}
 \alias{getEnrichSNP-Enrichment}
 \title{An S4 class \linkS4class{Enrichment}}
 \usage{
@@ -90,4 +95,3 @@ if (interactive()) {
 }
 
 }
-\keyword{internal}

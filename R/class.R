@@ -375,7 +375,7 @@ methods::setGeneric(
 
 #' Constructor method for [Enrichment-class]
 #'
-#' @name enrichment
+#' @name enrichment-ANY
 #' @rdname Enrichment-class
 methods::setMethod(
   f = "enrichment",
@@ -439,7 +439,7 @@ methods::setMethod(
 
 #' Getter method for [Enrichment-class]
 #'
-#' @name enrichment
+#' @name "["-Enrichment
 #' @rdname Enrichment-class
 methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
   nbChr <- length(x@Chromosomes)
@@ -788,7 +788,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
 
 #' Setter method for [Enrichment-class]
 #'
-#' @name enrichment
+#' @name "[<-"-Enrichment
 #' @rdname Enrichment-class
 methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, value) {
   nbChr <- length(x@Chromosomes)
@@ -843,7 +843,7 @@ methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x,
 
 #' Print method for [Enrichment-class]
 #'
-#' @name enrichment
+#' @name print-Enrichment
 #' @rdname Enrichment-class
 #' @exportMethod print
 methods::setMethod(
@@ -923,7 +923,7 @@ methods::setMethod(
 
 #' Show method for [Enrichment-class]
 #'
-#' @name enrichment
+#' @name show-Enrichment
 #' @rdname Enrichment-class
 methods::setMethod(f = "show", signature = "Enrichment", definition = function(object) {
   cat("    ~~~ Class:", class(object), "~~~ \n")
