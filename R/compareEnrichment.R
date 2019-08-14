@@ -1,9 +1,78 @@
-methods::setGeneric(
-  name = "compareEnrichment",
-  def = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) standardGeneric("compareEnrichment")
-)
-
-methods::setMethod(f = "compareEnrichment", signature = "ANY", definition = function(object.x, object.y, pattern = "Chrom", nSample = 100, empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE) {
+#' Compare enrichment analysis between two SNPs list
+#'
+#' Compare the enrichment analysis between two set of SNPs.
+#' [compareEnrichment] compare two [Enrichment] objects.
+#'
+#' @param object.x,object.y An [Enrichment] object fully filled (*e.g.*, [readEnrichment]).
+#' @param pattern A character string containing a expression to be matched
+#'   with all chromosomes files (*e.g.*, "Chrom" for files which start by "Chrom"
+#'   followed by the chromosome number).
+#' @param nSample The number of resampling done by [reSample] for p-values computation (minimum is 100).
+#' @param empiricPvalue `empiricPvalue = TRUE` (default) compute PValue based on the null
+#'   distribution (resampling). If `empiricPvalue = TRUE`, the empirical p-values are computed instead.
+#' @param mc.cores The number of cores to use (default is `1`),
+#'   *i.e.*, at most how many child processes will be run simultaneously.
+#'   Must be at least one, and parallelization requires at least two cores.
+#' @param onlyGenome `onlyGenome = TRUE` (default) compute resampling step for all chromosomes.
+#'
+#' @return Return a `list` of three elements:
+#' + object.xy [Enrichment] object from the comparison between `object.x` and `object.y`.
+#' + object.x [Enrichment] object passed in `object.x` with resampling data.
+#' + object.y [Enrichment] object passed in `object.y` with resampling data.
+#'
+#' @note Still in development.
+#'
+#' @examples
+#' if (interactive()) {
+#'   data(toyEnrichment)
+#'
+#'   reSample(
+#'     object = toyEnrichment,
+#'     nSample = 10,
+#'     empiricPvalue = TRUE,
+#'     MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
+#'     mc.cores = 1,
+#'     onlyGenome = TRUE
+#'   )
+#'
+#'   excludeFile <- c(
+#'     "rs7897180", "rs4725479", "rs315404", "rs17390391", "rs1650670",
+#'     "rs6783390", "rs1642009", "rs4756586", "rs11995037", "rs4977345",
+#'     "rs13136448", "rs4233536", "rs11151079", "rs2299657", "rs4833930",
+#'     "rs1384", "rs7168184", "rs6909895", "rs7972667", "rs2293229",
+#'     "rs918216", "rs6040608", "rs2817715", "rs13233541", "rs4486743",
+#'     "rs2127806", "rs10912854", "rs1869052", "rs9853549", "rs448658",
+#'     "rs2451583", "rs17483288", "rs10962314", "rs9612059", "rs1384182",
+#'     "rs8049208", "rs12215176", "rs2980996", "rs1736976", "rs8089268",
+#'     "rs10832329", "rs12446540", "rs7676237", "rs869922", "rs16823426",
+#'     "rs1374393", "rs13268781", "rs11134505", "rs7325241", "rs7520109"
+#'   )
+#'   # OR
+#'   excludeFile <- system.file("extdata/Exclude/toyExclude.txt", package = "snpEnrichment")
+#'
+#'   toyEnrichment_exclude <- excludeSNP(toyEnrichment, excludeFile, mc.cores = 1)
+#'
+#'   compareResults <- compareEnrichment(
+#'     object.x = toyEnrichment,
+#'     object.y = toyEnrichment_exclude,
+#'     pattern = "Chrom",
+#'     nSample = 10,
+#'     empiricPvalue = FALSE,
+#'     mc.cores = 1,
+#'     onlyGenome = TRUE
+#'   )
+#' }
+#'
+#' @export
+compareEnrichment <- function(
+  object.x,
+  object.y,
+  pattern = "Chrom",
+  nSample = 100,
+  empiricPvalue = TRUE,
+  mc.cores = 1,
+  onlyGenome = TRUE
+) {
   if (missing(object.x) | missing(object.y)) {
     stop('[Enrichment:compareEnrichment] "Enrichment" object is required.', call. = FALSE)
   }
@@ -133,4 +202,4 @@ methods::setMethod(f = "compareEnrichment", signature = "ANY", definition = func
       )
     )
   }
-})
+}

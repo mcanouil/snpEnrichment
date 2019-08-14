@@ -1,3 +1,62 @@
+#' Read and create EnrichmentRatio object
+#'
+#' Read files created by [initFiles] and create an [Enrichment] object.
+#'
+#' @param pattern A character string containing a expression to be matched with all chromosomes files
+#'   (e.g."Chrom" for files which start by "Chrom" followed by the chromosome number).
+#' @param signalFile The name of the signal file which the data are to be read from
+#'   (2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.
+#'   If it does not contain an `_absolute_` path, the file name is `_relative_` to the current
+#'   working directory, [getwd]. The fields separator character have to be a space `" "`
+#'   or a tabulation `"\t"`.
+#' @param transcriptFile A character string naming a file or a [data.frame] with four columns:
+#'   Chromomosome, trancript's name, Starting and Ending positions.
+#'   `data(trancript)` can be use as parameters. Default is `FALSE`.
+#' @param snpListDir [character]: character string naming a directory
+#'   containing a list of SNPs for one or several chromosomes. `snpListDir`
+#'   can be a single file with at least two columns: chromosome and rs name.
+#' @param snpInfoDir [character]: character string naming a directory
+#'   containing the reference data in a PLINK format (.bed, .bim and .fam).
+#' @param distThresh [numeric]: maximal distance (kb) between SNP and gene.
+#'   `distThresh` is used if `transcriptFile` is set.
+#' @param sigThresh [numeric]: statistical threshold for signal (*e.g.*, `0.05` for a given GWAS signal)
+#'   used to compute an Enrichment Ratio.
+#' @param LD [logical]: `LD=TRUE` (default is `FALSE`) read LD compute with [writeLD] function
+#'   or with PLINK. Note that, this setting can increase the computation's time,
+#'   depending on number of SNPs in the signal file.
+#' @param ldDir [character]: character string naming a directory where the linkage disequilibrium files
+#'   should be read (default `NULL` is in temporary directory). LD files can be the LD output from plink.
+#' @param mc.cores [numeric]: the number of cores to use (default is `1`),
+#'   *i.e.*, at most how many child processes will be run simultaneously.
+#'   Must be at least one, and parallelization requires at least two cores.
+#'
+#' @return Return an object of class [Enrichment] partly filled.
+#'
+#' @examples
+#' if (interactive()) {
+#'   snpListDir <- system.file("extdata/List", package = "snpEnrichment")
+#'   signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
+#'   snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
+#'   data(transcript)
+#'   transcriptFile <- transcript
+#'
+#'   initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
+#'   toyData <- readEnrichment(
+#'     pattern = "Chrom",
+#'     signalFile,
+#'     transcriptFile,
+#'     snpListDir,
+#'     snpInfoDir,
+#'     distThresh = 1000,
+#'     sigThresh = 0.05,
+#'     LD = FALSE,
+#'     ldDir = NULL,
+#'     mc.cores = 1
+#'   )
+#'   toyData
+#' }
+#'
+#' @export
 readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE, snpListDir, snpInfoDir, distThresh = 1000, sigThresh = 0.05, LD = FALSE, ldDir = NULL, mc.cores = 1) {
   cat("############# Read Enrichment ##############\n")
   if (missing(signalFile) | missing(snpListDir) | missing(snpInfoDir)) {
