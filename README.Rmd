@@ -51,12 +51,12 @@ remotes::install_github("mcanouil/snpEnrichment")
 **Note**: Internal data management in 'snpEnrichment' use RefSNP (rs) IDs.
 
 ### Load snpEnrichment
-```r
+```{r, eval = FALSE}
 library(snpEnrichment)
 ```
 
 ### Prepare data
-```r
+```{r, eval = FALSE}
 snpInfoDir <- system.file("extdata/snpInfo", package = "snpEnrichment")
 signalFile <- system.file("extdata/Signal/toySignal.txt", package = "snpEnrichment")
 
@@ -74,7 +74,7 @@ writeLD(
 ```
 
 ### Read data
-```r
+```{r, eval = FALSE}
 snpListDir <- system.file("extdata/List", package = "snpEnrichment")
 data(transcript)
 transcriptFile <- transcript
@@ -95,7 +95,7 @@ toyData
 ```
 
 ### Compute results
-```r
+```{r, eval = FALSE}
 reSample(
   object = toyData,
   nSample = 10,
@@ -108,7 +108,7 @@ reSample(
 
 
 ### 5. Further analysis: Exclude SNP from original list.
-```r
+```{r, eval = FALSE}
 excludeFile <- c(
   "rs4376885", "rs17690928", "rs6460708", "rs13061537", "rs11769827",
   "rs12717054", "rs2907627", "rs1380109", "rs7024214", "rs7711972",
@@ -126,13 +126,13 @@ excludeFile <- c(
 excludeFile <- system.file("extdata/Exclude/toyExclude.txt", package = "snpEnrichment")
 ```
 
-```r
+```{r, eval = FALSE}
 toyData_exclude <- excludeSNP(toyData, excludeFile, mc.cores = 1)
 ```
 
 **Warning:** `compareEnrichment` is in development!!
 
-```r
+```{r, eval = FALSE}
 compareResults <- compareEnrichment(
   object.x = toyData,
   object.y = toyData_exclude,
@@ -145,7 +145,7 @@ compareResults <- compareEnrichment(
 ```
 
 ### Watch results
-```r
+```{r, eval = FALSE}
 show(toyData)
 print(toyData)
 head(getEnrichSNP(toyData, type = "xSNP"))
