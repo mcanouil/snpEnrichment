@@ -5,7 +5,7 @@
 \alias{getEnrichSNP-ANY}
 \title{Get all eSNP/xSNP which are enriched}
 \arguments{
-\item{object}{An object of class \link{Enrichment}.}
+\item{object}{An object of class \linkS4class{Enrichment}.}
 
 \item{type}{Extract \code{"eSNP"} or \code{"xSNP"}" data.}
 }
@@ -14,7 +14,7 @@ Return a \code{data.frame} with eSNP/xSNP which are enriched in signal given to 
 in function \link{readEnrichment}.
 }
 \description{
-\link{getEnrichSNP} get all eSNP/xSNP in a \link{Enrichment} object which are significant in the signal
+\link{getEnrichSNP} get all eSNP/xSNP in a \linkS4class{Enrichment} object which are significant in the signal
 according to \code{sigThresh} defined in \link{readEnrichment}.
 }
 \examples{

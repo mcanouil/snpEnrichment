@@ -2,7 +2,7 @@
 #'
 #' Remove a specify set of SNPs and compute a new enrichment analysis.
 #'
-#' @param object An [Enrichment] object filled by [reSample].
+#' @param object An [Enrichment-class] object filled by [reSample].
 #' @param excludeFile A list of SNPs to remove from a previous enrichment analysis.
 #'   A path to a file which the first column are the SNPs.
 #' @param mc.cores The number of cores to use (default is `1`),

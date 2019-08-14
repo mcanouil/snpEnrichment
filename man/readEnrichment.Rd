@@ -47,10 +47,10 @@ should be read (default \code{NULL} is in temporary directory). LD files can be 
 Must be at least one, and parallelization requires at least two cores.}
 }
 \value{
-Return an object of class \link{Enrichment} partly filled.
+Return an object of class \linkS4class{Enrichment} partly filled.
 }
 \description{
-Read files created by \link{initFiles} and create an \link{Enrichment} object.
+Read files created by \link{initFiles} and create an \linkS4class{Enrichment} object.
 }
 \examples{
 if (interactive()) {

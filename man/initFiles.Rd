@@ -26,7 +26,7 @@ Must be at least one, and parallelization requires at least two cores.}
 }
 \value{
 This function writes several files, in the temporary directory (defined in \code{R_SESSION_TMPDIR}),
-nothing else is returned. These files are used to build an \link{Enrichment} object by \link{readEnrichment}
+nothing else is returned. These files are used to build an \linkS4class{Enrichment} object by \link{readEnrichment}
 in order to compute enrichment analysis (\link{reSample}).
 }
 \description{

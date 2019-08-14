@@ -28,7 +28,6 @@
 \alias{GC}
 \alias{is.EnrichSNP}
 \alias{is.chromosome}
-\alias{is.enrichment}
 \alias{class-EnrichSNP}
 \alias{EnrichSNP}
 \alias{class-Chromosome}
@@ -99,8 +98,6 @@ GC(verbose = getOption("verbose"), reset = FALSE)
 is.EnrichSNP(object)
 
 is.chromosome(object)
-
-is.enrichment(object)
 }
 \description{
 These are not intended to be called by the user.

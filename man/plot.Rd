@@ -2,9 +2,9 @@
 % Please edit documentation in R/class.R
 \name{plot}
 \alias{plot}
-\title{Plot method (S4) for \link{Enrichment} object}
+\title{Plot method (S4) for \linkS4class{Enrichment} object}
 \arguments{
-\item{x}{An object of class \link{Enrichment} which the Z statistics or p-values have to be drawn.}
+\item{x}{An object of class \linkS4class{Enrichment} which the Z statistics or p-values have to be drawn.}
 
 \item{what}{Default \code{"Genome"}. Plot Z statistics or p-values for genome only
 (what must be: \code{"All"}, \code{"Genome"} or numeric vector).}

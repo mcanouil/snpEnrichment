@@ -5,7 +5,7 @@
 \alias{reSample-Chromosome}
 \alias{reSample-ANY}
 \alias{reSample-Enrichment}
-\title{Compute enrichment analysis on an \link{Enrichment} object}
+\title{Compute enrichment analysis on an \linkS4class{Enrichment} object}
 \arguments{
 \item{object}{An object to be updated. It is intended, an object returned by the \link{readEnrichment} function.}
 

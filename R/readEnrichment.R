@@ -1,6 +1,6 @@
 #' Read and create EnrichmentRatio object
 #'
-#' Read files created by [initFiles] and create an [Enrichment] object.
+#' Read files created by [initFiles] and create an [Enrichment-class] object.
 #'
 #' @param pattern A character string containing a expression to be matched with all chromosomes files
 #'   (e.g."Chrom" for files which start by "Chrom" followed by the chromosome number).
@@ -30,7 +30,7 @@
 #'   *i.e.*, at most how many child processes will be run simultaneously.
 #'   Must be at least one, and parallelization requires at least two cores.
 #'
-#' @return Return an object of class [Enrichment] partly filled.
+#' @return Return an object of class [Enrichment-class] partly filled.
 #'
 #' @examples
 #' if (interactive()) {

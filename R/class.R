@@ -260,21 +260,21 @@ methods::setMethod(f = "show", signature = "Chromosome", definition = function(o
   invisible(object)
 })
 
-#' An S4 class [Enrichment]
+#' An S4 class [Enrichment-class]
 #'
 #' This class is defined to summarize the enrichment analysis on each chromosomes and the whole genome.
 #'
-#' @section Objects from the Class: [enrichment] is defined to build an object
-#'   of class [Enrichment] in order to compute an enrichment analysis.
-#'   [Enrichment] is the object containing the results for all [Chromosome] object
+#' @section Objects from the Class: [Enrichment-class] is defined to build an object
+#'   of class [Enrichment-class] in order to compute an enrichment analysis.
+#'   [Enrichment-class] is the object containing the results for all [Chromosome] object
 #'   and for the whole genome.
 #'
-#'   When an [Enrichment] object is created, it contains a list of SNPs (*e.g.*, eSNPs).
+#'   When an [Enrichment-class] object is created, it contains a list of SNPs (*e.g.*, eSNPs).
 #'   All the others slots are "empty".
-#'   After [reSample] is ran on an [Enrichment] object, the slots:
+#'   After [reSample] is ran on an [Enrichment-class] object, the slots:
 #'   Table, EnrichmentRatio, Z, PValue and Resampling are filled.
 #'
-#'   Note that if [reSample] is executed on an [Enrichment] every new resampling is added to the
+#'   Note that if [reSample] is executed on an [Enrichment-class] every new resampling is added to the
 #'   original ones, pre-existing statistics are erased and computed again with the new resampling set.
 #'
 #' @slot Signal A three columns `data.frame`: "SNP", "PVALUE" and "IN" (*e.g.*, GWAS).
@@ -327,7 +327,7 @@ methods::setMethod(f = "show", signature = "Chromosome", definition = function(o
 #'   print(toyEnrichment_exclude)
 #' }
 #'
-#' @name Enrichment
+#' @name Enrichment-class
 #' @exportClass Enrichment
 methods::setClass(
   Class = "Enrichment",
@@ -363,20 +363,20 @@ methods::setClass(
   )
 )
 
-#' Constructor generic for [Enrichment]
+#' Constructor generic for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 #' @exportMethod enrichment
 methods::setGeneric(
   name = "enrichment",
   def = function(Loss, Call, eSNP, xSNP, Chromosomes) standardGeneric("enrichment")
 )
 
-#' Constructor method for [Enrichment]
+#' Constructor method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(
   f = "enrichment",
   signature = "ANY",
@@ -437,10 +437,10 @@ methods::setMethod(
   }
 )
 
-#' Getter method for [Enrichment]
+#' Getter method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
@@ -786,10 +786,10 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
   }
 })
 
-#' Setter method for [Enrichment]
+#' Setter method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, value) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
@@ -841,10 +841,10 @@ methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x,
   x
 })
 
-#' Print method for [Enrichment]
+#' Print method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 #' @exportMethod print
 methods::setMethod(
   f = "print",
@@ -921,10 +921,10 @@ methods::setMethod(
   }
 )
 
-#' Show method for [Enrichment]
+#' Show method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(f = "show", signature = "Enrichment", definition = function(object) {
   cat("    ~~~ Class:", class(object), "~~~ \n")
   .Enrichment.show(object)
@@ -1233,7 +1233,7 @@ methods::setMethod(f = "reset", signature = "Enrichment", definition = function(
   object
 })
 
-#' Compute enrichment analysis on an [Enrichment] object
+#' Compute enrichment analysis on an [Enrichment-class] object
 #'
 #' After [initFiles] and [readEnrichment] has been run.
 #' [reSample] computes a statistic value and a p-value for each chromosomes and for the whole genome.
@@ -1306,7 +1306,7 @@ methods::setMethod(f = "reSample", signature = "ANY", definition = function(obje
 })
 #' @name reSample-Enrichment
 #' @rdname reSample
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(f = "reSample", signature = "Enrichment", definition = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
   if (missing(object)) {
     stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
@@ -1418,10 +1418,10 @@ methods::setMethod(f = "reSample", signature = "Enrichment", definition = functi
 
 #' Get all eSNP/xSNP which are enriched
 #'
-#' [getEnrichSNP] get all eSNP/xSNP in a [Enrichment] object which are significant in the signal
+#' [getEnrichSNP] get all eSNP/xSNP in a [Enrichment-class] object which are significant in the signal
 #' according to `sigThresh` defined in [readEnrichment].
 #'
-#' @param object An object of class [Enrichment].
+#' @param object An object of class [Enrichment-class].
 #' @param type Extract `"eSNP"` or `"xSNP"`" data.
 #'
 #' @return Return a `data.frame` with eSNP/xSNP which are enriched in signal given to `signalFile`
@@ -1448,7 +1448,7 @@ methods::setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(
   }
 })
 #' @name getEnrichSNP-Enrichment
-#' @rdname Enrichment
+#' @rdname Enrichment-class
 methods::setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function(object, type = "eSNP") {
   alpha <- object["Call"][["readEnrichment"]][["sigThresh"]]
   switch(type,
@@ -1475,12 +1475,12 @@ methods::setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = fu
   )
 })
 
-#' Plot method (S4) for [Enrichment] object
+#' Plot method (S4) for [Enrichment-class] object
 #'
 #' [plot] is a generic function for plotting of R objects.
 #' The function invokes particular [methods] which depend on the [class] of the first argument.
 #'
-#' @param x An object of class [Enrichment] which the Z statistics or p-values have to be drawn.
+#' @param x An object of class [Enrichment-class] which the Z statistics or p-values have to be drawn.
 #' @param what Default `"Genome"`. Plot Z statistics or p-values for genome only
 #'   (what must be: `"All"`, `"Genome"` or numeric vector).
 #' @param type Plot the selected analysis for `"eSNP"` and/or `"xSNP"`.

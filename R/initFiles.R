@@ -20,7 +20,7 @@
 #'   Must be at least one, and parallelization requires at least two cores.
 #'
 #' @return This function writes several files, in the temporary directory (defined in `R_SESSION_TMPDIR`),
-#'   nothing else is returned. These files are used to build an [Enrichment] object by [readEnrichment]
+#'   nothing else is returned. These files are used to build an [Enrichment-class] object by [readEnrichment]
 #'   in order to compute enrichment analysis ([reSample]).
 #'
 #' @examples

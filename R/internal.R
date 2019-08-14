@@ -799,8 +799,8 @@ is.chromosome <- function(object) {
   }
 }
 
-#' @rdname internal
-#' @keywords internal
+#' @rdname Enrichment-class
+#' @param object An object.
 is.enrichment <-  function(object) {
   if (length(object) > 1) {
     sapply(object, is.enrichment)

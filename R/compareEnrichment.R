@@ -1,9 +1,9 @@
 #' Compare enrichment analysis between two SNPs list
 #'
 #' Compare the enrichment analysis between two set of SNPs.
-#' [compareEnrichment] compare two [Enrichment] objects.
+#' [compareEnrichment] compare two [Enrichment-class] objects.
 #'
-#' @param object.x,object.y An [Enrichment] object fully filled (*e.g.*, [readEnrichment]).
+#' @param object.x,object.y An [Enrichment-class] object fully filled (*e.g.*, [readEnrichment]).
 #' @param pattern A character string containing a expression to be matched
 #'   with all chromosomes files (*e.g.*, "Chrom" for files which start by "Chrom"
 #'   followed by the chromosome number).
@@ -16,9 +16,9 @@
 #' @param onlyGenome `onlyGenome = TRUE` (default) compute resampling step for all chromosomes.
 #'
 #' @return Return a `list` of three elements:
-#' + object.xy [Enrichment] object from the comparison between `object.x` and `object.y`.
-#' + object.x [Enrichment] object passed in `object.x` with resampling data.
-#' + object.y [Enrichment] object passed in `object.y` with resampling data.
+#' + object.xy [Enrichment-class] object from the comparison between `object.x` and `object.y`.
+#' + object.x [Enrichment-class] object passed in `object.x` with resampling data.
+#' + object.y [Enrichment-class] object passed in `object.y` with resampling data.
 #'
 #' @note Still in development.
 #'
