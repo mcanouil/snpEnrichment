@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>"EnrichSNP"</code> — EnrichSNP-class • snpEnrichment</title>
+<title>Class EnrichSNP — EnrichSNP-class • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="Class <code>"EnrichSNP"</code> — EnrichSNP-class" />
+<meta property="og:title" content="Class EnrichSNP — EnrichSNP-class" />
 
-<meta property="og:description" content="This class is defined to summarize the enrichment analysis.
-It's a part of Chromosome and Enrichment classes." />
+<meta property="og:description" content="Class EnrichSNP
+Constructor generic for EnrichSNP
+Constructor method for EnrichSNP" />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -103,52 +104,31 @@ It's a part of Chromosome and Enrichment classes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>"EnrichSNP"</code></h1>
-    
+    <h1>Class EnrichSNP</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/class.R'><code>R/class.R</code></a></small>
     <div class="hidden name"><code>EnrichSNP-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This class is defined to summarize the enrichment analysis.
-It's a part of <code><a href='Chromosome-class.html'>Chromosome</a></code> and <code><a href='Enrichment-class.html'>Enrichment</a></code> classes.</p>
+    <p>Class EnrichSNP</p>
+<p>Constructor generic for EnrichSNP</p>
+<p>Constructor method for EnrichSNP</p>
     
     </div>
 
         
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl class='dl-horizontal'>
-        <dt>List</dt><dd><p>[vector(character)]: a list of SNPs used to compute enrichment (e.g. eSNP or xSNP).</p></dd>
-        <dt>Table</dt><dd><p>[matrix]: Contingency table with SNPs (columns) and P-Values from signal (rows).</p></dd>
-        <dt>EnrichmentRatio</dt><dd><p>[numeric]: Enrichment Ratio is computed on the contingency table (<code>Table</code> slot).</p></dd>
-        <dt>Z</dt><dd><p>[numeric]: A statistic computed from <code>EnrichmentRatio</code> and resampling results.</p></dd>
-        <dt>PValue</dt><dd><p>[numeric]: P-Value associated with the statistic <code>Z</code>.</p></dd>
-        <dt>Resampling</dt><dd><p>[matrix]: A matrix with by row, the contingency table and the odds ratio for each resampling.</p></dd>
-    </dl>
     
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
-
-    <p></p><dl class='dl-horizontal'>
-        % \item{enrichSNP(List, Table, EnrichmentRatio, Z, PValue, Resampling): }{Generate and initialize a new \code{\linkS4class{EnrichSNP}} object.}
-        <dt>object["slotName"]: </dt><dd><p>Get the value of the field <code>slotName</code>.</p></dd>
-        <dt>object["slotName"]&lt;-value: </dt><dd><p>Set <code>value</code> to the field <code>slotName</code>.</p></dd>
-        <dt>show(object): </dt><dd><p>Return the formatted values of <code>EnrichSNP</code> object.</p></dd>
-        % \item{print(x): }{Return the values of \code{\linkS4class{EnrichSNP}} object as a matrix.}
-    </dl>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p><code>EnrichSNP</code> object is not intended to be use directly by user.
-It is a part of the <code><a href='Enrichment-class.html'>Enrichment</a></code> and <code><a href='Chromosome-class.html'>Chromosome</a></code> object.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Overview : <code><a href='snpEnrichment-package.html'>snpEnrichment-package</a></code> <br />
-Classes : <code><a href='Enrichment-class.html'>Enrichment</a></code>, <code><a href='Chromosome-class.html'>Chromosome</a></code>, <code>EnrichSNP</code> <br />
-Methods : <code><a href='plot-methods.html'>plot</a></code>, <code><a href='reSample-methods.html'>reSample</a></code>, <code><a href='getEnrichSNP-methods.html'>getEnrichSNP</a></code>, <code><a href='excludeSNP-methods.html'>excludeSNP</a></code>, <code><a href='compareEnrichment.html'>compareEnrichment</a></code>, <br />
-            <code><a href='Enrichment-class.html'>enrichment</a></code>, <code><a href='is.enrichment.html'>is.enrichment</a></code>, <code><a href='Chromosome-class.html'>chromosome</a></code>, <code><a href='is.chromosome.html'>is.chromosome</a></code> <br />
-Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='writeLD.html'>writeLD</a></code>, <code><a href='readEnrichment.html'>readEnrichment</a></code></p></div>
+    <dl class='dl-horizontal'>
+<dt><code>List</code></dt><dd><p>A list of SNPs used to compute enrichment (<em>e.g.</em>, eSNP or xSNP).</p></dd>
+    <dt><code>Table</code></dt><dd><p>A contingency table with SNPs (columns) and P-Values from signal (rows).</p></dd>
+    <dt><code>EnrichmentRatio</code></dt><dd><p>Enrichment Ratio is computed on the contingency table (<code>Table</code> slot).</p></dd>
+    <dt><code>Z</code></dt><dd><p>A statistic computed from <code>EnrichmentRatio</code> and resampling results.</p></dd>
+    <dt><code>PValue</code></dt><dd><p>P-Value associated with the statistic <code>Z</code>.</p></dd>
+    <dt><code>Resampling</code></dt><dd><p>A matrix with by row, the contingency table and the odds ratio for each resampling.</p></dd>
+</dl>
     
 
   </div>
@@ -157,16 +137,8 @@ Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#slots">Slots</a></li>
-
-      <li><a href="#methods">Methods</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
-    <h2>Author</h2>
-    <p>Mickael Canouil <a href='mailto:mickael.canouil@good.ibl.fr'>mickael.canouil@good.ibl.fr</a></p>
   </div>
 </div>
 

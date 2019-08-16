@@ -115,7 +115,9 @@ If you have a specific need or for more details on snpEnrichment, feel free to c
     
     </div>
 
-    <pre class="usage"><span class='fu'>.EnrichSNP.show</span>(<span class='no'>object</span>)
+    <pre class="usage"><span class='fu'>.mclapply</span>(<span class='no'>X</span>, <span class='no'>FUN</span>, <span class='no'>mc.cores</span>, <span class='no'>...</span>)
+
+<span class='fu'>.EnrichSNP.show</span>(<span class='no'>object</span>)
 
 <span class='fu'>.Chromosome.show</span>(<span class='no'>object</span>)
 
@@ -158,12 +160,6 @@ If you have a specific need or for more details on snpEnrichment, feel free to c
 
 <span class='fu'>.writeSignal</span>(<span class='no'>pattern</span>, <span class='no'>snpInfoDir</span>, <span class='no'>signalFile</span>)
 
-<span class='fu'>mclapply2</span>(<span class='no'>X</span>, <span class='no'>FUN</span>, <span class='no'>...</span>, <span class='kw'>mc.preschedule</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mc.set.seed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>mc.silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>2L</span>),
-  <span class='kw'>mc.cleanup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mc.allow.recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>maxCores</span>(<span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
 <span class='fu'>GC</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"verbose"</span>), <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>is.EnrichSNP</span>(<span class='no'>object</span>)
@@ -172,26 +168,12 @@ If you have a specific need or for more details on snpEnrichment, feel free to c
 
 <span class='fu'>is.enrichment</span>(<span class='no'>object</span>)</pre>
         
-    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
-
-    
-    <dl class='dl-horizontal'>
-<dt><code>List</code></dt><dd><p>A list of SNPs used to compute enrichment (<em>e.g.</em>, eSNP or xSNP).</p></dd>
-    <dt><code>Table</code></dt><dd><p>A contingency table with SNPs (columns) and P-Values from signal (rows).</p></dd>
-    <dt><code>EnrichmentRatio</code></dt><dd><p>Enrichment Ratio is computed on the contingency table (<code>Table</code> slot).</p></dd>
-    <dt><code>Z</code></dt><dd><p>A statistic computed from <code>EnrichmentRatio</code> and resampling results.</p></dd>
-    <dt><code>PValue</code></dt><dd><p>P-Value associated with the statistic <code>Z</code>.</p></dd>
-    <dt><code>Resampling</code></dt><dd><p>A matrix with by row, the contingency table and the odds ratio for each resampling.</p></dd>
-</dl>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#slots">Slots</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

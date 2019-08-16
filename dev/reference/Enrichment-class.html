@@ -124,8 +124,8 @@ for the enrichment analysis.</p></dd>
     <dt><code>Loss</code></dt><dd><p>A four columns data.frame: "Rows", "Unique", "Intersect.Ref.Signal" and "CIS".
 This slot gives information on data losses.</p></dd>
     <dt><code>Call</code></dt><dd><p>Each parameters used for the reading or resampling step are stored in this slot.</p></dd>
-    <dt><code>eSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a list of SNPs (eSNP).</p></dd>
-    <dt><code>xSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a extended list of SNPs (xSNP).</p></dd>
+    <dt><code>eSNP</code></dt><dd><p>Contain a <a href='EnrichSNP-class.html'>EnrichSNP</a> object for a list of SNPs (eSNP).</p></dd>
+    <dt><code>xSNP</code></dt><dd><p>Contain a <a href='EnrichSNP-class.html'>EnrichSNP</a> object for a extended list of SNPs (xSNP).</p></dd>
     <dt><code>Chromosomes</code></dt><dd><p>A list of 22 <a href='Chromosome-class.html'>Chromosome</a> objects.</p></dd>
 </dl>
     
@@ -146,7 +146,7 @@ original ones, pre-existing statistics are erased and computed again with the ne
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>()
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>()
 <span class='fu'><a href='internal.html'>show</a></span>(<span class='no'>toyEnrich</span>)</div><div class='output co'>#&gt;     ~~~ Class: Enrichment ~~~ 
 #&gt;  ~ Loss : (0x0) NA
 #&gt;  ~ Call :
@@ -194,8 +194,8 @@ original ones, pre-existing statistics are erased and computed again with the ne
 #&gt; Chrom20    30     30               30   30
 #&gt; Chrom21    18     18               17   17
 #&gt; Chrom22    23     23               23   23</div><div class='input'>
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>], <span class='kw'>eSNP</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"eSNP"</span>])
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>])
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>], <span class='kw'>eSNP</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"eSNP"</span>])
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>])
 
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
   <span class='fu'><a href='reSample.html'>reSample</a></span>(
