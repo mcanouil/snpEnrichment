@@ -29,7 +29,7 @@ initFiles <- function(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1) {
   tmpDir <- gsub("\\\\", "/", tempdir())
   dir.create(paste0(tmpDir, "/snpEnrichment/"), showWarnings = FALSE)
   cat("All files are ready for chromosome:\n  ")
-  resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
+  resParallel <- parallel::mclapply(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
     newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
     err1 <- try(.writeSignal(pattern = newPattern, snpInfoDir = snpInfoDir, signalFile = signalFile), silent = TRUE)
     err2 <- try(.writeFreq(pattern = newPattern, snpInfoDir = snpInfoDir), silent = TRUE)

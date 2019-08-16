@@ -52,7 +52,7 @@ excludeSNP <- function(object, excludeFile, mc.cores = 1) {
   }
   eSNPexclude <- unlist(eSNPexclude, use.names = FALSE)
   callLD <- object@Call$readEnrichment$LD
-  resParallel <- mclapply2(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
+  resParallel <- parallel::mclapply(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
     chrObject <- eval(parse(text = paste0("object@Chromosomes$Chrom", iChr)))
     temp <- chrObject@Data
     if (callLD) {
