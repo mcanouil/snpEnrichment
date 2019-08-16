@@ -9,6 +9,16 @@ NULL
 
 #' @rdname internal
 #' @keywords internal
+.mclapply <- function(X, FUN, mc.cores, ...) {
+  # if (mc.cores == 1) {
+    lapply(X = X, FUN = FUN, ...)
+  # } else {
+  #   parallel::mclapply(X = X, FUN = FUN, mc.cores = mc.cores, ...)
+  # }
+}
+
+#' @rdname internal
+#' @keywords internal
 .EnrichSNP.show <- function(object) {
   cat(
     "   - List :",
@@ -256,7 +266,7 @@ NULL
   rm(data)
 
   cat("0.. ")
-  resParallel <- parallel::mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
+  resParallel <- .mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
     eSNPlistRandom <- unlist(sapply(seq_len(nPool), function(g) {
       sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))
     }), use.names = FALSE)
@@ -311,7 +321,7 @@ NULL
   rm(resParallel)
 
   while (iSample < nSample) {
-    resParallel <- parallel::mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
+    resParallel <- .mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
       eSNPlistRandom <- unlist(sapply(seq_len(nPool), function(g) {
         sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))
       }), use.names = FALSE)
@@ -559,7 +569,7 @@ NULL
   rm(data)
 
   cat(0, ".. ", sep = "")
-  resParallel <- parallel::mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
+  resParallel <- .mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
     eSNPlistRandom <- unlist(sapply(seq_len(nPool), function(g) {
       sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))
     }), use.names = FALSE)
@@ -594,7 +604,7 @@ NULL
   rm(resParallel)
 
   while (iSample < nSample) {
-    resParallel <- parallel::mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
+    resParallel <- .mclapply(X = seq_len(nSampleMin), mc.cores = mc.cores, FUN = function(i) {
       eSNPlistRandom <- unlist(sapply(seq_len(nPool), function(g) {
         sample(popSNP4Sample[[g]], min(eSNPlistPool[g], length(popSNP4Sample[[g]])))
       }), use.names = FALSE)

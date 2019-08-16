@@ -2,6 +2,7 @@
 % Please edit documentation in R/internal.R, R/class.R
 \name{internal}
 \alias{internal}
+\alias{.mclapply}
 \alias{.EnrichSNP.show}
 \alias{.Chromosome.show}
 \alias{.Enrichment.show}
@@ -53,6 +54,8 @@
 \alias{doLDblock,Chromosome-method}
 \title{~ Internal: snpEnrichment objects and methods ~}
 \usage{
+.mclapply(X, FUN, mc.cores, ...)
+
 .EnrichSNP.show(object)
 
 .Chromosome.show(object)

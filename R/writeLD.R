@@ -36,7 +36,7 @@ writeLD <- function(pattern = "Chrom", snpInfoDir, signalFile, ldDir = NULL, ldT
   }
   FILES <- list.files(snpInfoDir, pattern = ".bim")
   cat("Compute LD for chromosome:\n  ")
-  resParallel <- parallel::mclapply(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
+  resParallel <- .mclapply(X = seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
     newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), FILES, value = TRUE))
     isThereSignals <- list.files(paste0(tmpDir, "/snpEnrichment/"), full.names = TRUE, pattern = ".signal")
     if (length(isThereSignals) != 22) .writeSignal(pattern = newPattern, snpInfoDir, signalFile)
