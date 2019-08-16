@@ -59,7 +59,7 @@ methods::setMethod(f = "plot", signature = "Enrichment", definition = function(x
       sigma <- sqrt(stats::var(resamplingClean))
 
       if (sigma == 0 | is.na(sigma)) {
-        if (mu == 0) 0 else ER - mu
+        if (mu == 0) 0 else (ER - mu)
       } else {
         (ER - mu) / sigma
       }
@@ -149,7 +149,6 @@ methods::setMethod(f = "plot", signature = "Enrichment", definition = function(x
     }
   }
   if (ggplot) {
-    is.installed <- function(mypkg) is.element(mypkg, utils::installed.packages()[, 1])
     if (!require("ggplot2") | !require("grid")) {
       stop('[Enrichment:plot] "ggPlot2" and "grid" packages must be installed with "ggplot=TRUE".', call. = FALSE)
     }
