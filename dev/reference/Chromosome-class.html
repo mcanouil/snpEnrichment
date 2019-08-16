@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>Chromosome</code> — Chromosome-class • snpEnrichment</title>
+<title>Class Chromosome — Chromosome-class • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Class <code>Chromosome</code> — Chromosome-class" />
+<meta property="og:title" content="Class Chromosome — Chromosome-class" />
 
-<meta property="og:description" content="This class is defined to summarize the enrichment analysis about a chromosome." />
+<meta property="og:description" content="Class Chromosome" />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -102,198 +102,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>Chromosome</code></h1>
-    
+    <h1>Class Chromosome</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/class.R'><code>R/class.R</code></a></small>
     <div class="hidden name"><code>Chromosome-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This class is defined to summarize the enrichment analysis about a chromosome.</p>
+    <p>Class Chromosome</p>
     
     </div>
 
         
-    <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the Class</h2>
-
-    <p><code>chromosome</code> is defined to build an object of class
-    <code>Chromosome</code> in order to compute an enrichment analysis.
-    A <code>Chromosome</code> object contains the original data,
-    a list of SNPs, some results and resampling data.<br /></p>
-<p>When created, an <code>Chromosome</code> object is "empty".
-    <code><a href='readEnrichment.html'>readEnrichment</a></code> initializes a <code>Chromosome</code> object with value from PLINK computation and user's files.
-    In this step, only the fields "Data", "LD", "SNP" are filled.
-    <code>reSample</code> fills the fields: Table, EnrichmentRatio, Z, PValue and Resampling of a <code>Chromosome</code>.</p>
-<p>Note that if <code><a href='reSample-methods.html'>reSample</a></code> is executed on an <code>Chromosome</code> every new resampling
-    is added to the original ones, pre-existing statistics are erased and computed again with the new resampling set.</p>
-    
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl class='dl-horizontal'>
-        <dt>Data</dt><dd><p>[data.frame]: a <code>data.frame</code> with 6 columns ("SNP", "PVALUE", "CHR", "MAF", "eSNP", "xSNP"). Where "eSNP" and "xSNP" are logical columns defining the lists of SNPs (extended or not).</p></dd>
-        <dt>LD</dt><dd><p>[data.frame]: a <code>data.frame</code> which contains LD informations between SNPs (computed with <code><a href='writeLD.html'>writeLD</a></code> or PLINK).</p></dd>
-        <dt>eSNP, xSNP</dt><dd><p>[SNP]: contain a <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code> object (whith slots: SNP, Table, EnrichmentRatio, Z, PValue and Resampling) for a list of SNPs (<code>eSNP</code>) and an extended one (<code>xSNP</code>).</p></dd>
-        % \item{xSNP}{[SNP]: contains a \code{\linkS4class{EnrichSNP}} object (whith slots: SNP, Table, EnrichmentRatio, Z, PValue and Resampling) for an extended list of SNPs.}
-    </dl>
     
-    <h2 class="hasAnchor" id="extends"><a class="anchor" href="#extends"></a>Extends</h2>
-
-    <p>Class <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code>, directly.<br /></p>
-    
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
-
-    <p></p><dl class='dl-horizontal'>
-        <dt>chromosome(Data, LD, eSNP, xSNP):</dt><dd><p>Generate and initialize a new <code>Chromosome</code> object.</p></dd>
-        <dt>object["slotName"]:</dt><dd><p>Get the value of the field <code>slotName</code>.</p></dd>
-        <dt>object["slotName"]&lt;-value:</dt><dd><p>Set <code>value</code> to the field <code>slotName</code>.</p></dd>
-        <dt>show(object):</dt><dd><p>Return the formatted values of <code>Chromosome</code> object.</p></dd>
-        % \item{print(object):}{Return the formatted values of \code{\linkS4class{Chromosome}} object.}
-        % \item{computeER(object, sigThresh, mc.cores):}{Compute an Enrichment Ratio for \code{\linkS4class{Chromosome}} object (internal use only).}
-        % \item{doLDblock(object, mc.cores):}{Compute LD block and update \code{Data} field (internal use only).}
-        % \item{reSample(object, nSample, sigThresh, MAFpool, extendMethod, mc.cores):}{Compute P-Value based upon a resampling of SNPs (\code{eSNP} and \code{xSNP}) and update an \code{\linkS4class{Chromosome}} object.}
-        % \item{excludeSNP(object, excludeFile, nSample, MAFpool, mc.cores):}{Exclude SNPs from eSNPs list and xSNPs list and compute a new enrichment analysis.}
-        % \item{reset(object, "slotName"):}{Reset the field \code{slotName}.}
-    </dl>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p><code>Chromosome</code> object is not intended to be used alone on this version.\
-It is a part of the <code><a href='Enrichment-class.html'>Enrichment</a></code> object.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Overview : <code><a href='snpEnrichment-package.html'>snpEnrichment-package</a></code> <br />
-Classes : <code><a href='Enrichment-class.html'>Enrichment</a></code>, <code>Chromosome</code>, <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code> <br />
-Methods : <code><a href='plot-methods.html'>plot</a></code>, <code><a href='reSample-methods.html'>reSample</a></code>, <code><a href='getEnrichSNP-methods.html'>getEnrichSNP</a></code>, <code><a href='excludeSNP-methods.html'>excludeSNP</a></code>, <code><a href='compareEnrichment.html'>compareEnrichment</a></code>, <br />
-            <code><a href='Enrichment-class.html'>enrichment</a></code>, <code><a href='is.enrichment.html'>is.enrichment</a></code>, <code>chromosome</code>, <code><a href='is.chromosome.html'>is.chromosome</a></code> <br />
-Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='writeLD.html'>writeLD</a></code>, <code><a href='readEnrichment.html'>readEnrichment</a></code></p></div>
+    <dl class='dl-horizontal'>
+<dt><code>Data</code></dt><dd><p>A <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with 6 columns (<code>"SNP"</code>, <code>"PVALUE"</code>, <code>"CHR"</code>, <code>"MAF"</code>, <code>"eSNP"</code>, <code>"xSNP"</code>).
+Where <code>"eSNP"</code> and <code>"xSNP"</code> are logical columns defining the lists of SNPs (extended or not).</p></dd>
+    <dt><code>LD</code></dt><dd><p>A data.frame which contains LD informations between SNPs (computed with <a href='writeLD.html'>writeLD</a> or PLINK).</p></dd>
+    <dt><code>eSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a list of SNPs (eSNP).</p></dd>
+    <dt><code>xSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a extended list of SNPs (xSNP).</p></dd>
+</dl>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
-        <span class='kw'>SNP</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"rs4970420"</span>, <span class='st'>"rs3766178"</span>,
-                <span class='st'>"rs10910030"</span>, <span class='st'>"rs10910036"</span>,
-                <span class='st'>"rs2234167"</span>, <span class='st'>"rs6661861"</span>),
-        <span class='kw'>PVALUE</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.9244</span>, <span class='fl'>0.167</span>, <span class='fl'>0.01177</span>, <span class='fl'>0.4267</span>, <span class='fl'>0.9728</span>, <span class='fl'>0.4063</span>),
-        <span class='kw'>CHR</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>),
-        <span class='kw'>POS</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1106473</span>, <span class='fl'>1478180</span>, <span class='fl'>2035684</span>, <span class='fl'>2183754</span>, <span class='fl'>2494330</span>, <span class='fl'>3043121</span>),
-        <span class='kw'>MAF</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.2149</span>, <span class='fl'>0.3117</span>, <span class='fl'>0.374</span>, <span class='fl'>0.3753</span>, <span class='fl'>0.1565</span>, <span class='fl'>0.06101</span>),
-        <span class='kw'>eSNP</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>),
-        <span class='kw'>xSNP</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
-    ),
-    <span class='kw'>.Names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"SNP"</span>, <span class='st'>"PVALUE"</span>, <span class='st'>"CHR"</span>, <span class='st'>"POS"</span>, <span class='st'>"MAF"</span>, <span class='st'>"eSNP"</span>, <span class='st'>"xSNP"</span>),
-    <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"rs4970420"</span>, <span class='st'>"rs3766178"</span>,
-                  <span class='st'>"rs10910030"</span>, <span class='st'>"rs10910036"</span>,
-                  <span class='st'>"rs2234167"</span>, <span class='st'>"rs6661861"</span>),
-<span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>)
-
-<span class='no'>toyChr</span> <span class='kw'>&lt;-</span> <span class='fu'>chromosome</span>(<span class='kw'>Data</span> <span class='kw'>=</span> <span class='no'>Data</span>)
-<span class='fu'>show</span>(<span class='no'>toyChr</span>)</div><div class='output co'>#&gt;      ~~~ Class: Chromosome ~~~
-#&gt;   ~ Data : (6x7)
-#&gt;                      SNP      PVALUE    CHR     POS     MAF    eSNP   xSNP  
-#&gt;       rs4970420   rs4970420   0.92440    1    1106473  0.2149    0      0   
-#&gt;       rs3766178   rs3766178   0.16700    1    1478180  0.3117    1      1   
-#&gt;       rs10910030  rs10910030  0.01177    1    2035684  0.3740    1      1   
-#&gt;       rs10910036  rs10910036  0.42670    1    2183754  0.3753    0      0   
-#&gt;       rs2234167   rs2234167   0.97280    1    2494330  0.1565    0      0   
-#&gt;         .....       .....      .....   .....   .....   .....   .....  ..... 
-#&gt; 
-#&gt;   ~ LD : NA
-#&gt;   ~ eSNP :
-#&gt;    - List : (2) rs3766178 rs10910030
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; 
-#&gt;   ~ xSNP :
-#&gt;    - List : (2) rs3766178 rs10910030
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; </div><div class='input'><span class='no'>toyChr</span></div><div class='output co'>#&gt;      ~~~ Class: Chromosome ~~~
-#&gt;   ~ Data : (6x7)
-#&gt;                      SNP      PVALUE    CHR     POS     MAF    eSNP   xSNP  
-#&gt;       rs4970420   rs4970420   0.92440    1    1106473  0.2149    0      0   
-#&gt;       rs3766178   rs3766178   0.16700    1    1478180  0.3117    1      1   
-#&gt;       rs10910030  rs10910030  0.01177    1    2035684  0.3740    1      1   
-#&gt;       rs10910036  rs10910036  0.42670    1    2183754  0.3753    0      0   
-#&gt;       rs2234167   rs2234167   0.97280    1    2494330  0.1565    0      0   
-#&gt;         .....       .....      .....   .....   .....   .....   .....  ..... 
-#&gt; 
-#&gt;   ~ LD : NA
-#&gt;   ~ eSNP :
-#&gt;    - List : (2) rs3766178 rs10910030
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; 
-#&gt;   ~ xSNP :
-#&gt;    - List : (2) rs3766178 rs10910030
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; </div><div class='input'>
-<span class='no'>toyChr</span> <span class='kw'>&lt;-</span> <span class='fu'>chromosome</span>()
-<span class='no'>toyChr</span>[<span class='st'>"Data"</span>] <span class='kw'>&lt;-</span> <span class='no'>Data</span>
-<span class='no'>toyChr</span></div><div class='output co'>#&gt;      ~~~ Class: Chromosome ~~~
-#&gt;   ~ Data : (6x7)
-#&gt;                      SNP      PVALUE    CHR     POS     MAF    eSNP   xSNP  
-#&gt;       rs4970420   rs4970420   0.92440    1    1106473  0.2149    0      0   
-#&gt;       rs3766178   rs3766178   0.16700    1    1478180  0.3117    1      1   
-#&gt;       rs10910030  rs10910030  0.01177    1    2035684  0.3740    1      1   
-#&gt;       rs10910036  rs10910036  0.42670    1    2183754  0.3753    0      0   
-#&gt;       rs2234167   rs2234167   0.97280    1    2494330  0.1565    0      0   
-#&gt;         .....       .....      .....   .....   .....   .....   .....  ..... 
-#&gt; 
-#&gt;   ~ LD : NA
-#&gt;   ~ eSNP :
-#&gt;    - List : (0) NA
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; 
-#&gt;   ~ xSNP :
-#&gt;    - List : (0) NA
-#&gt;    - Table : (2x2) NA
-#&gt;    - EnrichmentRatio : NA
-#&gt;    - Z               : NA
-#&gt;    - PValue          : NA
-#&gt;    - Resampling      : (0x5) 0
-#&gt; </div><div class='input'>
-<span class='fu'><a href='is.chromosome.html'>is.chromosome</a></span>(<span class='no'>toyChr</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#objects-from-the-class">Objects from the Class</a></li>
-
       <li><a href="#slots">Slots</a></li>
+          </ul>
 
-      <li><a href="#extends">Extends</a></li>
-
-      <li><a href="#methods">Methods</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Mickael Canouil <a href='mailto:mickael.canouil@good.ibl.fr'>mickael.canouil@good.ibl.fr</a></p>
   </div>
 </div>
 
