@@ -458,7 +458,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
     switch(EXPR = i,
       "Loss" = x@Loss,
       "Data" = {
-        resData <- parallel::mclapply(
+        resData <- .mclapply(
           X = seq_len(22),
           mc.cores = min(22, parallel::detectCores()),
           FUN = function(iChr) x@Chromosomes[[iChr]]@Data
@@ -466,7 +466,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
         do.call("rbind", resData)
       },
       "LD" = {
-        resLD <- parallel::mclapply(
+        resLD <- .mclapply(
           X = seq_len(22),
           mc.cores = min(22, parallel::detectCores()),
           FUN = function(iChr) x@Chromosomes[[iChr]]@LD
@@ -514,7 +514,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
         switch(EXPR = i,
           "Loss" = x@Loss,
           "Data" = {
-            resData <- parallel::mclapply(
+            resData <- .mclapply(
               X = seq_len(22),
               mc.cores = min(22, parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@Data
@@ -522,7 +522,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
             do.call("rbind", resData)
           },
           "LD" = {
-            resLD <- parallel::mclapply(
+            resLD <- .mclapply(
               X = seq_len(22),
               mc.cores = min(22, parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@LD
@@ -625,7 +625,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
             eval(parse(text = paste0("list(", paste(paste0("x@Chromosomes$Chrom", j, "@Data[, c('SNP', 'PVALUE')]"), collapse = ", "), ")")))
           },
           "Data" = {
-            resData <- parallel::mclapply(
+            resData <- .mclapply(
               X = j,
               mc.cores = min(length(j), parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@Data
@@ -633,7 +633,7 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
             do.call("rbind", resData)
           },
           "LD" = {
-            resLD <- parallel::mclapply(
+            resLD <- .mclapply(
               X = j,
               mc.cores = min(length(j), parallel::detectCores()),
               FUN = function(iChr) x@Chromosomes[[iChr]]@LD
@@ -958,7 +958,7 @@ methods::setMethod(f = "computeER", signature = "Chromosome", definition = funct
   if (missing(object)) {
     stop('[Chromosome:computeER] "Chromosome" object is required.', call. = FALSE)
   }
-  object@Chromosomes <- parallel::mclapply(object@Chromosomes, mc.cores = mc.cores, function(chr) {
+  object@Chromosomes <- .mclapply(object@Chromosomes, mc.cores = mc.cores, function(chr) {
     data <- chr@Data
     chrLD <- length(chr@LD)
     for (type in c("eSNP", "xSNP")) {
@@ -982,7 +982,7 @@ methods::setMethod(f = "computeER", signature = "Enrichment", definition = funct
     stop('[Enrichment:computeER] "Enrichment" object is required.', call. = FALSE)
   }
   rowNames <- c(paste0("P>=", sigThresh), paste0("P<", sigThresh))
-  object@Chromosomes <- parallel::mclapply(object@Chromosomes, mc.cores = mc.cores, function(chr) {
+  object@Chromosomes <- .mclapply(object@Chromosomes, mc.cores = mc.cores, function(chr) {
     data <- chr@Data
     chrLD <- length(chr@LD)
     pvalFactor <- factor(data[, "PVALUE"] < sigThresh, levels = c(FALSE, TRUE))
@@ -1025,11 +1025,11 @@ methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = funct
   chrLD <- object@LD
 
   byBlock <- split(chrLD, names(chrLD))
-  byBlock <- unique(parallel::mclapply(byBlock, mc.cores = nbCores, function(i) {
+  byBlock <- unique(.mclapply(byBlock, mc.cores = nbCores, function(i) {
     names(i) <- NULL
     i
   }))
-  LDblockTmp <- parallel::mclapply(seq_along(byBlock), mc.cores = nbCores, function(jBlock) {
+  LDblockTmp <- .mclapply(seq_along(byBlock), mc.cores = nbCores, function(jBlock) {
     isIn <- which(data[, "SNP"] %in% byBlock[[jBlock]])
     if (length(isIn) > 0) {
       range(data[which(data[, "SNP"] %in% byBlock[[jBlock]]), "POS"])
@@ -1074,7 +1074,7 @@ methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = funct
   colnames(blockLim) <- c("MIN", "MAX", "IDBLOCK")
   rownames(blockLim) <- seq_len(nrow(blockLim))
   blockLim <- cbind(blockLim, LENGTH = NA)
-  resParallel <- parallel::mclapply(seq_len(nrow(blockLim)), mc.cores = nbCores, function(li) {
+  resParallel <- .mclapply(seq_len(nrow(blockLim)), mc.cores = nbCores, function(li) {
     blockLim[li, "LENGTH"] <- as.integer(blockLim[li, "MAX"]) - as.integer(blockLim[li, "MIN"])
     blockLim[li, ]
   })
@@ -1083,7 +1083,7 @@ methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = funct
 
   data <- data[order(data[, "POS"]), ]
   data[, c("MIN", "MAX", "IDBLOCK", "LENGTH", "MAFmedian")] <- as.numeric(NA)
-  tmpChr <- parallel::mclapply(seq_len(nrow(blockLim)), mc.cores = nbCores, function(i) {
+  tmpChr <- .mclapply(seq_len(nrow(blockLim)), mc.cores = nbCores, function(i) {
     m <- blockLim[i, ]
     interv <- seq(from = which(data[, "POS"] == m["MIN"]), to = which(data[, "POS"] == m["MAX"]))
     interv

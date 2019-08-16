@@ -89,7 +89,7 @@ readEnrichment <- function(pattern = "Chrom", signalFile, transcriptFile = FALSE
   }
 
   cat("  Read Chromosomes:\n    ")
-  resParallel <- parallel::mclapply(seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
+  resParallel <- .mclapply(seq_len(22), mc.cores = min(22, mc.cores), FUN = function(iChr) {
     files <- .readFiles(pattern = paste0(pattern, iChr), snpInfoDir = snpInfoDir, snpListDir = snpListDir, distThresh = distThresh)
     if (LD) {
       newPattern <- gsub(".bim", "", grep(paste0(pattern, iChr, "[^0-9]"), list.files(snpInfoDir, pattern = ".bim"), value = TRUE))
