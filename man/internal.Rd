@@ -41,7 +41,6 @@
 \alias{print,EnrichSNP-method}
 \alias{show}
 \alias{show,EnrichSNP-method}
-\alias{Chromosome-class}
 \alias{chromosome}
 \alias{chromosome,ANY-method}
 \alias{[,Chromosome-method}
@@ -139,15 +138,6 @@ If you have a specific need or for more details on snpEnrichment, feel free to c
 \item{\code{PValue}}{P-Value associated with the statistic \code{Z}.}
 
 \item{\code{Resampling}}{A matrix with by row, the contingency table and the odds ratio for each resampling.}
-
-\item{\code{Data}}{A \link{data.frame} with 6 columns (\code{"SNP"}, \code{"PVALUE"}, \code{"CHR"}, \code{"MAF"}, \code{"eSNP"}, \code{"xSNP"}).
-Where \code{"eSNP"} and \code{"xSNP"} are logical columns defining the lists of SNPs (extended or not).}
-
-\item{\code{LD}}{A data.frame which contains LD informations between SNPs (computed with \link{writeLD} or PLINK).}
-
-\item{\code{eSNP}}{Contain a \linkS4class{EnrichSNP} object for a list of SNPs (eSNP).}
-
-\item{\code{xSNP}}{Contain a \linkS4class{EnrichSNP} object for a extended list of SNPs (xSNP).}
 }}
 
 \keyword{internal}

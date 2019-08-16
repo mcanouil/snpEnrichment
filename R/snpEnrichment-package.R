@@ -8,9 +8,10 @@
 #'
 #' @seealso
 #' + Overview: [snpEnrichment]
-#' + Classes: [Enrichment-class]
+#' + Classes: [Enrichment-class] [Chromosome-class]
 #' + Methods:
 #'     - [enrichment]
+#'     - [chromosome]
 #'     - [getEnrichSNP]
 #'     - [plot]
 #'     - [reSample]

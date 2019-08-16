@@ -147,8 +147,7 @@ methods::setMethod(f = "show", signature = "EnrichSNP", definition = function(ob
 #' @slot xSNP Contain a [EnrichSNP-class] object for a extended list of SNPs (xSNP).
 #'
 #' @name Chromosome-class
-#' @rdname internal
-#' @keywords internal
+#' @exportClass Chromosome
 methods::setClass(
   Class = "Chromosome",
   representation = methods::representation(
@@ -170,7 +169,7 @@ methods::setClass(
 #' @name chromosome
 #' @rdname internal
 #' @aliases chromosome
-#' @keywords internal
+#' @exportMethod chromosome
 methods::setGeneric(name = "chromosome", def = function(Data, LD, eSNP, xSNP) standardGeneric("chromosome"))
 
 #' Constructor method for [Chromosome-class]
