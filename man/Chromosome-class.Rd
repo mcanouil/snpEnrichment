@@ -2,9 +2,15 @@
 % Please edit documentation in R/class.R
 \name{Chromosome-class}
 \alias{Chromosome-class}
+\alias{chromosome}
+\alias{chromosome,ANY-method}
 \title{Class \linkS4class{Chromosome}}
 \description{
 Class \linkS4class{Chromosome}
+
+Constructor generic for \linkS4class{Chromosome}
+
+Constructor method for \linkS4class{Chromosome}
 }
 \section{Slots}{
 

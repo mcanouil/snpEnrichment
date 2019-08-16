@@ -29,10 +29,6 @@
 \alias{is.EnrichSNP}
 \alias{is.chromosome}
 \alias{is.enrichment}
-\alias{EnrichSNP-class}
-\alias{EnrichSNP}
-\alias{enrichSNP}
-\alias{enrichSNP,ANY-method}
 \alias{[}
 \alias{[,EnrichSNP-method}
 \alias{[<-}
@@ -41,14 +37,10 @@
 \alias{print,EnrichSNP-method}
 \alias{show}
 \alias{show,EnrichSNP-method}
-\alias{chromosome}
-\alias{chromosome,ANY-method}
 \alias{[,Chromosome-method}
 \alias{[<-,Chromosome-method}
 \alias{print,Chromosome-method}
 \alias{show,Chromosome-method}
-\alias{enrichment}
-\alias{enrichment,ANY-method}
 \alias{[,Enrichment-method}
 \alias{[<-,Enrichment-method}
 \alias{print,Enrichment-method}
@@ -124,20 +116,4 @@ is.enrichment(object)
 These are not intended to be called by the user.
 If you have a specific need or for more details on snpEnrichment, feel free to contact the author.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{List}}{A list of SNPs used to compute enrichment (\emph{e.g.}, eSNP or xSNP).}
-
-\item{\code{Table}}{A contingency table with SNPs (columns) and P-Values from signal (rows).}
-
-\item{\code{EnrichmentRatio}}{Enrichment Ratio is computed on the contingency table (\code{Table} slot).}
-
-\item{\code{Z}}{A statistic computed from \code{EnrichmentRatio} and resampling results.}
-
-\item{\code{PValue}}{P-Value associated with the statistic \code{Z}.}
-
-\item{\code{Resampling}}{A matrix with by row, the contingency table and the odds ratio for each resampling.}
-}}
-
 \keyword{internal}
