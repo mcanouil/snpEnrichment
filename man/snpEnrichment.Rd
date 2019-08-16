@@ -19,10 +19,11 @@ Internal data management in \link{snpEnrichment} use RefSNP (rs) IDs.
 \seealso{
 \itemize{
 \item Overview: \link{snpEnrichment}
-\item Classes: \linkS4class{Enrichment}
+\item Classes: \linkS4class{Enrichment} \linkS4class{Chromosome}
 \item Methods:
 \itemize{
 \item \link{enrichment}
+\item \link{chromosome}
 \item \link{getEnrichSNP}
 \item \link{plot}
 \item \link{reSample}
