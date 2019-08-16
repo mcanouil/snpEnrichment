@@ -8,8 +8,7 @@
 #' @slot Resampling A matrix with by row, the contingency table and the odds ratio for each resampling.
 #'
 #' @name EnrichSNP-class
-#' @rdname internal
-#' @keywords internal
+#' @exportClass EnrichSNP
 methods::setClass(
   Class = "EnrichSNP",
   representation = methods::representation(
@@ -33,14 +32,14 @@ methods::setClass(
 #' Constructor generic for [EnrichSNP-class]
 #'
 #' @name EnrichSNP
-#' @rdname internal
+#' @rdname EnrichSNP-class
 #' @keywords internal
 methods::setGeneric(name = "enrichSNP", def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) standardGeneric("enrichSNP"))
 
 #' Constructor method for [EnrichSNP-class]
 #'
 #' @name enrichSNP
-#' @rdname internal
+#' @rdname EnrichSNP-class
 #' @aliases enrichSNP,ANY-method
 #' @keywords internal
 methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) {
@@ -167,7 +166,7 @@ methods::setClass(
 #' Constructor generic for [Chromosome-class]
 #'
 #' @name chromosome
-#' @rdname internal
+#' @rdname Chromosome-class
 #' @aliases chromosome
 #' @exportMethod chromosome
 methods::setGeneric(name = "chromosome", def = function(Data, LD, eSNP, xSNP) standardGeneric("chromosome"))
@@ -175,7 +174,7 @@ methods::setGeneric(name = "chromosome", def = function(Data, LD, eSNP, xSNP) st
 #' Constructor method for [Chromosome-class]
 #'
 #' @name chromosome
-#' @rdname internal
+#' @rdname Chromosome-class
 #' @aliases chromosome,ANY-method
 methods::setMethod(f = "chromosome", signature = "ANY", definition = function(Data, LD, eSNP, xSNP) {
   if (missing(Data)) {
@@ -375,7 +374,7 @@ methods::setClass(
 #' Constructor generic for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname internal
+#' @rdname Enrichment-class
 #' @exportMethod enrichment
 methods::setGeneric(
   name = "enrichment",
@@ -385,7 +384,7 @@ methods::setGeneric(
 #' Constructor method for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname internal
+#' @rdname Enrichment-class
 #' @aliases enrichment,ANY-method
 methods::setMethod(
   f = "enrichment",
@@ -859,6 +858,7 @@ methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x,
 #' @name print
 #' @rdname internal
 #' @aliases print,Enrichment-method
+#' @exportMethod print
 methods::setMethod(
   f = "print",
   signature = "Enrichment",

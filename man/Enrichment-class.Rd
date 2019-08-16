@@ -2,6 +2,8 @@
 % Please edit documentation in R/class.R
 \name{Enrichment-class}
 \alias{Enrichment-class}
+\alias{enrichment}
+\alias{enrichment,ANY-method}
 \title{An S4 class \linkS4class{Enrichment}}
 \description{
 This class is defined to summarize the enrichment analysis on each chromosomes and the whole genome.
