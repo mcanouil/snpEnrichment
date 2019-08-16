@@ -84,17 +84,17 @@ methods::setMethod(f = "reSample", signature = "Enrichment", definition = functi
   sigThresh <- object@Call$readEnrichment$sigThresh
 
   cat("########### Resample Enrichment ############\n")
-  warnings.env <- new.env()
-  assign("minCores", mc.cores, envir = warnings.env)
-  assign("maxCores", 0, envir = warnings.env)
+  # warnings.env <- new.env()
+  # assign("minCores", mc.cores, envir = warnings.env)
+  # assign("maxCores", 0, envir = warnings.env)
   nSampleOld <- object@Call$reSample$nSample
   if (onlyGenome == FALSE) {
     listRes <- eval(parse(text = paste0("list(", paste(paste0("Chrom", seq_len(22), " = NULL"), collapse = ", "), ")")))
     for (iChr in seq_len(22)) {
       cat("  Chromosome ", if (nchar(iChr) == 1) paste0("0", iChr) else iChr, ": ", sep = "")
-      nbCores <- suppressWarnings(maxCores(mc.cores))
-      assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
-      assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
+      # nbCores <- suppressWarnings(maxCores(mc.cores))
+      # assign("minCores", min(get("minCores", envir = warnings.env), mc.cores), envir = warnings.env)
+      # assign("maxCores", max(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
       suppressWarnings(listRes[[iChr]] <- reSample(object = object@Chromosomes[[iChr]], nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
       cat("END\n")
     }
@@ -103,9 +103,9 @@ methods::setMethod(f = "reSample", signature = "Enrichment", definition = functi
   }
 
   cat("  Genome       : ")
-  nbCores <- suppressWarnings(maxCores(mc.cores))
-  assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
-  assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
+  # nbCores <- suppressWarnings(maxCores(mc.cores))
+  # assign("minCores", min(get("minCores", envir = warnings.env), mc.cores), envir = warnings.env)
+  # assign("maxCores", max(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
   suppressWarnings(result <- .reSample(object = object, nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
   cat("END\n")
   rm(object)
@@ -162,21 +162,21 @@ methods::setMethod(f = "reSample", signature = "Enrichment", definition = functi
   nameObject <- deparse(result@Call$reSample[["object"]])
   assign(nameObject, result, inherits = TRUE, envir = parent.frame(2))
 
-  assign("maxCores", min(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
-  if (get("minCores", envir = warnings.env) == get("maxCores", envir = warnings.env)) {
-    if (get("minCores", envir = warnings.env) != mc.cores) {
-      warning(paste0(
-        '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to ',
-        get("minCores", envir = warnings.env), "."
-      ), call. = FALSE)
-    }
-  } else {
-    warning(paste0(
-      '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to min=',
-      get("minCores", envir = warnings.env), " and max=",
-      get("maxCores", envir = warnings.env), "."
-    ), call. = FALSE)
-  }
+  # assign("maxCores", min(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
+  # if (get("minCores", envir = warnings.env) == get("maxCores", envir = warnings.env)) {
+  #   if (get("minCores", envir = warnings.env) != mc.cores) {
+  #     warning(paste0(
+  #       '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to ',
+  #       get("minCores", envir = warnings.env), "."
+  #     ), call. = FALSE)
+  #   }
+  # } else {
+  #   warning(paste0(
+  #     '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to min=',
+  #     get("minCores", envir = warnings.env), " and max=",
+  #     get("maxCores", envir = warnings.env), "."
+  #   ), call. = FALSE)
+  # }
   cat("######## Resample Enrichment Done ##########\n")
   cat(paste0('*** Object "', nameObject, '" has been updated. ***\n\n'))
   invisible(result)
