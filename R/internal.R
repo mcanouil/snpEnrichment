@@ -10,11 +10,11 @@ NULL
 #' @rdname internal
 #' @keywords internal
 .mclapply <- function(X, FUN, mc.cores, ...) {
-  # if (mc.cores == 1) {
+  if (mc.cores == 1) {
     lapply(X = X, FUN = FUN, ...)
-  # } else {
-  #   parallel::mclapply(X = X, FUN = FUN, mc.cores = mc.cores, ...)
-  # }
+  } else {
+    parallel::mclapply(X = X, FUN = FUN, mc.cores = mc.cores, ...)
+  }
 }
 
 #' @rdname internal
