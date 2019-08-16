@@ -23,8 +23,6 @@
 \alias{.verbose}
 \alias{.writeFreq}
 \alias{.writeSignal}
-\alias{mclapply2}
-\alias{maxCores}
 \alias{GC}
 \alias{is.EnrichSNP}
 \alias{is.chromosome}
@@ -97,12 +95,6 @@
 .writeFreq(pattern, snpInfoDir)
 
 .writeSignal(pattern, snpInfoDir, signalFile)
-
-mclapply2(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE,
-  mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L),
-  mc.cleanup = TRUE, mc.allow.recursive = TRUE)
-
-maxCores(mc.cores = 1)
 
 GC(verbose = getOption("verbose"), reset = FALSE)
 
