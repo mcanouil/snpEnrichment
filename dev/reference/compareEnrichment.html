@@ -104,85 +104,85 @@ compareEnrichment compare two Enrichment objects." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compare enrichment analysis between two SNPs list</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/compareEnrichment.R'><code>R/compareEnrichment.R</code></a></small>
     <div class="hidden name"><code>compareEnrichment.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>Compare the enrichment analysis between two set of SNPs.
-<code>compareEnrichment</code> compare two <code><a href='Enrichment-class.html'>Enrichment</a></code> objects.</p>
+compareEnrichment compare two <a href='Enrichment-class.html'>Enrichment</a> objects.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>compareEnrichment</span>(<span class='no'>object.x</span>, <span class='no'>object.y</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>,
-                  <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                  <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>compareEnrichment</span>(<span class='no'>object.x</span>, <span class='no'>object.y</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>, <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object.x, object.y</th>
-      <td><p>[Enrichment]: an <code><a href='Enrichment-class.html'>Enrichment</a></code> object fully filled (e.g. <code><a href='readEnrichment.html'>readEnrichment</a></code>).</p></td>
+      <th>object.x</th>
+      <td><p>An <a href='Enrichment-class.html'>Enrichment</a> object fully filled (<em>e.g.</em>, <a href='readEnrichment.html'>readEnrichment</a>).</p></td>
+    </tr>
+    <tr>
+      <th>object.y</th>
+      <td><p>An <a href='Enrichment-class.html'>Enrichment</a> object fully filled (<em>e.g.</em>, <a href='readEnrichment.html'>readEnrichment</a>).</p></td>
     </tr>
     <tr>
       <th>pattern</th>
-      <td><p>[character]: character string containing a expression to be matched with all chromosomes files (e.g."Chrom" for  files which start by "Chrom" followed by the chromosome number).</p></td>
+      <td><p>A character string containing a expression to be matched with all chromosomes files
+(<em>e.g.</em>,<code>"Chrom"</code> for files which start by <code>"Chrom"</code> followed by the chromosome number).</p></td>
     </tr>
     <tr>
       <th>nSample</th>
-      <td><p>[numeric]: the number of resampling done by <code><a href='reSample-methods.html'>reSample</a></code> for p-values computation (minimum is 100).</p></td>
+      <td><p>The number of resampling done by <a href='reSample.html'>reSample</a> for p-values computation (minimum is <code>100</code>).</p></td>
     </tr>
     <tr>
       <th>empiricPvalue</th>
-      <td><p>[logical]: <code>empiricPvalue=TRUE</code> (default) compute PValue based on the null distribution (resampling).
-    If <code>empiricPvalue=TRUE</code>, the empirical p-values are computed instead.</p></td>
+      <td><p>Compute PValue based on the null distribution (<code>FALSE</code>).
+If <code>TRUE</code> (default), the empirical p-values are computed instead.</p></td>
     </tr>
     <tr>
       <th>mc.cores</th>
-      <td><p>[numeric]: the number of cores to use (default is <code>mc.cores=1</code>), i.e. at most how many child processes will be run simultaneously.
-    Must be at least one, and parallelization requires at least two cores.</p></td>
+      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>: the number of cores to use (default is <code>1</code>),
+<em>i.e.</em>, at most how many child processes will be run simultaneously.
+Must be at least one, and parallelization requires at least two cores.</p></td>
     </tr>
     <tr>
       <th>onlyGenome</th>
-      <td><p>[logical]: <code>onlyGenome=TRUE</code> (default) compute resampling step for all chromosomes.</p></td>
+      <td><p>Compute resampling step for all chromosomes (default <code>TRUE</code>).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Return a <code>list</code> of three elements:</p>
-<dt>object.xy</dt><dd><p><code><a href='Enrichment-class.html'>Enrichment</a></code> object from the comparison between <code>object.x</code> and <code>object.y</code>.</p></dd>
-    <dt>object.x</dt><dd><p><code><a href='Enrichment-class.html'>Enrichment</a></code> object passed in <code>object.x</code> with resampling data.</p></dd>
-    <dt>object.y</dt><dd><p><code><a href='Enrichment-class.html'>Enrichment</a></code> object passed in <code>object.y</code> with resampling data.</p></dd>
+    <p>Return a <code>list</code> of three elements:</p><ul>
+<li><p>object.xy <a href='Enrichment-class.html'>Enrichment</a> object from the comparison between <code>object.x</code> and <code>object.y</code>.</p></li>
+<li><p>object.x <a href='Enrichment-class.html'>Enrichment</a> object passed in <code>object.x</code> with resampling data.</p></li>
+<li><p>object.y <a href='Enrichment-class.html'>Enrichment</a> object passed in <code>object.y</code> with resampling data.</p></li>
+</ul>
 
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Still in development.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Overview : <code><a href='snpEnrichment-package.html'>snpEnrichment-package</a></code> <br />
-Classes : <code><a href='Enrichment-class.html'>Enrichment</a></code>, <code><a href='Chromosome-class.html'>Chromosome</a></code>, <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code> <br />
-Methods : <code><a href='plot-methods.html'>plot</a></code>, <code><a href='reSample-methods.html'>reSample</a></code>, <code><a href='getEnrichSNP-methods.html'>getEnrichSNP</a></code>, <code><a href='excludeSNP-methods.html'>excludeSNP</a></code>, <code>compareEnrichment</code>, <br />
-            <code><a href='Enrichment-class.html'>enrichment</a></code>, <code><a href='is.enrichment.html'>is.enrichment</a></code>, <code><a href='Chromosome-class.html'>chromosome</a></code>, <code><a href='is.chromosome.html'>is.chromosome</a></code> <br />
-Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='writeLD.html'>writeLD</a></code>, <code><a href='readEnrichment.html'>readEnrichment</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
 
-<span class='fu'><a href='reSample-methods.html'>reSample</a></span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
-         <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-         <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-         <span class='kw'>MAFpool</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.10</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>),
-         <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-         <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='fu'><a href='reSample.html'>reSample</a></span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
+    <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+    <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>MAFpool</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.10</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>),
+    <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  )
 
-<span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
+  <span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
     <span class='st'>"rs7897180"</span>, <span class='st'>"rs4725479"</span>, <span class='st'>"rs315404"</span>, <span class='st'>"rs17390391"</span>, <span class='st'>"rs1650670"</span>,
     <span class='st'>"rs6783390"</span>, <span class='st'>"rs1642009"</span>, <span class='st'>"rs4756586"</span>, <span class='st'>"rs11995037"</span>, <span class='st'>"rs4977345"</span>,
     <span class='st'>"rs13136448"</span>, <span class='st'>"rs4233536"</span>, <span class='st'>"rs11151079"</span>, <span class='st'>"rs2299657"</span>, <span class='st'>"rs4833930"</span>,
@@ -193,21 +193,22 @@ Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='
     <span class='st'>"rs8049208"</span>, <span class='st'>"rs12215176"</span>, <span class='st'>"rs2980996"</span>, <span class='st'>"rs1736976"</span>, <span class='st'>"rs8089268"</span>,
     <span class='st'>"rs10832329"</span>, <span class='st'>"rs12446540"</span>, <span class='st'>"rs7676237"</span>, <span class='st'>"rs869922"</span>, <span class='st'>"rs16823426"</span>,
     <span class='st'>"rs1374393"</span>, <span class='st'>"rs13268781"</span>, <span class='st'>"rs11134505"</span>, <span class='st'>"rs7325241"</span>, <span class='st'>"rs7520109"</span>
-)
-<span class='co'># OR</span>
-<span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/Exclude/toyExclude.txt"</span>,
-                           <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
+  )
+  <span class='co'># OR</span>
+  <span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/Exclude/toyExclude.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
 
-<span class='no'>toyEnrichment_exclude</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='excludeSNP-methods.html'>excludeSNP</a></span>(<span class='no'>toyEnrichment</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='no'>toyEnrichment_exclude</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='excludeSNP.html'>excludeSNP</a></span>(<span class='no'>toyEnrichment</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='no'>compareResults</span> <span class='kw'>&lt;-</span> <span class='fu'>compareEnrichment</span>(<span class='kw'>object.x</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
-                                    <span class='kw'>object.y</span> <span class='kw'>=</span> <span class='no'>toyEnrichment_exclude</span>,
-                                    <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>,
-                                    <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-                                    <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                    <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-                                    <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></pre>
+  <span class='no'>compareResults</span> <span class='kw'>&lt;-</span> <span class='fu'>compareEnrichment</span>(
+    <span class='kw'>object.x</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
+    <span class='kw'>object.y</span> <span class='kw'>=</span> <span class='no'>toyEnrichment_exclude</span>,
+    <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>,
+    <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+    <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  )
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -217,14 +218,10 @@ Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Mickael Canouil <a href='mailto:mickael.canouil@good.ibl.fr'>mickael.canouil@good.ibl.fr</a></p>
   </div>
 </div>
 

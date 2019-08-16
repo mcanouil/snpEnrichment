@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Initialize files for enrichment analysis — initFiles • snpEnrichment</title>
+<title>Exclude SNPs from Enrichment analysis — excludeSNP • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Initialize files for enrichment analysis — initFiles" />
+<meta property="og:title" content="Exclude SNPs from Enrichment analysis — excludeSNP" />
 
-<meta property="og:description" content="initFiles create several files needed to run readEnrichment.
-&quot;.frq&quot; and &quot;.signal&quot; are created with PLINK.
-LD computation can be run with writeLD or with PLINK." />
+<meta property="og:description" content="Remove a specify set of SNPs and compute a new enrichment analysis." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -104,41 +102,30 @@ LD computation can be run with writeLD or with PLINK." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Initialize files for enrichment analysis</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/initFiles.R'><code>R/initFiles.R</code></a></small>
-    <div class="hidden name"><code>initFiles.Rd</code></div>
+    <h1>Exclude SNPs from Enrichment analysis</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/excludeSNP.R'><code>R/excludeSNP.R</code></a></small>
+    <div class="hidden name"><code>excludeSNP.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>initFiles create several files needed to run <a href='readEnrichment.html'>readEnrichment</a>.
-".frq" and ".signal" are created with PLINK.
-LD computation can be run with <a href='writeLD.html'>writeLD</a> or with PLINK.</p>
+    <p>Remove a specify set of SNPs and compute a new enrichment analysis.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>initFiles</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>, <span class='no'>snpInfoDir</span>, <span class='no'>signalFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>excludeSNP</span>(<span class='no'>object</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pattern</th>
-      <td><p>A character string containing a expression to be matched with all chromosomes files
-(<em>e.g.</em>,<code>"Chrom"</code> for files which start by <code>"Chrom"</code> followed by the chromosome number).</p></td>
+      <th>object</th>
+      <td><p>An <a href='Enrichment-class.html'>Enrichment</a> object filled by <a href='reSample.html'>reSample</a>.</p></td>
     </tr>
     <tr>
-      <th>snpInfoDir</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>: character string naming a directory
-containing the reference data in a PLINK format (.bed, .bim and .fam).</p></td>
-    </tr>
-    <tr>
-      <th>signalFile</th>
-      <td><p>The name of the signal file which the data are to be read from
-(2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.
-If it does not contain an <code>_absolute_</code> path, the file name is <code>_relative_</code> to the current
-working directory, <a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a>. The fields separator character have to be a space <code>" "</code>
-or a tabulation <code>"\t"</code>.</p></td>
+      <th>excludeFile</th>
+      <td><p>A list of SNPs to remove from a previous enrichment analysis.
+A path to a file which the first column are the SNPs.</p></td>
     </tr>
     <tr>
       <th>mc.cores</th>
@@ -150,16 +137,29 @@ Must be at least one, and parallelization requires at least two cores.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function writes several files, in the temporary directory (defined in <code>R_SESSION_TMPDIR</code>),
-nothing else is returned. These files are used to build an <a href='Enrichment-class.html'>Enrichment</a> object by <a href='readEnrichment.html'>readEnrichment</a>
-in order to compute enrichment analysis (<a href='reSample.html'>reSample</a>).</p>
+    <p>Return the object given in argument where lists of SNPs are updated by removing SNPs in <code>excludeFile</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
-  <span class='no'>snpInfoDir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/snpInfo"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
-  <span class='no'>signalFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/Signal/toySignal.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
-  <span class='fu'>initFiles</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>, <span class='no'>snpInfoDir</span>, <span class='no'>signalFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
+  <span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
+    <span class='st'>"rs4376885"</span>, <span class='st'>"rs17690928"</span>, <span class='st'>"rs6460708"</span>, <span class='st'>"rs13061537"</span>, <span class='st'>"rs11769827"</span>,
+    <span class='st'>"rs12717054"</span>, <span class='st'>"rs2907627"</span>, <span class='st'>"rs1380109"</span>, <span class='st'>"rs7024214"</span>, <span class='st'>"rs7711972"</span>,
+    <span class='st'>"rs9658282"</span>, <span class='st'>"rs11750720"</span>, <span class='st'>"rs1793268"</span>, <span class='st'>"rs774568"</span>, <span class='st'>"rs6921786"</span>,
+    <span class='st'>"rs1699031"</span>, <span class='st'>"rs6994771"</span>, <span class='st'>"rs16926670"</span>, <span class='st'>"rs465612"</span>, <span class='st'>"rs3012084"</span>,
+    <span class='st'>"rs354850"</span>, <span class='st'>"rs12803455"</span>, <span class='st'>"rs13384873"</span>, <span class='st'>"rs4364668"</span>, <span class='st'>"rs8181047"</span>,
+    <span class='st'>"rs2179993"</span>, <span class='st'>"rs12049335"</span>, <span class='st'>"rs6079926"</span>, <span class='st'>"rs2175144"</span>, <span class='st'>"rs11564427"</span>,
+    <span class='st'>"rs7786389"</span>, <span class='st'>"rs7005565"</span>, <span class='st'>"rs17423335"</span>, <span class='st'>"rs12474102"</span>, <span class='st'>"rs191314"</span>,
+    <span class='st'>"rs10513168"</span>, <span class='st'>"rs1711437"</span>, <span class='st'>"rs1992620"</span>, <span class='st'>"rs283115"</span>, <span class='st'>"rs10754563"</span>,
+    <span class='st'>"rs10851727"</span>, <span class='st'>"rs2173191"</span>, <span class='st'>"rs7661353"</span>, <span class='st'>"rs1342113"</span>, <span class='st'>"rs7042073"</span>,
+    <span class='st'>"rs1567445"</span>, <span class='st'>"rs10120375"</span>, <span class='st'>"rs550060"</span>, <span class='st'>"rs3761218"</span>, <span class='st'>"rs4512977"</span>
+  )
+  <span class='co'># OR</span>
+  <span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/Exclude/toyExclude.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
+
+  <span class='no'>toyEnrichment_exclude</span> <span class='kw'>&lt;-</span> <span class='fu'>excludeSNP</span>(<span class='no'>toyEnrichment</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='no'>toyEnrichment_exclude</span>
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

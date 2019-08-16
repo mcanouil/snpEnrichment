@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>Enrichment</code> — Enrichment-class • snpEnrichment</title>
+<title>An S4 class Enrichment — Enrichment-class • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Class <code>Enrichment</code> — Enrichment-class" />
+<meta property="og:title" content="An S4 class Enrichment — Enrichment-class" />
 
 <meta property="og:description" content="This class is defined to summarize the enrichment analysis on each chromosomes and the whole genome." />
 <meta name="twitter:card" content="summary" />
@@ -102,8 +102,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>Enrichment</code></h1>
-    
+    <h1>An S4 class Enrichment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/class.R'><code>R/class.R</code></a></small>
     <div class="hidden name"><code>Enrichment-class.Rd</code></div>
     </div>
 
@@ -114,61 +114,40 @@
     </div>
 
         
-    <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the Class</h2>
-
-    <p><code>enrichment</code> is defined to build an object of class <code>Enrichment</code> in order to compute an enrichment analysis.
-    <code>Enrichment</code> is the object containing the results for all <code><a href='Chromosome-class.html'>Chromosome</a></code> object and for the whole genome.<br /></p>
-<p>When an <code>Enrichment</code> object is created, it contains a list of SNPs (e.g. eSNPs).
-    All the others slots are "empty". After <code><a href='reSample-methods.html'>reSample</a></code> is ran on an <code>Enrichment</code> object,
-    the slots: Table, EnrichmentRatio, Z, PValue and Resampling are filled.</p>
-<p>Note that if <code><a href='reSample-methods.html'>reSample</a></code> is executed on an <code>Enrichment</code> every new resampling
-    is added to the original ones, pre-existing statistics are erased and computed again with the new resampling set.</p>
-    
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl class='dl-horizontal'>
-        % \item{Signal}{[data.frame]: a three columns \code{data.frame}: "SNP", "PVALUE" and "IN" (e.g. GWAS). "IN" is computed during the reading step and gives informations about which SNPs are kept for the enrichment analysis.}
-        <dt>Loss</dt><dd><p>[data.frame]: a four columns <code>data.frame</code>: "Rows", "Unique", "Intersect.Ref.Signal" and "CIS". This slot gives information on data losses.</p></dd>
-        <dt>Call</dt><dd><p>[list]: each parameters used for the reading or resampling step are stored in this slot.</p></dd>
-        <dt>eSNP, xSNP</dt><dd><p>[SNP]: contain a <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code> object (whith slots: SNP, Table, EnrichmentRatio, Z, PValue and Resampling) for a list of SNPs (<code>eSNP</code>) and an extended one (<code>xSNP</code>).</p></dd>
-        % \item{xSNP}{[SNP]: contains a \code{\linkS4class{EnrichSNP}} object (whith slots: SNP, Table, EnrichmentRatio, Z, PValue and Resampling) for an extended list of SNPs.}
-        <dt>Chromosomes</dt><dd><p>[list(Chromosome)]: a list of 22 <code><a href='Chromosome-class.html'>Chromosome</a></code> objects.</p></dd>
-    </dl>
     
-    <h2 class="hasAnchor" id="extends"><a class="anchor" href="#extends"></a>Extends</h2>
-
-    <p>Class <code><a href='Chromosome-class.html'>Chromosome</a></code>, directly.<br />
-Class <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code>, directly.<br /></p>
+    <dl class='dl-horizontal'>
+<dt><code>Signal</code></dt><dd><p>A three columns <code>data.frame</code>: "SNP", "PVALUE" and "IN" (<em>e.g.</em>, GWAS).
+"IN" is computed during the reading step and gives informations about which SNPs are kept
+for the enrichment analysis.</p></dd>
+    <dt><code>Loss</code></dt><dd><p>A four columns data.frame: "Rows", "Unique", "Intersect.Ref.Signal" and "CIS".
+This slot gives information on data losses.</p></dd>
+    <dt><code>Call</code></dt><dd><p>Each parameters used for the reading or resampling step are stored in this slot.</p></dd>
+    <dt><code>eSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a list of SNPs (eSNP).</p></dd>
+    <dt><code>xSNP</code></dt><dd><p>Contain a <a href='internal.html'>EnrichSNP</a> object for a extended list of SNPs (xSNP).</p></dd>
+    <dt><code>Chromosomes</code></dt><dd><p>A list of 22 <a href='internal.html'>Chromosome</a> objects.</p></dd>
+</dl>
     
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+    <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the Class</h2>
 
-    <p></p><dl class='dl-horizontal'>
-        <dt>enrichment(Loss, Call, eSNP, xSNP, Chromosomes):</dt><dd><p>Generate and initialize a new <code>Enrichment</code> object.</p></dd>
-        <dt>object["slotName"]:</dt><dd><p>Get the value of the field <code>slotName</code>.</p></dd>
-        <dt>object["slotName"]&lt;-value:</dt><dd><p>Set <code>value</code> to the field <code>slotName</code>.</p></dd>
-        <dt>show(object):</dt><dd><p>Return the formatted values of <code>Enrichment</code> object.</p></dd>
-        <dt>print(object, what, type):</dt><dd><p>Return a summary table of an <code>Enrichment</code> object.</p></dd>
-        % \item{computeER(object, sigThresh):}{Compute Enrichment Ratio for \code{\linkS4class{Enrichment}} object (internal use only).}
-        <dt>reSample(object, nSample, MAFpool, mc.cores, onlyGenome):</dt><dd><p>Compute P-Values based upon a resampling of SNPs (<code>eSNP</code> and <code>xSNP</code>) and update the <code>Enrichment</code> object.</p></dd>
-        <dt>excludeSNP(object, excludeFile, mc.cores):</dt><dd><p>Excludes SNPs given in <code>excludeFile</code> from the original list of eSNPs (xSNPs). Then a new enrichment analysis is computed.</p></dd>
-        <dt>reset(object, "slotName"):</dt><dd><p>Reset the field <code>slotName</code>.</p></dd>
-        <dt>plot(object, what, type, ggplot, pvalue):</dt><dd><p>Plot p-values or Z-statistics convergence.</p></dd>
-        <dt>getEnrichSNP(object, type):</dt><dd><p>Return eSNP/xSNP which are enriched as a <code>data.frame</code>.</p></dd>
-    </dl>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Overview : <code><a href='snpEnrichment-package.html'>snpEnrichment-package</a></code> <br />
-Classes : <code>Enrichment</code>, <code><a href='Chromosome-class.html'>Chromosome</a></code>, <code><a href='EnrichSNP-class.html'>EnrichSNP</a></code> <br />
-Methods : <code><a href='plot-methods.html'>plot</a></code>, <code><a href='reSample-methods.html'>reSample</a></code>, <code><a href='getEnrichSNP-methods.html'>getEnrichSNP</a></code>, <code><a href='excludeSNP-methods.html'>excludeSNP</a></code>, <code><a href='compareEnrichment.html'>compareEnrichment</a></code>, <br />
-            <code>enrichment</code>, <code><a href='is.enrichment.html'>is.enrichment</a></code>, <code><a href='Chromosome-class.html'>chromosome</a></code>, <code><a href='is.chromosome.html'>is.chromosome</a></code> <br />
-Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='writeLD.html'>writeLD</a></code>, <code><a href='readEnrichment.html'>readEnrichment</a></code></p></div>
+    <p>Enrichment is defined to build an object
+of class Enrichment in order to compute an enrichment analysis.
+Enrichment is the object containing the results for all <a href='internal.html'>Chromosome</a> object
+and for the whole genome.</p>
+<p>When an Enrichment object is created, it contains a list of SNPs (<em>e.g.</em>, eSNPs).
+All the others slots are "empty".
+After <a href='reSample.html'>reSample</a> is ran on an Enrichment object, the slots:
+Table, EnrichmentRatio, Z, PValue and Resampling are filled.</p>
+<p>Note that if <a href='reSample.html'>reSample</a> is executed on an Enrichment every new resampling is added to the
+original ones, pre-existing statistics are erased and computed again with the new resampling set.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>()
-<span class='fu'>show</span>(<span class='no'>toyEnrich</span>)</div><div class='output co'>#&gt;     ~~~ Class: Enrichment ~~~ 
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>()
+<span class='fu'><a href='internal.html'>show</a></span>(<span class='no'>toyEnrich</span>)</div><div class='output co'>#&gt;     ~~~ Class: Enrichment ~~~ 
 #&gt;  ~ Loss : (0x0) NA
 #&gt;  ~ Call :
 #&gt;     readEnrichment() : Not yet called.    reSample() : Not yet called.
@@ -215,19 +194,22 @@ Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='
 #&gt; Chrom20    30     30               30   30
 #&gt; Chrom21    18     18               17   17
 #&gt; Chrom22    23     23               23   23</div><div class='input'>
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>],
-                        <span class='kw'>eSNP</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"eSNP"</span>])
-<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'>enrichment</span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>])</div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='reSample-methods.html'>reSample</a></span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
-         <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-         <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-         <span class='kw'>MAFpool</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.10</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>),
-         <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-         <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='print-methods.html'>print</a></span>(<span class='no'>toyEnrichment</span>)
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>], <span class='kw'>eSNP</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"eSNP"</span>])
+<span class='no'>toyEnrich</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='internal.html'>enrichment</a></span>(<span class='kw'>Loss</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>[<span class='st'>"Loss"</span>])
 
-<span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
-<span class='st'>"rs7897180"</span>, <span class='st'>"rs4725479"</span>, <span class='st'>"rs315404"</span>, <span class='st'>"rs17390391"</span>, <span class='st'>"rs1650670"</span>,
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
+  <span class='fu'><a href='reSample.html'>reSample</a></span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>toyEnrichment</span>,
+    <span class='kw'>nSample</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+    <span class='kw'>empiricPvalue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>MAFpool</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.10</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>),
+    <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <span class='kw'>onlyGenome</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  )
+  <span class='fu'><a href='internal.html'>print</a></span>(<span class='no'>toyEnrichment</span>)
+
+  <span class='no'>excludeFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
+    <span class='st'>"rs7897180"</span>, <span class='st'>"rs4725479"</span>, <span class='st'>"rs315404"</span>, <span class='st'>"rs17390391"</span>, <span class='st'>"rs1650670"</span>,
     <span class='st'>"rs6783390"</span>, <span class='st'>"rs1642009"</span>, <span class='st'>"rs4756586"</span>, <span class='st'>"rs11995037"</span>, <span class='st'>"rs4977345"</span>,
     <span class='st'>"rs13136448"</span>, <span class='st'>"rs4233536"</span>, <span class='st'>"rs11151079"</span>, <span class='st'>"rs2299657"</span>, <span class='st'>"rs4833930"</span>,
     <span class='st'>"rs1384"</span>, <span class='st'>"rs7168184"</span>, <span class='st'>"rs6909895"</span>, <span class='st'>"rs7972667"</span>, <span class='st'>"rs2293229"</span>,
@@ -237,31 +219,23 @@ Functions : <code><a href='initFiles.html'>initFiles</a></code>, <code><a href='
     <span class='st'>"rs8049208"</span>, <span class='st'>"rs12215176"</span>, <span class='st'>"rs2980996"</span>, <span class='st'>"rs1736976"</span>, <span class='st'>"rs8089268"</span>,
     <span class='st'>"rs10832329"</span>, <span class='st'>"rs12446540"</span>, <span class='st'>"rs7676237"</span>, <span class='st'>"rs869922"</span>, <span class='st'>"rs16823426"</span>,
     <span class='st'>"rs1374393"</span>, <span class='st'>"rs13268781"</span>, <span class='st'>"rs11134505"</span>, <span class='st'>"rs7325241"</span>, <span class='st'>"rs7520109"</span>
-)
+  )
 
-<span class='no'>toyEnrichment_exclude</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='excludeSNP-methods.html'>excludeSNP</a></span>(<span class='no'>toyEnrichment</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'><a href='print-methods.html'>print</a></span>(<span class='no'>toyEnrichment_exclude</span>)
-<span class='co'># }</span></pre>
+  <span class='no'>toyEnrichment_exclude</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='excludeSNP.html'>excludeSNP</a></span>(<span class='no'>toyEnrichment</span>, <span class='no'>excludeFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='fu'><a href='internal.html'>print</a></span>(<span class='no'>toyEnrichment_exclude</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#objects-from-the-class">Objects from the Class</a></li>
-
       <li><a href="#slots">Slots</a></li>
 
-      <li><a href="#extends">Extends</a></li>
-
-      <li><a href="#methods">Methods</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#objects-from-the-class">Objects from the Class</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Mickael Canouil <a href='mailto:mickael.canouil@good.ibl.fr'>mickael.canouil@good.ibl.fr</a></p>
   </div>
 </div>
 

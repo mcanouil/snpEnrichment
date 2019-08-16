@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • snpEnrichment</title>
+<title>~ Overview: SNPs Enrichment Analysis With Sampling ~ — snpEnrichment • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="~ Overview: SNPs Enrichment Analysis With Sampling ~ — snpEnrichment" />
+
+<meta property="og:description" content="Implements classes and methods for large scale SNP enrichment analysis 
+    using a sampling approach (e.g. SNPs associated with genes expression in a GWAS signal)." />
+<meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
 
@@ -47,7 +51,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -97,114 +101,71 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>~ Overview: SNPs Enrichment Analysis With Sampling ~</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/snpEnrichment-package.R'><code>R/snpEnrichment-package.R</code></a></small>
+    <div class="hidden name"><code>snpEnrichment.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Implements classes and methods for large scale SNP enrichment analysis 
+    using a sampling approach (e.g. SNPs associated with genes expression in a GWAS signal).</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="Enrichment-class.html">Enrichment-class</a></code> </p>
-        </td>
-        <td><p>An S4 class Enrichment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compareEnrichment.html">compareEnrichment()</a></code> </p>
-        </td>
-        <td><p>Compare enrichment analysis between two SNPs list</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="excludeSNP.html">excludeSNP()</a></code> </p>
-        </td>
-        <td><p>Exclude SNPs from Enrichment analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getEnrichSNP.html">getEnrichSNP</a></code> </p>
-        </td>
-        <td><p>Get all eSNP/xSNP which are enriched</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="initFiles.html">initFiles()</a></code> </p>
-        </td>
-        <td><p>Initialize files for enrichment analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot.html">plot</a></code> </p>
-        </td>
-        <td><p>Plot method (S4) for Enrichment object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reSample.html">reSample</a></code> </p>
-        </td>
-        <td><p>Compute enrichment analysis on an Enrichment object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readEnrichment.html">readEnrichment()</a></code> </p>
-        </td>
-        <td><p>Read and create EnrichmentRatio object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reset.html">reset</a></code> </p>
-        </td>
-        <td><p>Reset methods.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="snpEnrichment.html">snpEnrichment</a></code> </p>
-        </td>
-        <td><p>~ Overview: SNPs Enrichment Analysis With Sampling ~</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="toyEnrichment.html">toyEnrichment</a></code> </p>
-        </td>
-        <td><p>Toy dataset with SNP data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="transcript.html">transcript</a></code> </p>
-        </td>
-        <td><p>Transcript information in order to check the CIS status for SNPs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="writeLD.html">writeLD()</a></code> </p>
-        </td>
-        <td><p>Linkage Disequilibrium (LD) computation with PLINK</p></td>
-      </tr>
-    </tbody>
-    </table>
+    <p>Implements classes and methods for large-scale SNP enrichment analysis
+(<em>e.g.</em>, SNPs associated with genes expression in a GWAS signal).</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Internal data management in snpEnrichment use RefSNP (rs) IDs.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><ul>
+<li><p>Overview: snpEnrichment</p></li>
+<li><p>Classes: <a href='Enrichment-class.html'>Enrichment</a></p></li>
+<li><p>Methods:</p><ul>
+<li><p><a href='internal.html'>enrichment</a></p></li>
+<li><p><a href='getEnrichSNP.html'>getEnrichSNP</a></p></li>
+<li><p><a href='plot.html'>plot</a></p></li>
+<li><p><a href='reSample.html'>reSample</a></p></li>
+<li><p><a href='reset.html'>reset</a></p></li>
+</ul></li>
+<li><p>Functions:</p><ul>
+<li><p><a href='initFiles.html'>initFiles</a></p></li>
+<li><p><a href='writeLD.html'>writeLD</a></p></li>
+<li><p><a href='excludeSNP.html'>excludeSNP</a></p></li>
+<li><p><a href='readEnrichment.html'>readEnrichment</a></p></li>
+<li><p><a href='compareEnrichment.html'>compareEnrichment</a></p></li>
+</ul></li>
+</ul></div>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#note">Note</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    <p><strong>Maintainer</strong>: Mickaël Canouil <a href='mailto:mickael.canouil@cnrs.fr'>mickael.canouil@cnrs.fr</a></p>
+<p>Other contributors:</p><ul>
+<li><p>Loic Yengo <a href='mailto:loic.yengo@cnrs.fr'>loic.yengo@cnrs.fr</a> [contributor]</p></li>
+</ul>
+
+
   </div>
 </div>
 

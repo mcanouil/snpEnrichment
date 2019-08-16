@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Initialize files for enrichment analysis — initFiles • snpEnrichment</title>
+<title>Plot method (S4) for <a href='Enrichment-class.html'>Enrichment</a> object — plot • snpEnrichment</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,10 @@
 
 
 
-<meta property="og:title" content="Initialize files for enrichment analysis — initFiles" />
+<meta property="og:title" content="Plot method (S4) for <a href='Enrichment-class.html'>Enrichment</a> object — plot" />
 
-<meta property="og:description" content="initFiles create several files needed to run readEnrichment.
-&quot;.frq&quot; and &quot;.signal&quot; are created with PLINK.
-LD computation can be run with writeLD or with PLINK." />
+<meta property="og:description" content="plot is a generic function for plotting of R objects.
+The function invokes particular methods which depend on the class of the first argument." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -104,71 +103,62 @@ LD computation can be run with writeLD or with PLINK." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Initialize files for enrichment analysis</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/initFiles.R'><code>R/initFiles.R</code></a></small>
-    <div class="hidden name"><code>initFiles.Rd</code></div>
+    <h1>Plot method (S4) for <a href='Enrichment-class.html'>Enrichment</a> object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcanouil/snpEnrichment/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>initFiles create several files needed to run <a href='readEnrichment.html'>readEnrichment</a>.
-".frq" and ".signal" are created with PLINK.
-LD computation can be run with <a href='writeLD.html'>writeLD</a> or with PLINK.</p>
+    <p>plot is a generic function for plotting of R objects.
+The function invokes particular <a href='https://www.rdocumentation.org/packages/utils/topics/methods'>methods</a> which depend on the <a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a> of the first argument.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>initFiles</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>, <span class='no'>snpInfoDir</span>, <span class='no'>signalFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pattern</th>
-      <td><p>A character string containing a expression to be matched with all chromosomes files
-(<em>e.g.</em>,<code>"Chrom"</code> for files which start by <code>"Chrom"</code> followed by the chromosome number).</p></td>
+      <th>x</th>
+      <td><p>An object of class <a href='Enrichment-class.html'>Enrichment</a> which the Z statistics or p-values have to be drawn.</p></td>
     </tr>
     <tr>
-      <th>snpInfoDir</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>: character string naming a directory
-containing the reference data in a PLINK format (.bed, .bim and .fam).</p></td>
+      <th>what</th>
+      <td><p>Default <code>"Genome"</code>. Plot Z statistics or p-values for the defined <code>what</code>,
+<em>i.e.</em>, <code>"All"</code>, <code>"Genome"</code> or numeric vector.</p></td>
     </tr>
     <tr>
-      <th>signalFile</th>
-      <td><p>The name of the signal file which the data are to be read from
-(2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.
-If it does not contain an <code>_absolute_</code> path, the file name is <code>_relative_</code> to the current
-working directory, <a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a>. The fields separator character have to be a space <code>" "</code>
-or a tabulation <code>"\t"</code>.</p></td>
+      <th>type</th>
+      <td><p>Plot the selected analysis for <code>"eSNP"</code> and/or <code>"xSNP"</code>.</p></td>
     </tr>
     <tr>
-      <th>mc.cores</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>: the number of cores to use (default is <code>1</code>),
-<em>i.e.</em>, at most how many child processes will be run simultaneously.
-Must be at least one, and parallelization requires at least two cores.</p></td>
+      <th>ggplot</th>
+      <td><p>Use ggplot (default <code>FALSE</code>) instead of classic plot method.</p></td>
+    </tr>
+    <tr>
+      <th>pvalue</th>
+      <td><p>If <code>TRUE</code>, p-value convergense is plotted. Otherwise, Z statistic is plotted.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments to be passed to methods, such as graphical parameters (see <a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a>).</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>This function writes several files, in the temporary directory (defined in <code>R_SESSION_TMPDIR</code>),
-nothing else is returned. These files are used to build an <a href='Enrichment-class.html'>Enrichment</a> object by <a href='readEnrichment.html'>readEnrichment</a>
-in order to compute enrichment analysis (<a href='reSample.html'>reSample</a>).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
-  <span class='no'>snpInfoDir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/snpInfo"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
-  <span class='no'>signalFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/Signal/toySignal.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"snpEnrichment"</span>)
-  <span class='fu'>initFiles</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"Chrom"</span>, <span class='no'>snpInfoDir</span>, <span class='no'>signalFile</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>toyEnrichment</span>)
+  <span class='fu'><a href='reSample.html'>reSample</a></span>(<span class='no'>toyEnrichment</span>, <span class='fl'>10</span>)
+  <span class='fu'>plot</span>(<span class='no'>toyEnrichment</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
