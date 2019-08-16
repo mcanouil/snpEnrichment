@@ -3,17 +3,10 @@
 #' Compare the enrichment analysis between two set of SNPs.
 #' [compareEnrichment] compare two [Enrichment-class] objects.
 #'
-#' @param object.x,object.y An [Enrichment-class] object fully filled (*e.g.*, [readEnrichment]).
-#' @param pattern A character string containing a expression to be matched
-#'   with all chromosomes files (*e.g.*, "Chrom" for files which start by "Chrom"
-#'   followed by the chromosome number).
-#' @param nSample The number of resampling done by [reSample] for p-values computation (minimum is 100).
-#' @param empiricPvalue `empiricPvalue = TRUE` (default) compute PValue based on the null
-#'   distribution (resampling). If `empiricPvalue = TRUE`, the empirical p-values are computed instead.
-#' @param mc.cores The number of cores to use (default is `1`),
-#'   *i.e.*, at most how many child processes will be run simultaneously.
-#'   Must be at least one, and parallelization requires at least two cores.
-#' @param onlyGenome `onlyGenome = TRUE` (default) compute resampling step for all chromosomes.
+#' @param object.x An [Enrichment-class] object fully filled (*e.g.*, [readEnrichment]).
+#' @param object.y An [Enrichment-class] object fully filled (*e.g.*, [readEnrichment]).
+#' @inheritParams readEnrichment
+#' @inheritParams reSample
 #'
 #' @return Return a `list` of three elements:
 #' + object.xy [Enrichment-class] object from the comparison between `object.x` and `object.y`.

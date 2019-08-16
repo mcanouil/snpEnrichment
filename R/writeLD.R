@@ -2,22 +2,9 @@
 #'
 #' [writeLD] write a '.ld' file for each chromosomes which contains the LD (r^2).
 #'
-#' @param pattern A character string containing a expression to be matched with all chromosomes files
-#'   (*e.g.*,"Chrom" for files which start by "Chrom" followed by the chromosome number).
-#' @param snpInfoDir A character string naming a directory containing the reference data
-#'   in a PLINK format (.bed, .bim and *.fam).
-#' @param signalFile The name of the signal file which the data are to be read from
-#'   (2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.
-#'   If it does not contain an `_absolute_` path, the file name is `_relative_` to the current
-#'   working directory, `getwd`. The fields separator character have to be a space `" "`
-#'   or a tabulation `"\t"`.
-#' @param ldDir A character string naming a directory where the linkage Disequilibrium files
-#'   should be written (default `NULL` is in temporary directory).
+#' @inheritParams readEnrichment
 #' @param ldThresh Threshold value for LD calculation.
 #' @param depth This parameter is mandatory and controls the maximum lag between SNPs considered.
-#' @param mc.cores The number of cores to use (default is `1`),
-#'   *i.e.*, at most how many child processes will be run simultaneously.
-#'   Must be at least one, and parallelization requires at least two cores.
 #'
 #' @return One ".ld" file per chromosome is returned by [writeLD] in `snpInfoDir` directory.
 #'

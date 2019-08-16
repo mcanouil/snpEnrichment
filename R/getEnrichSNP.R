@@ -4,10 +4,10 @@
 #' according to `sigThresh` defined in [readEnrichment].
 #'
 #' @param object An object of class [Enrichment-class].
-#' @param type Extract `"eSNP"` or `"xSNP"`" data.
+#' @param type A character definined the type of data to extract Extract, *i.e.*,  `"eSNP"` or `"xSNP"`.
 #'
-#' @return Return a `data.frame` with eSNP/xSNP which are enriched in signal given to `signalFile`
-#'   in function [readEnrichment].
+#' @return Return a `data.frame` with eSNP/xSNP which are enriched in signal
+#'   given to `signalFile` in function [readEnrichment].
 #'
 #' @examples
 #' if (interactive()) {

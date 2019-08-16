@@ -5,9 +5,7 @@
 #' @param object An [Enrichment-class] object filled by [reSample].
 #' @param excludeFile A list of SNPs to remove from a previous enrichment analysis.
 #'   A path to a file which the first column are the SNPs.
-#' @param mc.cores The number of cores to use (default is `1`),
-#'   *i.e.*, at most how many child processes will be run simultaneously.
-#'   Must be at least one, and parallelization requires at least two cores.
+#' @inheritParams readEnrichment
 #'
 #' @return Return the object given in argument where lists of SNPs are updated by removing SNPs in `excludeFile`.
 #'

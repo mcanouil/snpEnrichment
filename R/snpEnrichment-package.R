@@ -10,17 +10,17 @@
 #' + Overview: [snpEnrichment]
 #' + Classes: [Enrichment-class]
 #' + Methods:
+#'     - [enrichment]
+#'     - [getEnrichSNP]
 #'     - [plot]
 #'     - [reSample]
-#'     - [getEnrichSNP]
-#'     - [excludeSNP]
-#'     - [compareEnrichment]
-#'     - [enrichment]
-#'     - [is.enrichment]
+#'     - [reset]
 #' + Functions:
 #'     - [initFiles]
 #'     - [writeLD]
+#'     - [excludeSNP]
 #'     - [readEnrichment]
+#'     - [compareEnrichment]
 #'
 #' @docType package
 #' @name snpEnrichment
