@@ -66,7 +66,7 @@ methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(Lis
 #' @name [
 #' @rdname internal
 #' @aliases [,EnrichSNP-method
-#' @keywords internal
+#' @exportMethod [
 methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i, j, drop) {
   switch(EXPR = i,
     "List" = x@List,
@@ -84,7 +84,7 @@ methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i,
 #' @name [<-
 #' @rdname internal
 #' @aliases [<-,EnrichSNP-method
-#' @keywords internal
+#' @exportMethod [<-
 methods::setMethod(f = '[<-', signature = "EnrichSNP", definition = function(x, i, j, value) {
   switch(EXPR = i,
     "List" = x@List <- value,
@@ -104,7 +104,7 @@ methods::setMethod(f = '[<-', signature = "EnrichSNP", definition = function(x, 
 #' @name print
 #' @rdname internal
 #' @aliases print,EnrichSNP-method
-#' @keywords internal
+#' @exportMethod print
 methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x) {
   EnrichmentRatio <- x@EnrichmentRatio
   Z <- x@Z
@@ -131,7 +131,7 @@ methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x
 #' @name show
 #' @rdname internal
 #' @aliases show,EnrichSNP-method
-#' @keywords internal
+#' @exportMethod show
 methods::setMethod(f = "show", signature = "EnrichSNP", definition = function(object) {
   cat("     ~~~ Class:", class(object), "~~~\n")
   .EnrichSNP.show(object)
@@ -200,6 +200,7 @@ methods::setMethod(f = "chromosome", signature = "ANY", definition = function(Da
 #' @name [
 #' @rdname internal
 #' @aliases [,Chromosome-method
+#' @exportMethod [
 methods::setMethod(f = "[", signature = "Chromosome", definition = function(x, i, j, drop) {
   switch(EXPR = i,
     "Data" = x@Data,
@@ -215,6 +216,7 @@ methods::setMethod(f = "[", signature = "Chromosome", definition = function(x, i
 #' @name [<-
 #' @rdname internal
 #' @aliases [<-,Chromosome-method
+#' @exportMethod [<-
 methods::setMethod(f = '[<-', signature = "Chromosome", definition = function(x, i, j, value) {
   switch(EXPR = i,
     "Data" = x@Data <- value,
@@ -232,6 +234,7 @@ methods::setMethod(f = '[<-', signature = "Chromosome", definition = function(x,
 #' @name print
 #' @rdname internal
 #' @aliases print,Chromosome-method
+#' @exportMethod print
 methods::setMethod(f = "print", signature = "Chromosome", definition = function(x, type = c("eSNP", "xSNP")) {
   if (missing(x)) {
     stop('[Chromosome:print] "x" is missing.', call. = FALSE)
@@ -260,6 +263,7 @@ methods::setMethod(f = "print", signature = "Chromosome", definition = function(
 #' @name show
 #' @rdname internal
 #' @aliases show,Chromosome-method
+#' @exportMethod show
 methods::setMethod(f = "show", signature = "Chromosome", definition = function(object) {
   cat("     ~~~ Class:", class(object), "~~~\n")
   .Chromosome.show(object)
@@ -449,6 +453,7 @@ methods::setMethod(
 #' @name [
 #' @rdname internal
 #' @aliases [,Enrichment-method
+#' @exportMethod [
 methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
@@ -935,6 +940,7 @@ methods::setMethod(
 #' @name show
 #' @rdname internal
 #' @aliases show,Enrichment-method
+#' @exportMethod show
 methods::setMethod(f = "show", signature = "Enrichment", definition = function(object) {
   cat("    ~~~ Class:", class(object), "~~~ \n")
   .Enrichment.show(object)
