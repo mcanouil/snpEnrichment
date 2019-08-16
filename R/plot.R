@@ -4,8 +4,8 @@
 #' The function invokes particular [methods] which depend on the [class] of the first argument.
 #'
 #' @param x An object of class [Enrichment-class] which the Z statistics or p-values have to be drawn.
-#' @param what Default `"Genome"`. Plot Z statistics or p-values for genome only
-#'   (what must be: `"All"`, `"Genome"` or numeric vector).
+#' @param what Default `"Genome"`. Plot Z statistics or p-values for the defined `what`,
+#'   *i.e.*, `"All"`, `"Genome"` or numeric vector.
 #' @param type Plot the selected analysis for `"eSNP"` and/or `"xSNP"`.
 #' @param ggplot Use ggplot (default `FALSE`) instead of classic plot method.
 #' @param pvalue If `TRUE`, p-value convergense is plotted. Otherwise, Z statistic is plotted.

@@ -4,15 +4,14 @@
 #' [reSample] computes a statistic value and a p-value for each chromosomes and for the whole genome.
 #'
 #' @param object An object to be updated. It is intended, an object returned by the [readEnrichment] function.
-#' @param nSample The number of resampling done by [reSample] for p-values computation (minimum is 100).
-#' @param empiricPvalue `TRUE` (default) compute PValue based on the null distribution (resampling).
-#'   If `TRUE`, the empirical p-values are computed instead.
+#' @param nSample The number of resampling done by [reSample] for p-values computation (minimum is `100`).
+#' @param empiricPvalue Compute PValue based on the null distribution (`FALSE`).
+#'   If `TRUE` (default), the empirical p-values are computed instead.
 #' @param sigThresh Statistical threshold for signal (*e.g.*,`0.05` for a given GWAS signal)
 #'   used to compute an Enrichment Ratio.
 #' @param MAFpool Either a numeric vector giving the breaks points of intervals into which SNP's MAF
 #'   (Minor Allele Frequency) is to be split.
-#' @param mc.cores The number of cores to use (default is `1`, *i.e.*, at most how many child processes
-#'   will be run simultaneously. Must be at least one, and parallelization requires at least two cores.
+#' @inheritParams readEnrichment
 #' @param onlyGenome Compute resampling step for all chromosomes (default `TRUE`).
 #'
 #' @return Return the object given in argument, updated by the resampling results.
