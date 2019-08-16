@@ -3,21 +3,16 @@
 \name{is.enrichment}
 \alias{is.enrichment}
 \alias{Enrichment-class}
-\alias{enrichment}
-\alias{enrichment-ANY}
-\alias{"["-Enrichment}
-\alias{"[<-"-Enrichment}
-\alias{print-Enrichment}
-\alias{show-Enrichment}
-\alias{getEnrichSNP-Enrichment}
-\title{An S4 class \linkS4class{Enrichment}}
+\title{is.enrichment}
 \usage{
 is.enrichment(object)
 }
 \arguments{
-\item{object}{An object.}
+\item{object}{An object to test.}
 }
 \description{
+Function to test if an object is of class \linkS4class{Enrichment}.
+
 This class is defined to summarize the enrichment analysis on each chromosomes and the whole genome.
 }
 \section{Slots}{
@@ -32,17 +27,17 @@ This slot gives information on data losses.}
 
 \item{\code{Call}}{Each parameters used for the reading or resampling step are stored in this slot.}
 
-\item{\code{eSNP}}{Contain a \link{EnrichSNP} object for a list of SNPs (eSNP).}
+\item{\code{eSNP}}{Contain a \linkS4class{EnrichSNP} object for a list of SNPs (eSNP).}
 
-\item{\code{xSNP}}{Contain a \link{EnrichSNP} object for a extended list of SNPs (xSNP).}
+\item{\code{xSNP}}{Contain a \linkS4class{EnrichSNP} object for a extended list of SNPs (xSNP).}
 
-\item{\code{Chromosomes}}{A list of 22 \link{Chromosome} objects.}
+\item{\code{Chromosomes}}{A list of 22 \linkS4class{Chromosome} objects.}
 }}
 
 \section{Objects from the Class}{
  \linkS4class{Enrichment} is defined to build an object
 of class \linkS4class{Enrichment} in order to compute an enrichment analysis.
-\linkS4class{Enrichment} is the object containing the results for all \link{Chromosome} object
+\linkS4class{Enrichment} is the object containing the results for all \linkS4class{Chromosome} object
 and for the whole genome.
 
 When an \linkS4class{Enrichment} object is created, it contains a list of SNPs (\emph{e.g.}, eSNPs).

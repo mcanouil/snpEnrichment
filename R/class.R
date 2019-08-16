@@ -1,4 +1,4 @@
-#' Class [EnrichSNP]
+#' Class [EnrichSNP-class]
 #'
 #' @slot List A list of SNPs used to compute enrichment (*e.g.*, eSNP or xSNP).
 #' @slot Table A contingency table with SNPs (columns) and P-Values from signal (rows).
@@ -7,7 +7,7 @@
 #' @slot PValue P-Value associated with the statistic `Z`.
 #' @slot Resampling A matrix with by row, the contingency table and the odds ratio for each resampling.
 #'
-#' @name class-EnrichSNP
+#' @name EnrichSNP-class
 #' @rdname internal
 #' @keywords internal
 methods::setClass(
@@ -30,17 +30,18 @@ methods::setClass(
   )
 )
 
-#' Constructor generic for [EnrichSNP]
+#' Constructor generic for [EnrichSNP-class]
 #'
 #' @name EnrichSNP
 #' @rdname internal
 #' @keywords internal
 methods::setGeneric(name = "enrichSNP", def = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) standardGeneric("enrichSNP"))
 
-#' Constructor method for [EnrichSNP]
+#' Constructor method for [EnrichSNP-class]
 #'
-#' @name EnrichSNP
+#' @name enrichSNP
 #' @rdname internal
+#' @aliases enrichSNP,ANY-method
 #' @keywords internal
 methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(List, Table, EnrichmentRatio, Z, PValue, Resampling) {
   if (missing(List)) List <- character()
@@ -60,10 +61,11 @@ methods::setMethod(f = "enrichSNP", signature = "ANY", definition = function(Lis
   )
 })
 
-#' Getter method for [EnrichSNP]
+#' Getter method for [EnrichSNP-class]
 #'
-#' @name EnrichSNP
+#' @name [
 #' @rdname internal
+#' @aliases [,EnrichSNP-method
 #' @keywords internal
 methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i, j, drop) {
   switch(EXPR = i,
@@ -77,12 +79,13 @@ methods::setMethod(f = "[", signature = "EnrichSNP", definition = function(x, i,
   )
 })
 
-#' Setter method for [EnrichSNP]
+#' Setter method for [EnrichSNP-class]
 #'
-#' @name EnrichSNP
+#' @name [<-
 #' @rdname internal
+#' @aliases [<-,EnrichSNP-method
 #' @keywords internal
-methods::setMethod(f = "[<-", signature = "EnrichSNP", definition = function(x, i, j, value) {
+methods::setMethod(f = '[<-', signature = "EnrichSNP", definition = function(x, i, j, value) {
   switch(EXPR = i,
     "List" = x@List <- value,
     "Table" = x@Table <- value,
@@ -96,10 +99,11 @@ methods::setMethod(f = "[<-", signature = "EnrichSNP", definition = function(x, 
   x
 })
 
-#' Print method for [EnrichSNP]
+#' Print method for [EnrichSNP-class]
 #'
-#' @name EnrichSNP
+#' @name print
 #' @rdname internal
+#' @aliases print,EnrichSNP-method
 #' @keywords internal
 methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x) {
   EnrichmentRatio <- x@EnrichmentRatio
@@ -122,10 +126,11 @@ methods::setMethod(f = "print", signature = "EnrichSNP", definition = function(x
   res
 })
 
-#' Show method for [EnrichSNP]
+#' Show method for [EnrichSNP-class]
 #'
-#' @name EnrichSNP
+#' @name show
 #' @rdname internal
+#' @aliases show,EnrichSNP-method
 #' @keywords internal
 methods::setMethod(f = "show", signature = "EnrichSNP", definition = function(object) {
   cat("     ~~~ Class:", class(object), "~~~\n")
@@ -133,15 +138,15 @@ methods::setMethod(f = "show", signature = "EnrichSNP", definition = function(ob
   invisible(object)
 })
 
-#' Class [Chromosome]
+#' Class [Chromosome-class]
 #'
 #' @slot Data A [data.frame] with 6 columns (`"SNP"`, `"PVALUE"`, `"CHR"`, `"MAF"`, `"eSNP"`, `"xSNP"`).
 #'   Where `"eSNP"` and `"xSNP"` are logical columns defining the lists of SNPs (extended or not).
 #' @slot LD A data.frame which contains LD informations between SNPs (computed with [writeLD] or PLINK).
-#' @slot eSNP Contain a [EnrichSNP] object for a list of SNPs (eSNP).
-#' @slot xSNP Contain a [EnrichSNP] object for a extended list of SNPs (xSNP).
+#' @slot eSNP Contain a [EnrichSNP-class] object for a list of SNPs (eSNP).
+#' @slot xSNP Contain a [EnrichSNP-class] object for a extended list of SNPs (xSNP).
 #'
-#' @name class-Chromosome
+#' @name Chromosome-class
 #' @rdname internal
 #' @keywords internal
 methods::setClass(
@@ -160,18 +165,19 @@ methods::setClass(
   )
 )
 
-#' Constructor generic for [Chromosome]
+#' Constructor generic for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name chromosome
 #' @rdname internal
+#' @aliases chromosome
 #' @keywords internal
 methods::setGeneric(name = "chromosome", def = function(Data, LD, eSNP, xSNP) standardGeneric("chromosome"))
 
-#' Constructor method for [Chromosome]
+#' Constructor method for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name chromosome
 #' @rdname internal
-#' @keywords internal
+#' @aliases chromosome,ANY-method
 methods::setMethod(f = "chromosome", signature = "ANY", definition = function(Data, LD, eSNP, xSNP) {
   if (missing(Data)) {
     Data <- data.frame()
@@ -189,11 +195,11 @@ methods::setMethod(f = "chromosome", signature = "ANY", definition = function(Da
   methods::new("Chromosome", Data = Data, LD = LD, eSNP = eSNP, xSNP = xSNP)
 })
 
-#' Getter method for [Chromosome]
+#' Getter method for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name [
 #' @rdname internal
-#' @keywords internal
+#' @aliases [,Chromosome-method
 methods::setMethod(f = "[", signature = "Chromosome", definition = function(x, i, j, drop) {
   switch(EXPR = i,
     "Data" = x@Data,
@@ -204,12 +210,12 @@ methods::setMethod(f = "[", signature = "Chromosome", definition = function(x, i
   )
 })
 
-#' Setter method for [Chromosome]
+#' Setter method for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name [<-
 #' @rdname internal
-#' @keywords internal
-methods::setMethod(f = "[<-", signature = "Chromosome", definition = function(x, i, j, value) {
+#' @aliases [<-,Chromosome-method
+methods::setMethod(f = '[<-', signature = "Chromosome", definition = function(x, i, j, value) {
   switch(EXPR = i,
     "Data" = x@Data <- value,
     "LD" = x@LD <- value,
@@ -221,11 +227,11 @@ methods::setMethod(f = "[<-", signature = "Chromosome", definition = function(x,
   invisible(x)
 })
 
-#' Print method for [Chromosome]
+#' Print method for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name print
 #' @rdname internal
-#' @keywords internal
+#' @aliases print,Chromosome-method
 methods::setMethod(f = "print", signature = "Chromosome", definition = function(x, type = c("eSNP", "xSNP")) {
   if (missing(x)) {
     stop('[Chromosome:print] "x" is missing.', call. = FALSE)
@@ -249,11 +255,11 @@ methods::setMethod(f = "print", signature = "Chromosome", definition = function(
   res
 })
 
-#' Show method for [Chromosome]
+#' Show method for [Chromosome-class]
 #'
-#' @name Chromosome
+#' @name show
 #' @rdname internal
-#' @keywords internal
+#' @aliases show,Chromosome-method
 methods::setMethod(f = "show", signature = "Chromosome", definition = function(object) {
   cat("     ~~~ Class:", class(object), "~~~\n")
   .Chromosome.show(object)
@@ -266,7 +272,7 @@ methods::setMethod(f = "show", signature = "Chromosome", definition = function(o
 #'
 #' @section Objects from the Class: [Enrichment-class] is defined to build an object
 #'   of class [Enrichment-class] in order to compute an enrichment analysis.
-#'   [Enrichment-class] is the object containing the results for all [Chromosome] object
+#'   [Enrichment-class] is the object containing the results for all [Chromosome-class] object
 #'   and for the whole genome.
 #'
 #'   When an [Enrichment-class] object is created, it contains a list of SNPs (*e.g.*, eSNPs).
@@ -283,9 +289,9 @@ methods::setMethod(f = "show", signature = "Chromosome", definition = function(o
 #' @slot Loss A four columns data.frame: "Rows", "Unique", "Intersect.Ref.Signal" and "CIS".
 #'   This slot gives information on data losses.
 #' @slot Call Each parameters used for the reading or resampling step are stored in this slot.
-#' @slot eSNP Contain a [EnrichSNP] object for a list of SNPs (eSNP).
-#' @slot xSNP Contain a [EnrichSNP] object for a extended list of SNPs (xSNP).
-#' @slot Chromosomes A list of 22 [Chromosome] objects.
+#' @slot eSNP Contain a [EnrichSNP-class] object for a list of SNPs (eSNP).
+#' @slot xSNP Contain a [EnrichSNP-class] object for a extended list of SNPs (xSNP).
+#' @slot Chromosomes A list of 22 [Chromosome-class] objects.
 #'
 #' @examples
 #'
@@ -366,7 +372,7 @@ methods::setClass(
 #' Constructor generic for [Enrichment-class]
 #'
 #' @name enrichment
-#' @rdname Enrichment-class
+#' @rdname internal
 #' @exportMethod enrichment
 methods::setGeneric(
   name = "enrichment",
@@ -375,8 +381,9 @@ methods::setGeneric(
 
 #' Constructor method for [Enrichment-class]
 #'
-#' @name enrichment-ANY
-#' @rdname Enrichment-class
+#' @name enrichment
+#' @rdname internal
+#' @aliases enrichment,ANY-method
 methods::setMethod(
   f = "enrichment",
   signature = "ANY",
@@ -439,8 +446,9 @@ methods::setMethod(
 
 #' Getter method for [Enrichment-class]
 #'
-#' @name "["-Enrichment
-#' @rdname Enrichment-class
+#' @name [
+#' @rdname internal
+#' @aliases [,Enrichment-method
 methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i, j, drop) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
@@ -788,8 +796,9 @@ methods::setMethod(f = "[", signature = "Enrichment", definition = function(x, i
 
 #' Setter method for [Enrichment-class]
 #'
-#' @name "[<-"-Enrichment
-#' @rdname Enrichment-class
+#' @name [<-
+#' @rdname internal
+#' @aliases [<-,Enrichment-method
 methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x, i, j, value) {
   nbChr <- length(x@Chromosomes)
   if (missing(j)) {
@@ -843,9 +852,9 @@ methods::setMethod(f = "[<-", signature = "Enrichment", definition = function(x,
 
 #' Print method for [Enrichment-class]
 #'
-#' @name print-Enrichment
-#' @rdname Enrichment-class
-#' @exportMethod print
+#' @name print
+#' @rdname internal
+#' @aliases print,Enrichment-method
 methods::setMethod(
   f = "print",
   signature = "Enrichment",
@@ -923,8 +932,9 @@ methods::setMethod(
 
 #' Show method for [Enrichment-class]
 #'
-#' @name show-Enrichment
-#' @rdname Enrichment-class
+#' @name show
+#' @rdname internal
+#' @aliases show,Enrichment-method
 methods::setMethod(f = "show", signature = "Enrichment", definition = function(object) {
   cat("    ~~~ Class:", class(object), "~~~ \n")
   .Enrichment.show(object)
@@ -937,6 +947,7 @@ methods::setMethod(f = "show", signature = "Enrichment", definition = function(o
 methods::setGeneric(name = "computeER", def = function(object, sigThresh = 0.05, mc.cores = 1) standardGeneric("computeER"))
 #' @name computeER-Chromosome
 #' @rdname internal
+#' @aliases computeER,Chromosome-method
 #' @keywords internal
 methods::setMethod(f = "computeER", signature = "Chromosome", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
   if (missing(object)) {
@@ -959,6 +970,7 @@ methods::setMethod(f = "computeER", signature = "Chromosome", definition = funct
 })
 #' @name computeER-Enrichment
 #' @rdname internal
+#' @aliases computeER,Enrichment-method
 #' @keywords internal
 methods::setMethod(f = "computeER", signature = "Enrichment", definition = function(object, sigThresh = 0.05, mc.cores = 1) {
   if (missing(object)) {
@@ -995,6 +1007,7 @@ methods::setMethod(f = "computeER", signature = "Enrichment", definition = funct
 methods::setGeneric(name = "doLDblock", def = function(object, mc.cores = 1) standardGeneric("doLDblock"))
 #' @name doLDblock-Chromosome
 #' @rdname internal
+#' @aliases doLDblock,Chromosome-method
 #' @keywords internal
 methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = function(object, mc.cores = 1) {
   if (missing(object)) {
@@ -1094,699 +1107,3 @@ methods::setMethod(f = "doLDblock", signature = "Chromosome", definition = funct
   object@Data <- data
   object
 })
-
-#' @name reset
-#' @rdname internal
-#' @exportMethod reset
-methods::setGeneric(name = "reset", def = function(object, i) standardGeneric("reset"))
-#' @name reset-ANY
-#' @rdname internal
-methods::setMethod(f = "reset", signature = "ANY", definition = function(object, i) {
-  if (!(is.enrichment(object) & is.chromosome(object))) {
-    stop('[Method:reset] not available for "', class(object), '" object.', call. = FALSE)
-  }
-})
-#' @name reset-EnrichSNP
-#' @rdname internal
-methods::setMethod(f = "reset", signature = "EnrichSNP", definition = function(object, i) {
-  switch(EXPR = i,
-    "List" = object@List <- character(),
-    "Table" = object@Table <- matrix(0, ncol = 2, nrow = 2),
-    "EnrichmentRatio" = object@EnrichmentRatio <- numeric(),
-    "Z" = object@Z <- numeric(),
-    "PValue" = object@PValue <- numeric(),
-    "Resampling" = object@Resampling <- matrix(0, ncol = 5, nrow = 0),
-    stop("[EnrichSNP:reset] ", i, ' is not a "EnrichSNP" slot.', call. = FALSE)
-  )
-  object
-})
-#' @name reset-Chromosome
-#' @rdname internal
-methods::setMethod(f = "reset", signature = "Chromosome", definition = function(object, i) {
-  switch(EXPR = i,
-    "Data" = object@Data <- data.frame(),
-    "LD" = object@LD <- character(),
-    "eSNP" = object@eSNP <- enrichSNP(),
-    "xSNP" = object@xSNP <- enrichSNP(),
-    "List" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@List <- reset(object[type], "List")
-      }
-    },
-    "Table" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@Table <- matrix(0, ncol = 2, nrow = 2)
-      }
-    },
-    "EnrichmentRatio" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@EnrichmentRatio <- numeric()
-      }
-    },
-    "Z" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@Z <- numeric()
-      }
-    },
-    "PValue" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@PValue <- numeric()
-      }
-    },
-    "Resampling" = {
-      for (type in c("eSNP", "xSNP")) {
-        object[type]@Resampling <- matrix(0, ncol = 5, nrow = 0)
-      }
-    },
-    stop("[Enrichment:reset] ", i, ' is not a "Enrichment" slot.', call. = FALSE)
-  )
-  object
-})
-#' @name reset-Enrichment
-#' @rdname internal
-methods::setMethod(f = "reset", signature = "Enrichment", definition = function(object, i) {
-  switch(EXPR = i,
-    "Loss" = object@Loss <- data.frame(),
-    "Data" = object@Chromosomes <- lapply(object@Chromosomes, reset, i = "Data"),
-    "LD" = object@Chromosomes <- lapply(object@Chromosomes, reset, i = "LD"),
-    "Call" = {
-      object@Call <- list(
-        readEnrichment = list(
-          pattern = NULL, signalFile = NULL, transcriptFile = NULL, snpListDir = NULL, snpInfoDir = NULL,
-          distThresh = NULL, sigThresh = NULL, LD = NULL, ldDir = NULL, mc.cores = NULL
-        ),
-        reSample = list(
-          object = NULL, nSample = NULL, empiricPvalue = NULL,
-          MAFpool = NULL, mc.cores = NULL, onlyGenome = NULL
-        )
-      )
-    },
-    "eSNP" = {
-      object@eSNP <- enrichSNP()
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "eSNP")
-    },
-    "xSNP" = {
-      object@xSNP <- enrichSNP()
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "xSNP")
-    },
-    "List" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@List <- character()
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "List")
-    },
-    "Table" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@Table <- matrix(0, ncol = 2, nrow = 2)
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "Table")
-    },
-    "EnrichmentRatio" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@EnrichmentRatio <- numeric()
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "EnrichmentRatio")
-    },
-    "Z" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@Z <- numeric()
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "Z")
-    },
-    "PValue" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@PValue <- numeric()
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "PValue")
-    },
-    "Resampling" = {
-      for (iType in c("eSNP", "xSNP")) {
-        object[iType]@Resampling <- matrix(0, ncol = 5, nrow = 0)
-      }
-      object@Chromosomes <- lapply(object@Chromosomes, reset, i = "Resampling")
-    },
-    "Chromosomes" = {
-      object@Chromosomes <- eval(parse(text = paste0("list(", paste(paste0("Chrom", seq_len(22), " = chromosome()"), collapse = ", "), ")")))
-    },
-    stop("[Enrichment:reset] ", i, ' is not a "Enrichment" slot.', call. = FALSE)
-  )
-  object
-})
-
-#' Compute enrichment analysis on an [Enrichment-class] object
-#'
-#' After [initFiles] and [readEnrichment] has been run.
-#' [reSample] computes a statistic value and a p-value for each chromosomes and for the whole genome.
-#'
-#' @param object An object to be updated. It is intended, an object returned by the [readEnrichment] function.
-#' @param nSample The number of resampling done by [reSample] for p-values computation (minimum is 100).
-#' @param empiricPvalue `TRUE` (default) compute PValue based on the null distribution (resampling).
-#'   If `TRUE`, the empirical p-values are computed instead.
-#' @param sigThresh Statistical threshold for signal (*e.g.*,`0.05` for a given GWAS signal)
-#'   used to compute an Enrichment Ratio.
-#' @param MAFpool Either a numeric vector giving the breaks points of intervals into which SNP's MAF
-#'   (Minor Allele Frequency) is to be split.
-#' @param mc.cores The number of cores to use (default is `1`, *i.e.*, at most how many child processes
-#'   will be run simultaneously. Must be at least one, and parallelization requires at least two cores.
-#' @param onlyGenome Compute resampling step for all chromosomes (default `TRUE`).
-#'
-#' @return Return the object given in argument, updated by the resampling results.
-#'
-#' @examples
-#' if (interactive()) {
-#'   data(toyEnrichment)
-#'   reSample(
-#'     object = toyEnrichment,
-#'     nSample = 10,
-#'     empiricPvalue = TRUE,
-#'     MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5),
-#'     onlyGenome = TRUE
-#'   )
-#'   toyEnrichment
-#' }
-#'
-#' @name reSample
-#' @exportMethod reSample
-methods::setGeneric(
-  name = "reSample",
-  def = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE, ...) standardGeneric("reSample")
-)
-#' @name reSample-Chromosome
-#' @rdname reSample
-methods::setMethod(
-  f = "reSample",
-  signature = "Chromosome",
-  definition = function(
-    object, nSample = 100, empiricPvalue = TRUE, sigThresh = 0.05,
-    MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1
-  ) {
-    if (missing(object)) {
-      stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
-    }
-    if (nSample < 10) {
-      nSample <- 10
-      warning("[Enrichment:reSample] nSample was increased to 10.", call. = FALSE)
-    }
-    .reSample(
-      object = object,
-      nSample = nSample,
-      empiricPvalue = empiricPvalue,
-      sigThresh = sigThresh,
-      MAFpool = MAFpool,
-      mc.cores = mc.cores
-    )
-  }
-)
-#' @name reSample-ANY
-#' @rdname reSample
-methods::setMethod(f = "reSample", signature = "ANY", definition = function(object, nSample, sigThresh, MAFpool, mc.cores) {
-  if (!(is.enrichment(object) & is.chromosome(object))) {
-    stop('[Method:reSample] not available for "', class(object), '" object.', call. = FALSE)
-  }
-})
-#' @name reSample-Enrichment
-#' @rdname reSample
-#' @rdname Enrichment-class
-methods::setMethod(f = "reSample", signature = "Enrichment", definition = function(object, nSample = 100, empiricPvalue = TRUE, MAFpool = c(0.05, 0.10, 0.2, 0.3, 0.4, 0.5), mc.cores = 1, onlyGenome = TRUE) {
-  if (missing(object)) {
-    stop('[Enrichment:reSample] "Enrichment" object is required.', call. = FALSE)
-  }
-  if (nSample < 10) {
-    nSample <- 10
-    warning("[Enrichment:reSample] nSample was increased to 10.", call. = FALSE)
-  }
-  sigThresh <- object@Call$readEnrichment$sigThresh
-
-  cat("########### Resample Enrichment ############\n")
-  warnings.env <- new.env()
-  assign("minCores", mc.cores, envir = warnings.env)
-  assign("maxCores", 0, envir = warnings.env)
-  nSampleOld <- object@Call$reSample$nSample
-  if (onlyGenome == FALSE) {
-    listRes <- eval(parse(text = paste0("list(", paste(paste0("Chrom", seq_len(22), " = NULL"), collapse = ", "), ")")))
-    for (iChr in seq_len(22)) {
-      cat("  Chromosome ", if (nchar(iChr) == 1) paste0("0", iChr) else iChr, ": ", sep = "")
-      nbCores <- suppressWarnings(maxCores(mc.cores))
-      assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
-      assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
-      suppressWarnings(listRes[[iChr]] <- reSample(object = object@Chromosomes[[iChr]], nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
-      cat("END\n")
-    }
-    object@Chromosomes <- listRes
-    rm(listRes)
-  }
-
-  cat("  Genome       : ")
-  nbCores <- suppressWarnings(maxCores(mc.cores))
-  assign("minCores", min(get("minCores", envir = warnings.env), nbCores), envir = warnings.env)
-  assign("maxCores", max(get("maxCores", envir = warnings.env), nbCores), envir = warnings.env)
-  suppressWarnings(result <- .reSample(object = object, nSample = nSample, empiricPvalue = empiricPvalue, sigThresh = sigThresh, MAFpool = MAFpool, mc.cores = mc.cores))
-  cat("END\n")
-  rm(object)
-
-  sysCall <- sys.call(sys.parent())
-  argsSNP <- as.list(sysCall[-1])
-  formal <- as.list(names(formals(as.character(sysCall))))
-  names(formal) <- formal
-  if (is.null(names(argsSNP))) {
-    names(argsSNP) <- names(formal)[seq_along(argsSNP)]
-  } else {
-    emptyNames <- which(names(argsSNP) == "")
-    names(argsSNP)[emptyNames] <- names(formal)[emptyNames]
-  }
-  names(argsSNP)[grep("^$", names(argsSNP))] <- names(formal)[grep("^$", names(argsSNP))]
-  argsSNP <- c(argsSNP, lapply(formal[!names(formal) %in% names(argsSNP)], as.name))[names(formal)]
-  paramClass <- sapply(argsSNP, class)
-
-  for (iArg in names(formal)) {
-    if (iArg != "...") {
-      paramPos <- grep(iArg, names(formal), fixed = TRUE)
-      argTmp <- argsSNP[[paramPos]]
-      classTmp <- paramClass[[paramPos]]
-      switch(EXPR = classTmp,
-        "character" = formal[[iArg]] <- argTmp,
-        "logical" = formal[[iArg]] <- argTmp,
-        "numeric" = formal[[iArg]] <- argTmp,
-        "integer" = formal[[iArg]] <- argTmp,
-        "NULL" = formal[[iArg]] <- "NULL",
-        "call" = formal[[iArg]] <- eval(argTmp),
-        "name" = {
-          if (class(try(resEval <- eval(argTmp), silent = TRUE)) == "try-error") {
-            formal[[iArg]] <- argTmp
-          } else {
-            switch(EXPR = class(resEval),
-              "character" = formal[[iArg]] <- resEval,
-              "logical" = formal[[iArg]] <- resEval,
-              "numeric" = formal[[iArg]] <- resEval,
-              "integer" = formal[[iArg]] <- resEval,
-              "matrix" = formal[[iArg]] <- argTmp,
-              "data.frame" = formal[[iArg]] <- argTmp,
-              "Enrichment" = formal[[iArg]] <- argTmp
-            )
-          }
-        }
-      )
-    }
-  }
-
-  if (is.numeric(nSampleOld)) {
-    formal$nSample <- nSampleOld + formal$nSample
-  }
-  result@Call$reSample <- formal[c("object", "nSample", "empiricPvalue", "MAFpool", "mc.cores", "onlyGenome")]
-  nameObject <- deparse(result@Call$reSample[["object"]])
-  assign(nameObject, result, inherits = TRUE, envir = parent.frame(2))
-
-  assign("maxCores", min(get("maxCores", envir = warnings.env), mc.cores), envir = warnings.env)
-  if (get("minCores", envir = warnings.env) == get("maxCores", envir = warnings.env)) {
-    if (get("minCores", envir = warnings.env) != mc.cores) {
-      warning(paste0(
-        '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to ',
-        get("minCores", envir = warnings.env), "."
-      ), call. = FALSE)
-    }
-  } else {
-    warning(paste0(
-      '[Enrichment:reSample] To avoid memory overload "mc.cores" was decreased to min=',
-      get("minCores", envir = warnings.env), " and max=",
-      get("maxCores", envir = warnings.env), "."
-    ), call. = FALSE)
-  }
-  cat("######## Resample Enrichment Done ##########\n")
-  cat(paste0('*** Object "', nameObject, '" has been updated. ***\n\n'))
-  invisible(result)
-})
-
-#' Get all eSNP/xSNP which are enriched
-#'
-#' [getEnrichSNP] get all eSNP/xSNP in a [Enrichment-class] object which are significant in the signal
-#' according to `sigThresh` defined in [readEnrichment].
-#'
-#' @param object An object of class [Enrichment-class].
-#' @param type Extract `"eSNP"` or `"xSNP"`" data.
-#'
-#' @return Return a `data.frame` with eSNP/xSNP which are enriched in signal given to `signalFile`
-#'   in function [readEnrichment].
-#'
-#' @examples
-#' if (interactive()) {
-#'   data(toyEnrichment)
-#'   eSNPenriched <- getEnrichSNP(object = toyEnrichment, type = "eSNP")
-#'   head(eSNPenriched)
-#' }
-#'
-#' @name getEnrichSNP
-#' @exportMethod getEnrichSNP
-methods::setGeneric(
-  name = "getEnrichSNP",
-  def = function(object, type = "eSNP") standardGeneric("getEnrichSNP")
-)
-#' @name getEnrichSNP-ANY
-#' @rdname getEnrichSNP
-methods::setMethod(f = "getEnrichSNP", signature = "ANY", definition = function(object, type = "eSNP") {
-  if (!(is.enrichment(object))) {
-    stop('[Method:getEnrichSNP] not available for "', class(object), '" object.', call. = FALSE)
-  }
-})
-#' @name getEnrichSNP-Enrichment
-#' @rdname Enrichment-class
-methods::setMethod(f = "getEnrichSNP", signature = "Enrichment", definition = function(object, type = "eSNP") {
-  alpha <- object["Call"][["readEnrichment"]][["sigThresh"]]
-  switch(type,
-    "eSNP" = object["Data"][object["Data"][, "PVALUE"] < alpha & object["Data"][, type] == 1, ],
-    "xSNP" = {
-      if (object["Call"][["readEnrichment"]][["LD"]]) {
-        message("Loading ...")
-        dataSNP <- object["Data"]
-        dataLD <- object["LD"]
-        xSNP <- dataSNP[dataSNP[, "PVALUE"] < alpha & dataSNP[, type] == 1, ]
-        dataLDtmp <- dataLD[dataLD %in% xSNP[, "SNP"]]
-        dataLDtmp <- cbind(SNP_A = names(dataLDtmp), SNP_B = dataLDtmp)
-        dataLDtmp <- dataLDtmp[dataLDtmp[, "SNP_A"] %in% dataSNP[dataSNP[, "eSNP"] %in% 1, "SNP"], ]
-        xSNPld <- do.call("rbind", by(dataLDtmp, dataLDtmp[, "SNP_B"], function(iDta) {
-          cbind(xSNP = unique(as.character(iDta[, "SNP_B"])), LD_with_eSNP = paste(iDta[, "SNP_A"], collapse = ";"))
-        }))
-        merge(xSNP, xSNPld, by.x = "SNP", by.y = "xSNP")
-      } else {
-        warning('[Enrichment:getEnrichSNP] significant "eSNP" are returned instead of "xSNP",\n    "readEnrichment" should be run with "LD=TRUE".', call. = FALSE)
-        object["Data"][object["Data"][, "PVALUE"] < alpha & object["Data"][, type] == 1, ]
-      }
-    },
-    stop('[Enrichment:getEnrichSNP] "type" should be equal to "eSNP" or "xSNP".', call. = FALSE)
-  )
-})
-
-#' Plot method (S4) for [Enrichment-class] object
-#'
-#' [plot] is a generic function for plotting of R objects.
-#' The function invokes particular [methods] which depend on the [class] of the first argument.
-#'
-#' @param x An object of class [Enrichment-class] which the Z statistics or p-values have to be drawn.
-#' @param what Default `"Genome"`. Plot Z statistics or p-values for genome only
-#'   (what must be: `"All"`, `"Genome"` or numeric vector).
-#' @param type Plot the selected analysis for `"eSNP"` and/or `"xSNP"`.
-#' @param ggplot Use ggplot (default `FALSE`) instead of classic plot method.
-#' @param pvalue If `TRUE`, p-value convergense is plotted. Otherwise, Z statistic is plotted.
-#' @param ... Arguments to be passed to methods, such as graphical parameters (see [par]).
-#'
-#' @examples
-#' if (interactive()) {
-#'   data(toyEnrichment)
-#'   reSample(toyEnrichment, 10)
-#'   plot(toyEnrichment)
-#' }
-#'
-#' @name plot
-#' @exportMethod plot
-methods::setMethod(f = "plot", signature = "Enrichment", definition = function(x, what = "Genome", type = c("eSNP", "xSNP"), ggplot = FALSE, pvalue = TRUE, ...) {
-  if (is.null(unlist(x@Call$reSample, use.names = FALSE))) {
-    stop('[Enrichment:plot] "reSample" have to be run before "plot".', call. = FALSE)
-  }
-
-  if (is.null(what) | any(!what %in% c("All", "Genome", seq_len(22)))) {
-    stop('[Enrichment:plot] "what" must be: "All", "Genome" or numeric value (atomic or vector).', call. = FALSE)
-  }
-  if (is.null(type) | any(!type %in% c("eSNP", "xSNP"))) {
-    stop('[Enrichment:plot] "type" must be: "eSNP" and/or "xSNP".', call. = FALSE)
-  }
-  if (any(type %in% "xSNP") & length(x["xSNP"]["List"]) == 0) {
-    type <- "eSNP"
-  }
-
-  .computeER4plot <- function(EnrichSNPObject) {
-    ER <- EnrichSNPObject@EnrichmentRatio
-    if (nrow(EnrichSNPObject@Resampling) == 0) {
-      stop('[Enrichment:plot] "reSample" have to be run before "plot".', call. = FALSE)
-    }
-    resampling <- EnrichSNPObject@Resampling[, 5]
-    ERsample <- NULL
-    size <- length(resampling)
-    if (size >= 1000) {
-      interv <- unique(c(seq(from = min(1000, floor(0.1 * size)), to = size, by = floor(size / 1000)), size))
-    } else {
-      interv <- unique(c(seq(from = max(floor(0.1 * size), 3), to = size, by = 1), size))
-    }
-    ERsample <- sapply(interv, function(k) {
-      resamplingInterv <- resampling[1:k]
-      resamplingClean <- resamplingInterv[!(is.na(resamplingInterv) | is.infinite(resamplingInterv))]
-      mu <- mean(resamplingClean)
-      sigma <- sqrt(stats::var(resamplingClean))
-
-      if (sigma == 0 | is.na(sigma)) {
-        if (mu == 0) 0 else ER - mu
-      } else {
-        (ER - mu) / sigma
-      }
-    })
-    names(ERsample) <- interv
-    as.matrix(ERsample)
-  }
-  .computeEmpP4plot <- function(EnrichSNPObject) {
-    ER <- EnrichSNPObject@EnrichmentRatio
-    if (nrow(EnrichSNPObject@Resampling) == 0) {
-      stop('[Enrichment:plot] "reSample" have to be run before "plot".', call. = FALSE)
-    }
-    resampling <- EnrichSNPObject@Resampling[, 5]
-    ERsample <- NULL
-    size <- length(resampling)
-    if (size >= 1000) {
-      interv <- unique(c(seq(from = min(1000, floor(0.1 * size)), to = size, by = floor(size / 1000)), size))
-    } else {
-      interv <- unique(c(seq(from = max(floor(0.1 * size), 3), to = size, by = 1), size))
-    }
-    ERsample <- sapply(interv, function(k) {
-      resamplingInterv <- resampling[1:k]
-      resamplingClean <- resamplingInterv[!(is.na(resamplingInterv) | is.infinite(resamplingInterv))]
-      sum(EnrichSNPObject@EnrichmentRatio < resamplingClean) / length(resamplingClean)
-    })
-    names(ERsample) <- interv
-    as.matrix(ERsample)
-  }
-
-  if (x@Call$reSample$empiricPvalue) {
-    matrixER <- list(eSNP = NULL, xSNP = NULL)
-    for (iType in type) {
-      if (length(what) == 1) {
-        switch(EXPR = as.character(what),
-          "Genome" = {
-            matrixER[[iType]] <- .computeEmpP4plot(x[iType])
-            colnames(matrixER[[iType]]) <- "Genome"
-          },
-          "All" = {
-            matrixER[[iType]] <- .computeEmpP4plot(x[iType])
-            for (j in seq_len(22)) {
-              matrixER[[iType]] <- cbind(matrixER[[iType]], .computeEmpP4plot(x["Chromosomes", j][iType]))
-            }
-            colnames(matrixER[[iType]]) <- c("Genome", paste0("Chrom", seq_len(22)))
-          }, {
-            for (j in what) {
-              matrixER[[iType]] <- cbind(matrixER[[iType]], .computeEmpP4plot(x["Chromosomes", j][iType]))
-            }
-            colnames(matrixER[[iType]]) <- paste0("Chrom", what)
-          }
-        )
-      } else {
-        for (j in what) {
-          matrixER[[iType]] <- cbind(matrixER[[iType]], .computeEmpP4plot(x["Chromosomes", j][iType]))
-        }
-        colnames(matrixER[[iType]]) <- paste0("Chrom", what)
-      }
-    }
-  } else {
-    matrixER <- list(eSNP = NULL, xSNP = NULL)
-    for (iType in type) {
-      if (length(what) == 1) {
-        switch(EXPR = as.character(what),
-          "Genome" = {
-            matrixER[[iType]] <- .computeER4plot(x[iType])
-            colnames(matrixER[[iType]]) <- "Genome"
-          },
-          "All" = {
-            matrixER[[iType]] <- .computeER4plot(x[iType])
-            for (j in seq_len(22)) {
-              matrixER[[iType]] <- cbind(matrixER[[iType]], .computeER4plot(x["Chromosomes", j][iType]))
-            }
-            colnames(matrixER[[iType]]) <- c("Genome", paste0("Chrom", seq_len(22)))
-          }, {
-            for (j in what) {
-              matrixER[[iType]] <- cbind(matrixER[[iType]], .computeER4plot(x["Chromosomes", j][iType]))
-            }
-            colnames(matrixER[[iType]]) <- paste0("Chrom", what)
-          }
-        )
-      } else {
-        for (j in what) {
-          matrixER[[iType]] <- cbind(matrixER[[iType]], .computeER4plot(x["Chromosomes", j][iType]))
-        }
-        colnames(matrixER[[iType]]) <- paste0("Chrom", what)
-      }
-    }
-  }
-  if (ggplot) {
-    is.installed <- function(mypkg) is.element(mypkg, utils::installed.packages()[, 1])
-    if (!require("ggplot2") | !require("grid")) {
-      stop('[Enrichment:plot] "ggPlot2" and "grid" packages must be installed with "ggplot=TRUE".', call. = FALSE)
-    }
-    multiplot <- function(..., plotlist = NULL, cols = 1, rows = 1, layout = NULL) {
-      plots <- c(list(...), plotlist)
-      numPlots <- length(plots)
-      if (is.null(layout)) {
-        layout <- matrix(seq_len(cols * ceiling(numPlots / cols)), ncol = cols, nrow = rows, byrow = TRUE)
-      }
-      if (numPlots == 1) {
-        print(plots[[1]])
-      } else {
-        grid::grid.newpage()
-        grid::pushViewport(grid::viewport(layout = grid::grid.layout(nrow(layout), ncol(layout))))
-        for (i in 1:numPlots) {
-          matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-          print(plots[[i]], vp = grid::viewport(layout.pos.row = matchidx$row, layout.pos.col = matchidx$col))
-        }
-      }
-    }
-    .ggplotColours <- function(n = 6, h = c(0, 360) + 15) {
-      if ((diff(h) %% 360) < 1) {
-        h[2] <- h[2] - 360 / n
-      }
-      grDevices::hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
-    }
-    listPlots <- list()
-    for (iType in type) {
-      if (pvalue) {
-        if (x@Call$reSample$empiricPvalue) {
-          ylab <- "P-Value (Empirical)"
-        } else {
-          matrixER[[iType]] <- apply(matrixER[[iType]], 2, stats::pnorm, lower.tail = FALSE)
-          ylab <- "P-Value (From Z-statistic)"
-        }
-      } else {
-        ylab <- "Z statistic"
-      }
-      if (ncol(matrixER[[iType]]) > 1) {
-        matrixER[[iType]] <- apply(matrixER[[iType]], 2, scale)
-      }
-      tmpDF <- as.data.frame(t(matrixER[[iType]]))
-      cnames <- colnames(tmpDF)
-      colnames(tmpDF) <- paste0("R", colnames(tmpDF))
-      tmpDF$IID <- factor(colnames(matrixER[[iType]]), levels = c("Genome", paste0("Chrom", seq_len(22))), labels = c("Genome", paste0("Chrom", seq_len(22))))
-      tmp <- stats::reshape(tmpDF, idvar = "IID", direction = "long", varying = list(grep("R", colnames(tmpDF))), times = cnames)
-      colnames(tmp) <- c("IID", "Resampling", "Z")
-      tmp[, "Resampling"] <- as.numeric(tmp[, "Resampling"])
-
-      p <- ggplot2::ggplot(data = tmp, ggplot2::aes_string(x = "Resampling", y = "Z", colour = "IID")) + ggplot2::geom_line()
-      noGridColour <- "transparent"
-      base_size <- 12
-      base_family <- ""
-      p <- p + ggplot2::theme(
-        line = ggplot2::element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
-        rect = ggplot2::element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-        text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
-        axis.text = ggplot2::element_text(size = ggplot2::rel(0.8), colour = "black"),
-        strip.text = ggplot2::element_text(size = ggplot2::rel(0.8)),
-        axis.line = ggplot2::element_blank(),
-        axis.text.x = ggplot2::element_text(vjust = 1),
-        axis.text.y = ggplot2::element_text(hjust = 1),
-        axis.ticks = ggplot2::element_line(colour = "black"),
-        axis.title.x = ggplot2::element_text(),
-        axis.title.y = ggplot2::element_text(angle = 90),
-        axis.ticks.length = ggplot2::unit(0.15, "cm"),
-        axis.ticks.margin = ggplot2::unit(0.1, "cm"),
-        legend.background = ggplot2::element_rect(fill = "white", colour = "black"),
-        legend.margin = ggplot2::unit(0.2, "cm"),
-        legend.key = ggplot2::element_rect(fill = "white", colour = "black"),
-        legend.key.size = ggplot2::unit(1.2, "lines"),
-        legend.key.height = NULL,
-        legend.key.width = NULL,
-        legend.text = ggplot2::element_text(size = ggplot2::rel(0.8)),
-        legend.text.align = NULL,
-        legend.title = ggplot2::element_text(size = ggplot2::rel(0.8), face = "bold", hjust = 0),
-        legend.title.align = NULL,
-        legend.position = "right",
-        legend.direction = NULL,
-        legend.justification = "center",
-        legend.box = NULL,
-        panel.background = ggplot2::element_rect(fill = "white", colour = "black"),
-        panel.border = ggplot2::element_blank(),
-        panel.grid.major = ggplot2::element_line(colour = noGridColour[1]),
-        panel.grid.minor = ggplot2::element_line(colour = noGridColour[length(noGridColour)], size = 0.25),
-        panel.margin = ggplot2::unit(0.25, "lines"),
-        strip.background = ggplot2::element_rect(fill = "black", colour = "black"),
-        strip.text.x = ggplot2::element_text(colour = "white"),
-        strip.text.y = ggplot2::element_text(angle = -90, colour = "white"),
-        plot.background = ggplot2::element_rect(colour = "white"),
-        plot.title = ggplot2::element_text(size = ggplot2::rel(1.2)),
-        plot.margin = ggplot2::unit(c(1, 1, 0.5, 0.5), "lines"),
-        complete = TRUE
-      )
-      p <- p + ggplot2::xlab(paste(iType, "Resampling"))
-      if (ncol(matrixER[[iType]]) > 1) {
-        p <- p + ggplot2::ylab(paste(ylab, "(scale and center)"))
-      } else {
-        p <- p + ggplot2::ylab(ylab)
-      }
-      p <- p + ggplot2::theme(legend.title = ggplot2::element_blank())
-      if (length(what) >= 5 | what == "All") {
-        p <- p + ggplot2::theme(legend.background = ggplot2::element_rect(fill = "gray90", linetype = "dotted"))
-      } else {
-        quarter <- floor(3 / 4 * nrow(tmp)):nrow(tmp)
-        rangeZtmp <- range(tmp[, "Z"])
-        if (rangeZtmp[1] == rangeZtmp[2]) {
-          if (all(rangeZtmp == 0)) {
-            rangeZtmp[1] <- -1
-            rangeZtmp[2] <- 1
-          } else {
-            rangeZtmp[1] <- rangeZtmp[1] * 0.90
-            rangeZtmp[2] <- rangeZtmp[2] * 1.10
-          }
-        }
-        rangeZ <- seq(rangeZtmp[1], rangeZtmp[2], by = diff(rangeZtmp) * 1 / 3)
-        names(rangeZ) <- c("0%", "33%", "66%", "100%")
-        rangeQuarter <- range(tmp[quarter, "Z"])
-        inf <- apply(sapply(rangeQuarter, function(lim) lim < rangeZ), 1, all)
-        sup <- apply(sapply(rangeQuarter, function(lim) lim > rangeZ), 1, all)
-        if (sum(inf) <= sum(sup)) {
-          p <- p + ggplot2::theme(legend.justification = c(1, 0), legend.position = c(1, 0))
-        } else {
-          p <- p + ggplot2::theme(legend.justification = c(1, 1), legend.position = c(1, 1))
-        }
-      }
-
-      if ("Genome" %in% unique(tmp$IID)) {
-        p <- p + ggplot2::scale_colour_manual(values = c("black", .ggplotColours(ifelse(length(unique(tmp$IID)) - 1 > 0, length(unique(tmp$IID)) - 1, 1))))
-      }
-      listPlots[[iType]] <- p
-    }
-    multiplot(plotlist = listPlots, cols = length(listPlots))
-    invisible(listPlots)
-  } else {
-    graphics::par(mfrow = c(1, length(type)))
-    for (iType in type) {
-      if (pvalue) {
-        if (x@Call$reSample$empiricPvalue) {
-          matrixER[[iType]] <- .computeEmpP4plot(x[iType])
-          ylab <- "P-Value (Empirical)"
-        } else {
-          matrixER[[iType]] <- apply(matrixER[[iType]], 2, stats::pnorm, lower.tail = FALSE)
-          ylab <- "P-Value (From Z-statistic)"
-        }
-      } else {
-        ylab <- "Z statistic"
-      }
-      nbCol <- ncol(matrixER[[iType]])
-      ylim <- range(stats::na.exclude(matrixER[[iType]]))
-      xNames <- rownames(matrixER[[iType]])
-      colors <- grDevices::rainbow(nbCol)
-      if (nbCol > 1) {
-        matrixER[[iType]] <- apply(matrixER[[iType]], 2, scale)
-        ylab <- paste(ylab, "(scale and center)")
-        graphics::plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
-        res <- sapply(seq_len(ncol(matrixER[[iType]][, -1])), function(iER) {
-          graphics::lines(x = xNames, y = matrixER[[iType]][, iER + 1], iType = "l", ylim = ylim, col = colors[iER + 1])
-        })
-      } else {
-        graphics::plot(x = xNames, y = matrixER[[iType]][, 1], ylab = ylab, xlab = iType, type = "l", ylim = ylim)
-      }
-    }
-    invisible()
-  }
-})
-

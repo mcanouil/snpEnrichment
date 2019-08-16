@@ -28,20 +28,39 @@
 \alias{GC}
 \alias{is.EnrichSNP}
 \alias{is.chromosome}
-\alias{class-EnrichSNP}
+\alias{EnrichSNP-class}
 \alias{EnrichSNP}
-\alias{class-Chromosome}
-\alias{Chromosome}
+\alias{enrichSNP}
+\alias{enrichSNP,ANY-method}
+\alias{[}
+\alias{[,EnrichSNP-method}
+\alias{[<-}
+\alias{[<-,EnrichSNP-method}
+\alias{print}
+\alias{print,EnrichSNP-method}
+\alias{show}
+\alias{show,EnrichSNP-method}
+\alias{Chromosome-class}
+\alias{chromosome}
+\alias{chromosome,ANY-method}
+\alias{[,Chromosome-method}
+\alias{[<-,Chromosome-method}
+\alias{print,Chromosome-method}
+\alias{show,Chromosome-method}
+\alias{enrichment}
+\alias{enrichment,ANY-method}
+\alias{[,Enrichment-method}
+\alias{[<-,Enrichment-method}
+\alias{print,Enrichment-method}
+\alias{show,Enrichment-method}
 \alias{computeER}
 \alias{computeER-Chromosome}
+\alias{computeER,Chromosome-method}
 \alias{computeER-Enrichment}
+\alias{computeER,Enrichment-method}
 \alias{doLDblock}
 \alias{doLDblock-Chromosome}
-\alias{reset}
-\alias{reset-ANY}
-\alias{reset-EnrichSNP}
-\alias{reset-Chromosome}
-\alias{reset-Enrichment}
+\alias{doLDblock,Chromosome-method}
 \title{~ Internal: snpEnrichment objects and methods ~}
 \usage{
 .EnrichSNP.show(object)
@@ -123,9 +142,9 @@ Where \code{"eSNP"} and \code{"xSNP"} are logical columns defining the lists of 
 
 \item{\code{LD}}{A data.frame which contains LD informations between SNPs (computed with \link{writeLD} or PLINK).}
 
-\item{\code{eSNP}}{Contain a \link{EnrichSNP} object for a list of SNPs (eSNP).}
+\item{\code{eSNP}}{Contain a \linkS4class{EnrichSNP} object for a list of SNPs (eSNP).}
 
-\item{\code{xSNP}}{Contain a \link{EnrichSNP} object for a extended list of SNPs (xSNP).}
+\item{\code{xSNP}}{Contain a \linkS4class{EnrichSNP} object for a extended list of SNPs (xSNP).}
 }}
 
 \keyword{internal}
