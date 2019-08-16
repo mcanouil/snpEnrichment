@@ -22,19 +22,19 @@ Internal data management in \link{snpEnrichment} use RefSNP (rs) IDs.
 \item Classes: \linkS4class{Enrichment}
 \item Methods:
 \itemize{
+\item \link{enrichment}
+\item \link{getEnrichSNP}
 \item \link{plot}
 \item \link{reSample}
-\item \link{getEnrichSNP}
-\item \link{excludeSNP}
-\item \link{compareEnrichment}
-\item \link{enrichment}
-\item \link{is.enrichment}
+\item \link{reset}
 }
 \item Functions:
 \itemize{
 \item \link{initFiles}
 \item \link{writeLD}
+\item \link{excludeSNP}
 \item \link{readEnrichment}
+\item \link{compareEnrichment}
 }
 }
 }

@@ -8,11 +8,11 @@
 \arguments{
 \item{object}{An object of class \linkS4class{Enrichment}.}
 
-\item{type}{Extract \code{"eSNP"} or \code{"xSNP"}" data.}
+\item{type}{A character definined the type of data to extract Extract, \emph{i.e.},  \code{"eSNP"} or \code{"xSNP"}.}
 }
 \value{
-Return a \code{data.frame} with eSNP/xSNP which are enriched in signal given to \code{signalFile}
-in function \link{readEnrichment}.
+Return a \code{data.frame} with eSNP/xSNP which are enriched in signal
+given to \code{signalFile} in function \link{readEnrichment}.
 }
 \description{
 \link{getEnrichSNP} get all eSNP/xSNP in a \linkS4class{Enrichment} object which are significant in the signal

@@ -799,13 +799,8 @@ is.chromosome <- function(object) {
   }
 }
 
-#' is.enrichment
-#'
-#' Function to test if an object is of class [Enrichment-class].
-#'
-#' @param object An object to test.
-#'
-#' @rdname Enrichment-class
+#' @rdname internal
+#' @keywords internal
 is.enrichment <-  function(object) {
   if (length(object) > 1) {
     sapply(object, is.enrichment)

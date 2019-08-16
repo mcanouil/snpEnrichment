@@ -10,7 +10,7 @@ readEnrichment(pattern = "Chrom", signalFile, transcriptFile = FALSE,
 }
 \arguments{
 \item{pattern}{A character string containing a expression to be matched with all chromosomes files
-(e.g."Chrom" for files which start by "Chrom" followed by the chromosome number).}
+(\emph{e.g.},\code{"Chrom"} for files which start by \code{"Chrom"} followed by the chromosome number).}
 
 \item{signalFile}{The name of the signal file which the data are to be read from
 (2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.

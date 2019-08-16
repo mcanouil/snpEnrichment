@@ -9,19 +9,16 @@
 \arguments{
 \item{object}{An object to be updated. It is intended, an object returned by the \link{readEnrichment} function.}
 
-\item{nSample}{The number of resampling done by \link{reSample} for p-values computation (minimum is 100).}
+\item{nSample}{The number of resampling done by \link{reSample} for p-values computation (minimum is \code{100}).}
 
-\item{empiricPvalue}{\code{TRUE} (default) compute PValue based on the null distribution (resampling).
-If \code{TRUE}, the empirical p-values are computed instead.}
+\item{empiricPvalue}{Compute PValue based on the null distribution (\code{FALSE}).
+If \code{TRUE} (default), the empirical p-values are computed instead.}
 
 \item{sigThresh}{Statistical threshold for signal (\emph{e.g.},\code{0.05} for a given GWAS signal)
 used to compute an Enrichment Ratio.}
 
 \item{MAFpool}{Either a numeric vector giving the breaks points of intervals into which SNP's MAF
 (Minor Allele Frequency) is to be split.}
-
-\item{mc.cores}{The number of cores to use (default is \code{1}, \emph{i.e.}, at most how many child processes
-will be run simultaneously. Must be at least one, and parallelization requires at least two cores.}
 
 \item{onlyGenome}{Compute resampling step for all chromosomes (default \code{TRUE}).}
 }

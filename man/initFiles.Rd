@@ -7,12 +7,11 @@
 initFiles(pattern = "Chrom", snpInfoDir, signalFile, mc.cores = 1)
 }
 \arguments{
-\item{pattern}{A character string containing a expression to be matched with all
-chromosomes files (\emph{e.g.},"Chrom" for files which start by "Chrom" followed
-by the chromosome number).}
+\item{pattern}{A character string containing a expression to be matched with all chromosomes files
+(\emph{e.g.},\code{"Chrom"} for files which start by \code{"Chrom"} followed by the chromosome number).}
 
-\item{snpInfoDir}{A character string naming a directory containing the reference data
-in a PLINK format (.bed, .bim and .fam).}
+\item{snpInfoDir}{\link{character}: character string naming a directory
+containing the reference data in a PLINK format (.bed, .bim and .fam).}
 
 \item{signalFile}{The name of the signal file which the data are to be read from
 (2 columns: "SNP" and "PVALUE"). Each row of the table appears as one line of the file.
@@ -20,8 +19,8 @@ If it does not contain an \code{_absolute_} path, the file name is \code{_relati
 working directory, \link{getwd}. The fields separator character have to be a space \code{" "}
 or a tabulation \code{"\t"}.}
 
-\item{mc.cores}{The number of cores to use (default is \code{1}), \emph{i.e.},
-at most how many child processes will be run simultaneously.
+\item{mc.cores}{\link{numeric}: the number of cores to use (default is \code{1}),
+\emph{i.e.}, at most how many child processes will be run simultaneously.
 Must be at least one, and parallelization requires at least two cores.}
 }
 \value{
