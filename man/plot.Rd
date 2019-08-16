@@ -7,8 +7,8 @@
 \arguments{
 \item{x}{An object of class \linkS4class{Enrichment} which the Z statistics or p-values have to be drawn.}
 
-\item{what}{Default \code{"Genome"}. Plot Z statistics or p-values for genome only
-(what must be: \code{"All"}, \code{"Genome"} or numeric vector).}
+\item{what}{Default \code{"Genome"}. Plot Z statistics or p-values for the defined \code{what},
+\emph{i.e.}, \code{"All"}, \code{"Genome"} or numeric vector.}
 
 \item{type}{Plot the selected analysis for \code{"eSNP"} and/or \code{"xSNP"}.}
 

@@ -12,7 +12,7 @@ excludeSNP(object, excludeFile, mc.cores = 1)
 \item{excludeFile}{A list of SNPs to remove from a previous enrichment analysis.
 A path to a file which the first column are the SNPs.}
 
-\item{mc.cores}{The number of cores to use (default is \code{1}),
+\item{mc.cores}{\link{numeric}: the number of cores to use (default is \code{1}),
 \emph{i.e.}, at most how many child processes will be run simultaneously.
 Must be at least one, and parallelization requires at least two cores.}
 }

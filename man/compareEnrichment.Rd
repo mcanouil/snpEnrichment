@@ -8,22 +8,23 @@ compareEnrichment(object.x, object.y, pattern = "Chrom", nSample = 100,
   empiricPvalue = TRUE, mc.cores = 1, onlyGenome = TRUE)
 }
 \arguments{
-\item{object.x, object.y}{An \linkS4class{Enrichment} object fully filled (\emph{e.g.}, \link{readEnrichment}).}
+\item{object.x}{An \linkS4class{Enrichment} object fully filled (\emph{e.g.}, \link{readEnrichment}).}
 
-\item{pattern}{A character string containing a expression to be matched
-with all chromosomes files (\emph{e.g.}, "Chrom" for files which start by "Chrom"
-followed by the chromosome number).}
+\item{object.y}{An \linkS4class{Enrichment} object fully filled (\emph{e.g.}, \link{readEnrichment}).}
 
-\item{nSample}{The number of resampling done by \link{reSample} for p-values computation (minimum is 100).}
+\item{pattern}{A character string containing a expression to be matched with all chromosomes files
+(\emph{e.g.},\code{"Chrom"} for files which start by \code{"Chrom"} followed by the chromosome number).}
 
-\item{empiricPvalue}{\code{empiricPvalue = TRUE} (default) compute PValue based on the null
-distribution (resampling). If \code{empiricPvalue = TRUE}, the empirical p-values are computed instead.}
+\item{nSample}{The number of resampling done by \link{reSample} for p-values computation (minimum is \code{100}).}
 
-\item{mc.cores}{The number of cores to use (default is \code{1}),
+\item{empiricPvalue}{Compute PValue based on the null distribution (\code{FALSE}).
+If \code{TRUE} (default), the empirical p-values are computed instead.}
+
+\item{mc.cores}{\link{numeric}: the number of cores to use (default is \code{1}),
 \emph{i.e.}, at most how many child processes will be run simultaneously.
 Must be at least one, and parallelization requires at least two cores.}
 
-\item{onlyGenome}{\code{onlyGenome = TRUE} (default) compute resampling step for all chromosomes.}
+\item{onlyGenome}{Compute resampling step for all chromosomes (default \code{TRUE}).}
 }
 \value{
 Return a \code{list} of three elements:
