@@ -34,6 +34,10 @@ Encoding: UTF-8
 Collate: 
     'internal.R'
     'class.R'
+    'reset.R'
+    'reSample.R'
+    'getEnrichSNP.R'
+    'plot.R'
     'dataset.R'
     'compareEnrichment.R'
     'excludeSNP.R'
