@@ -8,7 +8,7 @@
 [![Lifecycle:
 retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)
 [![GitHub
-tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label=%22latest%20tag%22)](https://github.com/mcanouil/snpEnrichment)
+tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label=latest%20tag)](https://github.com/mcanouil/snpEnrichment)
 [![Travis-CI Build
 Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
 [![AppVeyor Build

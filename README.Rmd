@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)
-[![GitHub tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label="latest tag")](https://github.com/mcanouil/snpEnrichment)
+[![GitHub tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label=latest tag)](https://github.com/mcanouil/snpEnrichment)
 [![Travis-CI Build Status](https://travis-ci.org/mcanouil/snpEnrichment.svg?branch=master)](https://travis-ci.org/mcanouil/snpEnrichment)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mcanouil/snpEnrichment?branch=master&svg=true)](https://ci.appveyor.com/project/mcanouil/snpEnrichment)
 [![Coverage Status (codecov)](https://codecov.io/gh/mcanouil/snpEnrichment/branch/master/graph/badge.svg)](https://codecov.io/gh/mcanouil/snpEnrichment)
