@@ -153,7 +153,7 @@ head(getEnrichSNP(toyData_exclude, type = "eSNP"))
 
 ## Getting help
 
-If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/mcanouil/CARoT/issues).
+If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/mcanouil/snpEnrichment/issues).
 For questions and other discussion, please contact the package maintainer.
 
 ---
