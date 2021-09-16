@@ -23,10 +23,6 @@ coverage](https://codecov.io/gh/mcanouil/snpEnrichment/branch/main/graph/badge.s
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
 [![cran checks_worst](https://cranchecks.info/badges/worst/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
 [![CRAN_Download_total](http://cranlogs.r-pkg.org/badges/grand-total/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
-<!--[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2719/badge)](https://bestpractices.coreinfrastructure.org/projects/2719) -->
-<!--[![cran checks_summary](https://cranchecks.info/badges/summary/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html) -->
-<!--[![CRAN_Download_month](http://cranlogs.r-pkg.org/badges/snpEnrichment?color=brightgreen)](https://cran.r-project.org/package=snpEnrichment) -->
-<!--[![Coverage Status (coveralls)](https://coveralls.io/repos/github/mcanouil/snpEnrichment/badge.svg?branch=master)](https://coveralls.io/github/mcanouil/snpEnrichment?branch=master) -->
 <!-- badges: end -->
 
 Implements classes and methods for large scale SNP enrichment analysis
