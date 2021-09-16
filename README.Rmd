@@ -17,10 +17,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://www.tidyverse.org/lifecycle/#retired)
 [![GitHub tag](https://img.shields.io/github/tag/mcanouil/snpEnrichment.svg?label=latest tag)](https://github.com/mcanouil/snpEnrichment)
-[![R build
-status](https://github.com/mcanouil/snpEnrichment/workflows/R-CMD-check/badge.svg)](https://github.com/mcanouil/snpEnrichment/actions)
-[![Coverage Status
-(codecov)](https://codecov.io/gh/mcanouil/snpEnrichment/branch/main/graph/badge.svg)](https://codecov.io/gh/mcanouil/snpEnrichment)
+[![Codecov test
+coverage](https://codecov.io/gh/mcanouil/snpEnrichment/branch/main/graph/badge.svg)](https://codecov.io/gh/mcanouil/snpEnrichment?branch=main)
+[![R-CMD-check](https://github.com/mcanouil/snpEnrichment/workflows/R-CMD-check/badge.svg)](https://github.com/mcanouil/snpEnrichment/actions)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
 [![cran checks_worst](https://cranchecks.info/badges/worst/snpEnrichment)](https://cran.r-project.org/web/checks/check_results_snpEnrichment.html)
 [![CRAN_Download_total](http://cranlogs.r-pkg.org/badges/grand-total/snpEnrichment)](https://cran.r-project.org/package=snpEnrichment)
